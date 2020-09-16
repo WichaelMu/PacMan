@@ -3,6 +3,16 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class PacManController : MonoBehaviour
 {
+    [Header("Ghosts")]
+    public GameObject RedGhost;
+    public GameObject PinkGhost;
+    public GameObject OrangeGhost;
+    public GameObject BlueGhost;
+
+    [Header("")]
+    public Transform GhostHolder;
+    public Transform PortalL;
+    public Transform PortalR;
 
     Rigidbody PacMan;
     GameObject switcher;
@@ -10,7 +20,7 @@ public class PacManController : MonoBehaviour
     public float moveSpeed;
 
     float DefaultMoveSpeed;
-    bool LR = false, IsStill;
+    bool LR = false, IsStill, IsOutOfPortal = true;
     string nextAvailableTurn, CurrentDirection;
 
     void Awake()
@@ -47,6 +57,10 @@ public class PacManController : MonoBehaviour
             EatPellet(other.gameObject);
         if (other.CompareTag("BigPellet"))
             EatBigPellet(other.gameObject);
+        if (other.CompareTag("Ghost"))
+            OnHitGhost(other.gameObject);
+        if (other.CompareTag("Portal"))
+            PortalHandler(other.name);
     }
 
     void EatPellet(GameObject Pellet)
@@ -57,15 +71,48 @@ public class PacManController : MonoBehaviour
     void EatBigPellet(GameObject BigPellet)
     {
         Destroy(BigPellet);
+
+        foreach (Transform t in GhostHolder)
+        {
+            GhostController gc = t.gameObject.GetComponent<GhostController>();
+
+            if (gc.IsAlive)
+                gc.SetScared(true);
+        }
+    }
+
+    void OnHitGhost(GameObject Ghost)
+    {
+        GhostController ghost = Ghost.GetComponent<GhostController>();
+
+        if (ghost.ScaredState)
+            OnHitScaredGhost(Ghost);
+        else
+            PacManIsDead();
+    }
+
+    void OnHitScaredGhost(GameObject Ghost)
+    {
+        Ghost.GetComponent<GhostController>().OnHitPacMan();
     }
 
     void PacManIsDead()
     {
         //TODO: Play the death animation for Pac Man.
     }
+
+    void PortalHandler(string Portal)
+    {
+        if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)
+            transform.position = new Vector3(8.4375f, 4.375f, 0f);
+        if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)
+            transform.position = new Vector3(0f, 4.375f, 0f);
+        IsOutOfPortal = !IsOutOfPortal;
+    }
     void ResetGame()
     {
         LR = false;
+        IsOutOfPortal = true;
         PlayerStats.score = 0;
     }
 
@@ -112,10 +159,10 @@ public class PacManController : MonoBehaviour
         #endregion
 
         #region ARROW KEY Controls
-        if (Input.GetKey(KeyCode.UpArrow))      determineRotation("U");
-        if (Input.GetKey(KeyCode.DownArrow))    determineRotation("D");
-        if (Input.GetKey(KeyCode.LeftArrow))    determineRotation("L");
-        if (Input.GetKey(KeyCode.RightArrow))   determineRotation("R");
+        if (Input.GetKey(KeyCode.UpArrow)) determineRotation("U");
+        if (Input.GetKey(KeyCode.DownArrow)) determineRotation("D");
+        if (Input.GetKey(KeyCode.LeftArrow)) determineRotation("L");
+        if (Input.GetKey(KeyCode.RightArrow)) determineRotation("R");
         #endregion
     }
 
