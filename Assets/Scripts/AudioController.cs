@@ -16,10 +16,7 @@ public class AudioController : MonoBehaviour
             s.s.pitch = s.Pitch;
             s.s.loop = s.Loop;
         }
-    }
 
-    void Start()
-    {
         PlaySound("AMBIENT");
     }
 
@@ -34,6 +31,12 @@ public class AudioController : MonoBehaviour
     {
         Sound s = FindSound(n);
         if (s != null)
+            s.s.Stop();
+    }
+
+    public void StopAllSounds()
+    {
+        foreach (Sound s in Sounds)
             s.s.Stop();
     }
 
