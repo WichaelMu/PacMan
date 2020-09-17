@@ -22,7 +22,7 @@ public class AudioController : MonoBehaviour
     public void PlaySound(string n)
     {
         Sound s = Array.Find(Sounds, sound => sound.Name==n);
-        if (s != null)
+        if (s != null&&!s.s.isPlaying)
         {
             s.s.Play();
             return;

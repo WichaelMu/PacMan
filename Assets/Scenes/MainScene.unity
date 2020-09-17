@@ -1496,7 +1496,7 @@ MonoBehaviour:
     Volume: 1
     Pitch: 1
     Loop: 0
-    PlayOnAwake: 1
+    PlayOnAwake: 0
     s: {fileID: 0}
   - Sounds: {fileID: 8300000, guid: 9ab78780b7da7c349a3bdfbc8e7a56d7, type: 3}
     Name: PACMANDEATH
