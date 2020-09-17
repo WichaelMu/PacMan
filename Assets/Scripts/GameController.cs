@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
     void PlaceAFruitAtRandom()
     {
         int r = Random.Range(0, 5);
-        Vector3 FPos = new Vector3(4.2f, 3.4f, 0f);
+        Vector3 FPos = new Vector3(4.2f, 3.425f, 0f);
         Instantiate(Fruits[r], FPos, Quaternion.identity);
         Debug.Log("Happened");
     }
