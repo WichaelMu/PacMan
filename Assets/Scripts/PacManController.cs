@@ -14,9 +14,6 @@ public class PacManController : MonoBehaviour
     public Transform PortalL;
     public Transform PortalR;
 
-    [Header("Audio")]
-    public GameObject Audio;
-
     Rigidbody PacMan;
     GameObject switcher;
 
@@ -69,13 +66,14 @@ public class PacManController : MonoBehaviour
     void EatPellet(GameObject Pellet)
     {
         Destroy(Pellet);
-        FindObjectOfType<AudioController>().PlaySound("EATPELLET");
         PlayerStats.score += 10;
+        PlaySound("EATPELLET");
     }
     void EatBigPellet(GameObject BigPellet)
     {
         Destroy(BigPellet);
         PlayerStats.score += 50;
+        PlaySound("EATFRUIT");
 
         foreach (Transform t in GhostHolder)
         {
@@ -119,6 +117,11 @@ public class PacManController : MonoBehaviour
         LR = false;
         IsOutOfPortal = true;
         PlayerStats.score = 0;
+    }
+
+    void PlaySound(string name)
+    {
+        FindObjectOfType<AudioController>().PlaySound(name);
     }
 
     #region The Movement of Pac Man

@@ -1463,49 +1463,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sounds:
-  - Sounds: {fileID: 8300000, guid: e887a28e7549f4c4ca3400907b4cb119, type: 3}
+  - Sounds: {fileID: 8300000, guid: d7a9abaff8ada7f459ebb3e3073e2fab, type: 3}
     Name: EATFRUIT
     Volume: 0.5
     Pitch: 1
     Loop: 0
     PlayOnAwake: 0
     s: {fileID: 0}
-  - Sounds: {fileID: 8300000, guid: 8566f87d15d4bb24998978be30ffeab6, type: 3}
+  - Sounds: {fileID: 8300000, guid: 67e8187adb340134281f6ec93965647b, type: 3}
     Name: EATGHOST
     Volume: 0.5
     Pitch: 1
     Loop: 0
     PlayOnAwake: 0
     s: {fileID: 0}
-  - Sounds: {fileID: 8300000, guid: 01bbb61f194c10946bd51515c206548c, type: 3}
+  - Sounds: {fileID: 8300000, guid: d4795b3f25df86345a7bb8b493419bfb, type: 3}
     Name: EATPELLET
     Volume: 0.5
     Pitch: 1
     Loop: 0
     PlayOnAwake: 0
     s: {fileID: 0}
-  - Sounds: {fileID: 8300000, guid: 5c3f1e4c3bef21649bd40a71837db3d6, type: 3}
+  - Sounds: {fileID: 8300000, guid: 7edc6f84859604f429fb84bd22d308ad, type: 3}
     Name: GHOSTSCAREDSTATE
-    Volume: 0.5
+    Volume: 0.75
     Pitch: 1
-    Loop: 0
+    Loop: 1
     PlayOnAwake: 0
     s: {fileID: 0}
-  - Sounds: {fileID: 8300000, guid: 48c6db4727b3db24abdad416f09ef895, type: 3}
+  - Sounds: {fileID: 8300000, guid: 684bafc57f9bc4e45b6287ddfcbf7e6f, type: 3}
     Name: INTERMISSION
     Volume: 1
     Pitch: 1
     Loop: 0
     PlayOnAwake: 0
     s: {fileID: 0}
-  - Sounds: {fileID: 8300000, guid: 9ab78780b7da7c349a3bdfbc8e7a56d7, type: 3}
+  - Sounds: {fileID: 8300000, guid: 273bbe985327f4a4ebc3ffba409f071c, type: 3}
     Name: PACMANDEATH
     Volume: 0.5
     Pitch: 1
     Loop: 0
     PlayOnAwake: 0
     s: {fileID: 0}
-  - Sounds: {fileID: 8300000, guid: b2a6e6082f1341243979c389957fad53, type: 3}
+  - Sounds: {fileID: 8300000, guid: 65c95bab4bae67a40b467a61ccae11e9, type: 3}
     Name: STARTING
     Volume: 0.5
     Pitch: 1

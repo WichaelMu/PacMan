@@ -21,12 +21,20 @@ public class AudioController : MonoBehaviour
 
     public void PlaySound(string n)
     {
-        Sound s = Array.Find(Sounds, sound => sound.Name==n);
+        Sound s = FindSound(n);
         if (s != null&&!s.s.isPlaying)
-        {
             s.s.Play();
-            return;
-        }
-        Debug.Log("Sound of name: " + n + " could not be found");
+    }
+
+    public void StopSound(string n)
+    {
+        Sound s = FindSound(n);
+        if (s != null)
+            s.s.Stop();
+    }
+
+    Sound FindSound(string n)
+    {
+        return Array.Find(Sounds, sound => sound.Name == n);
     }
 }
