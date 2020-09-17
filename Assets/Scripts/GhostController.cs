@@ -2,8 +2,6 @@
 
 public class GhostController : MonoBehaviour
 {
-
-    Animator AliveSprite;
     public Animator ScaredSprite;
     public Animator DeadSprite;
 

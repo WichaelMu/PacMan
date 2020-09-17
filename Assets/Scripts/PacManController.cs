@@ -18,6 +18,7 @@ public class PacManController : MonoBehaviour
 
     Rigidbody PacMan;
     GameObject switcher;
+    Animator DeadStateAnim;
 
     public float moveSpeed;
 
@@ -30,13 +31,18 @@ public class PacManController : MonoBehaviour
         PacMan = GetComponent<Rigidbody>();
         DefaultMoveSpeed = moveSpeed;
 
-<<<<<<< Updated upstream
         ResetGame();
-=======
+
         DeadStateAnim = GetComponent<Animator>();
 
+        DeadStateAnim = GetComponent<Animator>();
+
+        ResetGame();
         PlayerStats.score = 0;
->>>>>>> Stashed changes
+
+
+        PlayerStats.score = 0;
+
 
         ResetGame();
     }
@@ -114,21 +120,27 @@ public class PacManController : MonoBehaviour
     void PacManIsDead()
     {
         //TODO: Play the death animation for Pac Man.
-<<<<<<< Updated upstream
+
         Debug.Log("PacMan is Dead");
-=======
+
         DeadStateAnim.SetBool("PacManIsDead", true);
         FindObjectOfType<AudioController>().StopAllSounds();
         PlaySound("PACMANDEATH");
         moveSpeed = 0;
 
         Invoke("ResetGame", 3f);
->>>>>>> Stashed changes
+
     }
 
     void OnHitScaredGhost(GameObject Ghost)
     {
         Ghost.GetComponent<GhostController>().OnHitPacMan();
+
+        DeadStateAnim.SetTrigger("PacManIsDead");
+        PlaySound("PACMANDEATH");
+
+        Invoke("ResetGame", 3f);
+
     }
 
     void PortalHandler(string Portal)
@@ -139,10 +151,8 @@ public class PacManController : MonoBehaviour
             transform.position = new Vector3(0f, 4.375f, 0f);
         IsOutOfPortal = !IsOutOfPortal;
     }
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
+
     void ResetGame()
     {
         LR = false;
@@ -150,15 +160,15 @@ public class PacManController : MonoBehaviour
         R();
 
         IsOutOfPortal = true;
-<<<<<<< Updated upstream
+
         PlayerStats.score = 0;
-=======
+
         moveSpeed = DefaultMoveSpeed;
 
         DeadStateAnim.SetBool("PacManIsDead", false);
 
         transform.position = SpawnPoint.transform.position;
->>>>>>> Stashed changes
+
     }
 
     void PlaySound(string name)
