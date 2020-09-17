@@ -715,6 +715,104 @@ MonoBehaviour:
   ScaredResetTime: 7
   ScaredState: 0
   IsAlive: 0
+--- !u!1 &1003986337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1003986339}
+  - component: {fileID: 1003986338}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1003986338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003986337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29f48cfa75fe0048bba604406aa086b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - Sounds: {fileID: 8300000, guid: e25df966f8eab5d4a84174eed40d6dbe, type: 3}
+    Name: AMBIENT
+    Volume: 0.75
+    Pitch: 1
+    Loop: 1
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: e689d3811510d884e923d09f34e3d37e, type: 3}
+    Name: BUTTON
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: d7a9abaff8ada7f459ebb3e3073e2fab, type: 3}
+    Name: EATFRUIT
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 67e8187adb340134281f6ec93965647b, type: 3}
+    Name: EATGHOST
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: d4795b3f25df86345a7bb8b493419bfb, type: 3}
+    Name: EATPELLET
+    Volume: 0.6
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 7edc6f84859604f429fb84bd22d308ad, type: 3}
+    Name: GHOSTSCAREDSTATE
+    Volume: 0
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 684bafc57f9bc4e45b6287ddfcbf7e6f, type: 3}
+    Name: INTERMISSION
+    Volume: 0.75
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 273bbe985327f4a4ebc3ffba409f071c, type: 3}
+    Name: PACMANDEATH
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 65c95bab4bae67a40b467a61ccae11e9, type: 3}
+    Name: STARTING
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+--- !u!4 &1003986339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003986337}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.1795173, y: 4.469823, z: -0.7910156}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044554140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,6 +1494,36 @@ PrefabInstance:
       propertyPath: HighScore
       value: 
       objectReference: {fileID: 217268600}
+    - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
+        type: 3}
+      propertyPath: Apple
+      value: 
+      objectReference: {fileID: 3506162822346308104, guid: 940900753828b304283581dafa1b9d30,
+        type: 3}
+    - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
+        type: 3}
+      propertyPath: Cherry
+      value: 
+      objectReference: {fileID: 1252675024717085326, guid: 4f3eb4c34539b7949bfe6989a9c8e886,
+        type: 3}
+    - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
+        type: 3}
+      propertyPath: Melon
+      value: 
+      objectReference: {fileID: 1625623915119992662, guid: cd123944c6cfbfd41a35835716490a5b,
+        type: 3}
+    - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
+        type: 3}
+      propertyPath: Orange
+      value: 
+      objectReference: {fileID: 3351277795556165822, guid: affd7d4867bb10b45845789af358a307,
+        type: 3}
+    - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
+        type: 3}
+      propertyPath: Strawberry
+      value: 
+      objectReference: {fileID: 7226302431649246584, guid: c119fc57d6af8404fa8618ed295c108b,
+        type: 3}
     - target: {fileID: 1408999558719703718, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1975,6 +2103,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PostFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625090304152283953, guid: be03c09b132913b40bb7486de3ccc8ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8625090304152283958, guid: be03c09b132913b40bb7486de3ccc8ca,
         type: 3}
