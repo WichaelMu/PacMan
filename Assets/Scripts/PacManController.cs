@@ -74,6 +74,7 @@ public class PacManController : MonoBehaviour
         Destroy(BigPellet);
         PlayerStats.score += 50;
         PlaySound("EATFRUIT");
+        StopSound("AMBIENT");
 
         foreach (Transform t in GhostHolder)
         {
@@ -122,6 +123,11 @@ public class PacManController : MonoBehaviour
     void PlaySound(string name)
     {
         FindObjectOfType<AudioController>().PlaySound(name);
+    }
+
+    void StopSound(string name)
+    {
+        FindObjectOfType<AudioController>().StopSound(name);
     }
 
     #region The Movement of Pac Man

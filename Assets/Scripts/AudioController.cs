@@ -19,6 +19,11 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        PlaySound("AMBIENT");
+    }
+
     public void PlaySound(string n)
     {
         Sound s = FindSound(n);

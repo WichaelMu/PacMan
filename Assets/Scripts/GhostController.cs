@@ -108,6 +108,7 @@ public class GhostController : MonoBehaviour
         MoveSpeed = DefaultMoveSpeed;
         ScaredStateAnim.SetTrigger("GhostScared");
         StopSound("GHOSTSCAREDSTATE");
+        PlaySound("AMBIENT");
     }
 
     public void OnHitPacMan()   //  This can only be called if this Ghost is scared.

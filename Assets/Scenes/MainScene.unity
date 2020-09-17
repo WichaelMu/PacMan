@@ -1512,6 +1512,13 @@ MonoBehaviour:
     Loop: 0
     PlayOnAwake: 0
     s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: e25df966f8eab5d4a84174eed40d6dbe, type: 3}
+    Name: AMBIENT
+    Volume: 0.5
+    Pitch: 1
+    Loop: 1
+    PlayOnAwake: 0
+    s: {fileID: 0}
 --- !u!4 &2075666767
 Transform:
   m_ObjectHideFlags: 0
