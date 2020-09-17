@@ -16,6 +16,7 @@ public class PacManController : MonoBehaviour
 
     Rigidbody PacMan;
     GameObject switcher;
+    Animator DeadStateAnim;
 
     public float moveSpeed;
 
@@ -28,7 +29,10 @@ public class PacManController : MonoBehaviour
         PacMan = GetComponent<Rigidbody>();
         DefaultMoveSpeed = moveSpeed;
 
+        DeadStateAnim = GetComponent<Animator>();
+
         ResetGame();
+        PlayerStats.score = 0;
 
         R();
     }
@@ -113,7 +117,10 @@ public class PacManController : MonoBehaviour
     void PacManIsDead()
     {
         //TODO: Play the death animation for Pac Man.
-        Debug.Log("PacMan is Dead");
+        DeadStateAnim.SetTrigger("PacManIsDead");
+        PlaySound("PACMANDEATH");
+
+        Invoke("ResetGame", 3f);
     }
 
     void PortalHandler(string Portal)
@@ -124,11 +131,15 @@ public class PacManController : MonoBehaviour
             transform.position = new Vector3(0f, 4.375f, 0f);
         IsOutOfPortal = !IsOutOfPortal;
     }
+
+    Vector3 SpawnPoint = new Vector3(4f, 1.555555555556f, -.05f);
+
     void ResetGame()
     {
         LR = false;
         IsOutOfPortal = true;
-        PlayerStats.score = 0;
+
+        transform.position = SpawnPoint;
     }
 
     void PlaySound(string name)
