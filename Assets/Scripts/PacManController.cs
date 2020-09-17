@@ -32,8 +32,10 @@ public class PacManController : MonoBehaviour
         DefaultMoveSpeed = moveSpeed;
 
         DeadStateAnim = GetComponent<Animator>();
-
         ResetGame();
+
+
+        PlayerStats.score = 0;
     }
 
     void FixedUpdate()
@@ -123,13 +125,13 @@ public class PacManController : MonoBehaviour
 
     void OnHitScaredGhost(GameObject Ghost)
     {
+        //TODO: Play the death animation for Pac Man.
         Ghost.GetComponent<GhostController>().OnHitPacMan();
 
         DeadStateAnim.SetTrigger("PacManIsDead");
         PlaySound("PACMANDEATH");
 
         Invoke("ResetGame", 3f);
-
     }
 
     void PortalHandler(string Portal)
@@ -150,10 +152,7 @@ public class PacManController : MonoBehaviour
         moveSpeed = DefaultMoveSpeed;
         DeadStateAnim.SetBool("PacManIsDead", false);
         transform.position = SpawnPoint.transform.position;
-<<<<<<< Updated upstream
         PlaySound("AMBIENT");
-=======
->>>>>>> Stashed changes
     }
 
     void PlaySound(string name)
