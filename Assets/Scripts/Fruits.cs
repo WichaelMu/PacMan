@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class Fruits : MonoBehaviour
 {
     GameObject[] FruitsHolder;
-
-    [SerializeField]
     Sprite SPR;
 
     static int i = 0;
