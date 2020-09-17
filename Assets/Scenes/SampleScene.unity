@@ -1331,6 +1331,101 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.16
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream:Assets/Scenes/SampleScene.unity
+=======
+--- !u!1 &2075666765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2075666767}
+  - component: {fileID: 2075666766}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2075666766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075666765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29f48cfa75fe0048bba604406aa086b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - Sounds: {fileID: 8300000, guid: d7a9abaff8ada7f459ebb3e3073e2fab, type: 3}
+    Name: EATFRUIT
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 67e8187adb340134281f6ec93965647b, type: 3}
+    Name: EATGHOST
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: d4795b3f25df86345a7bb8b493419bfb, type: 3}
+    Name: EATPELLET
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 7edc6f84859604f429fb84bd22d308ad, type: 3}
+    Name: GHOSTSCAREDSTATE
+    Volume: 0.75
+    Pitch: 1
+    Loop: 1
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 684bafc57f9bc4e45b6287ddfcbf7e6f, type: 3}
+    Name: INTERMISSION
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 273bbe985327f4a4ebc3ffba409f071c, type: 3}
+    Name: PACMANDEATH
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 65c95bab4bae67a40b467a61ccae11e9, type: 3}
+    Name: STARTING
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: e25df966f8eab5d4a84174eed40d6dbe, type: 3}
+    Name: AMBIENT
+    Volume: 0.5
+    Pitch: 1
+    Loop: 1
+    s: {fileID: 0}
+--- !u!4 &2075666767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075666765}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2, y: 4.7, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> Stashed changes:Assets/Scenes/MainScene.unity
 --- !u!1001 &1408999558595695195
 PrefabInstance:
   m_ObjectHideFlags: 0
