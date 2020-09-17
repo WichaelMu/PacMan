@@ -14,6 +14,8 @@ public class PacManController : MonoBehaviour
     public Transform PortalL;
     public Transform PortalR;
 
+    public GameObject SpawnPoint;
+
     Rigidbody PacMan;
     GameObject switcher;
 
@@ -28,9 +30,15 @@ public class PacManController : MonoBehaviour
         PacMan = GetComponent<Rigidbody>();
         DefaultMoveSpeed = moveSpeed;
 
+<<<<<<< Updated upstream
         ResetGame();
+=======
+        DeadStateAnim = GetComponent<Animator>();
 
-        R();
+        PlayerStats.score = 0;
+>>>>>>> Stashed changes
+
+        ResetGame();
     }
 
     void FixedUpdate()
@@ -63,7 +71,6 @@ public class PacManController : MonoBehaviour
             PortalHandler(other.name);
         if (other.CompareTag("Fruit"))
             EatFruit(other.gameObject);
-
     }
 
     void EatPellet(GameObject Pellet)
@@ -82,7 +89,6 @@ public class PacManController : MonoBehaviour
         foreach (Transform t in GhostHolder)
         {
             GhostController gc = t.gameObject.GetComponent<GhostController>();
-
             if (gc.IsAlive)
                 gc.SetScared(true);
         }
@@ -105,15 +111,24 @@ public class PacManController : MonoBehaviour
             PacManIsDead();
     }
 
-    void OnHitScaredGhost(GameObject Ghost)
-    {
-        Ghost.GetComponent<GhostController>().OnHitPacMan();
-    }
-
     void PacManIsDead()
     {
         //TODO: Play the death animation for Pac Man.
+<<<<<<< Updated upstream
         Debug.Log("PacMan is Dead");
+=======
+        DeadStateAnim.SetBool("PacManIsDead", true);
+        FindObjectOfType<AudioController>().StopAllSounds();
+        PlaySound("PACMANDEATH");
+        moveSpeed = 0;
+
+        Invoke("ResetGame", 3f);
+>>>>>>> Stashed changes
+    }
+
+    void OnHitScaredGhost(GameObject Ghost)
+    {
+        Ghost.GetComponent<GhostController>().OnHitPacMan();
     }
 
     void PortalHandler(string Portal)
@@ -124,11 +139,26 @@ public class PacManController : MonoBehaviour
             transform.position = new Vector3(0f, 4.375f, 0f);
         IsOutOfPortal = !IsOutOfPortal;
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     void ResetGame()
     {
         LR = false;
+
+        R();
+
         IsOutOfPortal = true;
+<<<<<<< Updated upstream
         PlayerStats.score = 0;
+=======
+        moveSpeed = DefaultMoveSpeed;
+
+        DeadStateAnim.SetBool("PacManIsDead", false);
+
+        transform.position = SpawnPoint.transform.position;
+>>>>>>> Stashed changes
     }
 
     void PlaySound(string name)
