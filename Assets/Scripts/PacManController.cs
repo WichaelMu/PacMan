@@ -144,19 +144,16 @@ public class PacManController : MonoBehaviour
     void ResetGame()
     {
         LR = false;
-
         R();
-
         IsOutOfPortal = true;
-
         PlayerStats.score = 0;
-
         moveSpeed = DefaultMoveSpeed;
-
         DeadStateAnim.SetBool("PacManIsDead", false);
-
         transform.position = SpawnPoint.transform.position;
+<<<<<<< Updated upstream
         PlaySound("AMBIENT");
+=======
+>>>>>>> Stashed changes
     }
 
     void PlaySound(string name)
