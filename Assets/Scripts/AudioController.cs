@@ -15,7 +15,6 @@ public class AudioController : MonoBehaviour
             s.s.volume = s.Volume;
             s.s.pitch = s.Pitch;
             s.s.loop = s.Loop;
-            s.s.playOnAwake = s.PlayOnAwake;
         }
     }
 
