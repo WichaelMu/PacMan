@@ -94,27 +94,21 @@ public class GhostController : MonoBehaviour
 
         if (instruction)
         {
-            //TODO: Create a scared state for the Ghosts.
             MoveSpeed = .7f;
             ScaredState = true;
-            //ScaredStateAnim.SetBool("IsThisGhostScared", true);
-            //ScaredStateAnim.SetBool("IsThisGhostNoLongerScared", false);
             ScaredStateAnim.SetTrigger("GhostScared");
             Invoke("ResetState", ScaredResetTime);   //  The Ghosts will no longer be scared after <ScaredResetTime> seconds of being scared.
-            //Debug.Log(name + " " + "is scared");
+            PlaySound("GHOSTSCAREDSTATE");
         }
     }
 
     void ResetState()
     {
-        //TODO: Reset the scared state for the Ghosts.
         ScaredState = false;
         MoveSpeed = DefaultMoveSpeed;
-        //ScaredStateAnim.SetBool("IsThisGhostNoLongerScared", true);
-        //ScaredStateAnim.SetBool("IsThisGhostScared", false);
         ScaredStateAnim.SetTrigger("GhostScared");
-
-        //Debug.Log(name + " " + " is no longer scared");
+        StopSound("GHOSTSCAREDSTATE");
+        PlaySound("AMBIENT");
     }
 
     public void OnHitPacMan()   //  This can only be called if this Ghost is scared.
@@ -129,6 +123,17 @@ public class GhostController : MonoBehaviour
     {
         GhostRB.MovePosition(transform.position + (transform.up * MoveSpeed * Time.deltaTime));
     }
+
+    void PlaySound(string name)
+    {
+        FindObjectOfType<AudioController>().PlaySound(name);
+    }
+
+    void StopSound(string name)
+    {
+        FindObjectOfType<AudioController>().StopSound(name);
+    }
+
 
     #region The Rotation of the Ghosts
 

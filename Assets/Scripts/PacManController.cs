@@ -67,10 +67,14 @@ public class PacManController : MonoBehaviour
     {
         Destroy(Pellet);
         PlayerStats.score += 10;
+        PlaySound("EATPELLET");
     }
     void EatBigPellet(GameObject BigPellet)
     {
         Destroy(BigPellet);
+        PlayerStats.score += 50;
+        PlaySound("EATFRUIT");
+        StopSound("AMBIENT");
 
         foreach (Transform t in GhostHolder)
         {
@@ -114,6 +118,16 @@ public class PacManController : MonoBehaviour
         LR = false;
         IsOutOfPortal = true;
         PlayerStats.score = 0;
+    }
+
+    void PlaySound(string name)
+    {
+        FindObjectOfType<AudioController>().PlaySound(name);
+    }
+
+    void StopSound(string name)
+    {
+        FindObjectOfType<AudioController>().StopSound(name);
     }
 
     #region The Movement of Pac Man
