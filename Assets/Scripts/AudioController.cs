@@ -37,6 +37,12 @@ public class AudioController : MonoBehaviour
             s.s.Stop();
     }
 
+    public void StopAllSounds()
+    {
+        foreach (Sound s in Sounds)
+            s.s.Stop();
+    }
+
     Sound FindSound(string n)
     {
         return Array.Find(Sounds, sound => sound.Name == n);
