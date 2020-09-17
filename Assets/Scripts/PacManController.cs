@@ -26,14 +26,13 @@ public class PacManController : MonoBehaviour
     bool LR = false, IsStill, IsOutOfPortal = true;
     string nextAvailableTurn, CurrentDirection;
 
-    void Awake()
+    void Start()
     {
         PacMan = GetComponent<Rigidbody>();
         DefaultMoveSpeed = moveSpeed;
 
         DeadStateAnim = GetComponent<Animator>();
         ResetGame();
-
 
         PlayerStats.score = 0;
     }
@@ -119,7 +118,7 @@ public class PacManController : MonoBehaviour
         PlaySound("PACMANDEATH");
         moveSpeed = 0;
 
-        Invoke("ResetGame", 3f);
+        Invoke("ResetGame", 4f);
 
     }
 
@@ -145,13 +144,11 @@ public class PacManController : MonoBehaviour
 
     void ResetGame()
     {
-        LR = false;
-        R();
-        IsOutOfPortal = true;
-        PlayerStats.score = 0;
-        moveSpeed = DefaultMoveSpeed;
         DeadStateAnim.SetBool("PacManIsDead", false);
+        moveSpeed = DefaultMoveSpeed;
+        IsOutOfPortal = true;
         transform.position = SpawnPoint.transform.position;
+        R();
         PlaySound("AMBIENT");
     }
 
