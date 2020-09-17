@@ -61,6 +61,11 @@ public class PacManController : MonoBehaviour
             OnHitGhost(other.gameObject);
         if (other.CompareTag("Portal"))
             PortalHandler(other.name);
+<<<<<<< Updated upstream
+=======
+        if (other.CompareTag("Fruit"))
+            EatFruit(other.gameObject);
+>>>>>>> Stashed changes
     }
 
     void EatPellet(GameObject Pellet)
@@ -85,6 +90,16 @@ public class PacManController : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    void EatFruit(GameObject Fruit)
+    {
+        Destroy(Fruit);
+        PlaySound("EATFRUIT");
+        PlayerStats.score += 100;
+    }
+
+>>>>>>> Stashed changes
     void OnHitGhost(GameObject Ghost)
     {
         GhostController ghost = Ghost.GetComponent<GhostController>();
