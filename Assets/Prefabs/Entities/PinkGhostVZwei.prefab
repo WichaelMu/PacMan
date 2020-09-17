@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1357252002410932583}
   - component: {fileID: 6501280051488936657}
   - component: {fileID: 3889484879802605005}
+  - component: {fileID: -1065698786892749474}
   m_Layer: 0
   m_Name: PinkGhostVZwei
   m_TagString: Untagged
@@ -103,6 +104,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!135 &3889484879802605005
+--- !u!135 &-1065698786892749474
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

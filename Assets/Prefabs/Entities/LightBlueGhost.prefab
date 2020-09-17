@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4891785804779087454}
   - component: {fileID: 8421103604964501131}
   - component: {fileID: 3002391131320206467}
+  - component: {fileID: -1633808722343344821}
   m_Layer: 0
   m_Name: LightBlueGhost
   m_TagString: Untagged
@@ -103,6 +104,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!135 &3002391131320206467
+--- !u!135 &-1633808722343344821
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

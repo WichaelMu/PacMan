@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4913746510731049547}
   - component: {fileID: 4913746510731049544}
   - component: {fileID: 5332774664028186254}
+  - component: {fileID: -4314028930873974182}
   m_Layer: 0
   m_Name: RedGhostVZwei
   m_TagString: Untagged
@@ -103,6 +104,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!135 &5332774664028186254
+--- !u!135 &-4314028930873974182
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2644718643173219831}
   - component: {fileID: 6346371098575062785}
   - component: {fileID: -1541264130414480587}
+  - component: {fileID: 7489753258675322130}
   m_Layer: 0
   m_Name: OrangeGhost
   m_TagString: Untagged
@@ -103,6 +104,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!135 &-1541264130414480587
+--- !u!135 &7489753258675322130
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
