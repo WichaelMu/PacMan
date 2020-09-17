@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
         Fruits[4] = Strawberry;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateScore();  
     }
