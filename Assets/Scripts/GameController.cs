@@ -17,7 +17,8 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        InvokeRepeating("PlaceAFruitAtRandom", Random.Range(15f, 72f), 72f);
+        //InvokeRepeating("PlaceAFruitAtRandom", Random.Range(15f, 72f), 72f);
+        InvokeRepeating("PlaceAFruitAtRandom", Random.Range(0f, 2f), 2f);
 
         Fruits = new GameObject[5];
         Fruits[0] = Apple;
@@ -29,7 +30,7 @@ public class GameController : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdateScore();  
+        UpdateScore();
     }
 
     void UpdateScore()
@@ -43,7 +44,10 @@ public class GameController : MonoBehaviour
     {
         int r = Random.Range(0, 5);
         Vector3 FPos = new Vector3(4.2f, 3.425f, 0f);
-        Instantiate(Fruits[r], FPos, Quaternion.identity);
-        Fruits[r] = null;
+        if (Fruits[r] != null)
+        {
+            Instantiate(Fruits[r], FPos, Quaternion.identity);
+            Fruits[r] = null;
+        }
     }
 }
