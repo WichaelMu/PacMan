@@ -76,11 +76,8 @@ public class PacManController : MonoBehaviour
             OnHitGhost(other.gameObject);
         if (other.CompareTag("Portal"))
             PortalHandler(other.name);
-<<<<<<< Updated upstream
-=======
         if (other.CompareTag("Fruit"))
             EatFruit(other.gameObject);
->>>>>>> Stashed changes
     }
 
     void EatPellet(GameObject Pellet)
@@ -131,17 +128,13 @@ public class PacManController : MonoBehaviour
 
     void OnHitScaredGhost(GameObject Ghost)
     {
-<<<<<<< Updated upstream
         //TODO: Play the death animation for Pac Man.
-=======
         Ghost.GetComponent<GhostController>().OnHitPacMan();
 
         DeadStateAnim.SetTrigger("PacManIsDead");
         PlaySound("PACMANDEATH");
 
         Invoke("ResetGame", 3f);
-
->>>>>>> Stashed changes
     }
 
     void PortalHandler(string Portal)
@@ -152,11 +145,7 @@ public class PacManController : MonoBehaviour
             transform.position = new Vector3(0f, 4.375f, 0f);
         IsOutOfPortal = !IsOutOfPortal;
     }
-<<<<<<< Updated upstream
-=======
 
-
->>>>>>> Stashed changes
     void ResetGame()
     {
         LR = false;
@@ -164,9 +153,7 @@ public class PacManController : MonoBehaviour
         R();
 
         IsOutOfPortal = true;
-<<<<<<< Updated upstream
         PlayerStats.score = 0;
-=======
 
         PlayerStats.score = 0;
 
