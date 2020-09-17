@@ -92,7 +92,7 @@ public class PacManController : MonoBehaviour
 
     void EatFruit(GameObject Fruit)
     {
-        Destroy(Fruit);
+        //Destroy(Fruit);
         PlaySound("EATFRUIT");
         PlayerStats.score += 100;
     }
