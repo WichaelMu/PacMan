@@ -6,6 +6,9 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI CurrentScore;
     public TextMeshProUGUI HighScore;
 
+    [Header("Pellet Control")]
+    public Transform PelletHolder;
+
     [Header("Fruits")]
     public GameObject Apple;
     public GameObject Cherry;
@@ -21,6 +24,7 @@ public class GameController : MonoBehaviour
     public int NumberOfLives;
 
     GameObject[] Fruits;
+    int LifeCount;
 
     void Awake()
     {
@@ -34,6 +38,8 @@ public class GameController : MonoBehaviour
         Fruits[4] = Strawberry;
 
         DisplayStartingLives();
+
+        LifeCount = NumberOfLives;
     }
 
     void FixedUpdate()
@@ -46,6 +52,10 @@ public class GameController : MonoBehaviour
         CurrentScore.text = PlayerStats.score.ToString();
         if (PlayerStats.score>PlayerStats.highScore)
             HighScore.text = PlayerStats.score.ToString();
+        if (PelletHolder.childCount == 0)
+        {
+            Debug.Log("This level is complete.");
+        }
     }
 
     void PlaceAFruitAtRandom()
@@ -63,11 +73,16 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < NumberOfLives; i++)
         {
-            Debug.Log(NumberOfLives);
             GameObject StartLife = Instantiate(Life, Vector3.zero, Quaternion.identity);
             StartLife.transform.SetParent(LifeHolder);
             StartLife.transform.localPosition = new Vector3(-238.5f + (30 * i), -304.5f, 0f);
             StartLife.transform.localScale = new Vector3(.5f, .5f, 0f);
         }
+    }
+
+    void DeductLife()   //  TODO: Deduct a life when PacMan dies.
+    {
+        LifeCount--;
+        Destroy(LifeHolder.GetChild(LifeCount).gameObject);
     }
 }
