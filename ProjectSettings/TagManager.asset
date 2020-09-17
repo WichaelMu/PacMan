@@ -10,6 +10,7 @@ TagManager:
   - Ghost
   - Portal
   - Empty
+  - Fruit
   layers:
   - Default
   - TransparentFX

@@ -14,8 +14,11 @@ public class PacManController : MonoBehaviour
     public Transform PortalL;
     public Transform PortalR;
 
+    public GameObject SpawnPoint;
+
     Rigidbody PacMan;
     GameObject switcher;
+    Animator DeadStateAnim;
 
     public float moveSpeed;
 
@@ -61,24 +64,36 @@ public class PacManController : MonoBehaviour
             OnHitGhost(other.gameObject);
         if (other.CompareTag("Portal"))
             PortalHandler(other.name);
+        if (other.CompareTag("Fruit"))
+            EatFruit(other.gameObject);
     }
 
     void EatPellet(GameObject Pellet)
     {
         Destroy(Pellet);
         PlayerStats.score += 10;
+        PlaySound("EATPELLET");
     }
     void EatBigPellet(GameObject BigPellet)
     {
         Destroy(BigPellet);
+        PlayerStats.score += 50;
+        PlaySound("EATFRUIT");
+        StopSound("AMBIENT");
 
         foreach (Transform t in GhostHolder)
         {
             GhostController gc = t.gameObject.GetComponent<GhostController>();
-
             if (gc.IsAlive)
                 gc.SetScared(true);
         }
+    }
+
+    void EatFruit(GameObject Fruit)
+    {
+        Destroy(Fruit);
+        PlaySound("EATFRUIT");
+        PlayerStats.score += 100;
     }
 
     void OnHitGhost(GameObject Ghost)
@@ -91,14 +106,30 @@ public class PacManController : MonoBehaviour
             PacManIsDead();
     }
 
-    void OnHitScaredGhost(GameObject Ghost)
-    {
-        Ghost.GetComponent<GhostController>().OnHitPacMan();
-    }
-
     void PacManIsDead()
     {
         //TODO: Play the death animation for Pac Man.
+
+        Debug.Log("PacMan is Dead");
+
+        DeadStateAnim.SetBool("PacManIsDead", true);
+        FindObjectOfType<AudioController>().StopAllSounds();
+        PlaySound("PACMANDEATH");
+        moveSpeed = 0;
+
+        Invoke("ResetGame", 3f);
+
+    }
+
+    void OnHitScaredGhost(GameObject Ghost)
+    {
+        Ghost.GetComponent<GhostController>().OnHitPacMan();
+
+        DeadStateAnim.SetTrigger("PacManIsDead");
+        PlaySound("PACMANDEATH");
+
+        Invoke("ResetGame", 3f);
+
     }
 
     void PortalHandler(string Portal)
@@ -113,7 +144,11 @@ public class PacManController : MonoBehaviour
     void ResetGame()
     {
         LR = false;
+
+        R();
+
         IsOutOfPortal = true;
+
         PlayerStats.score = 0;
 
         moveSpeed = DefaultMoveSpeed;
