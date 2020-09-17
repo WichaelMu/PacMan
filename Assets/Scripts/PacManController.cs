@@ -61,7 +61,6 @@ public class PacManController : MonoBehaviour
             OnHitGhost(other.gameObject);
         if (other.CompareTag("Portal"))
             PortalHandler(other.name);
-
         if (other.CompareTag("Fruit"))
             EatFruit(other.gameObject);
 
@@ -114,6 +113,7 @@ public class PacManController : MonoBehaviour
     void PacManIsDead()
     {
         //TODO: Play the death animation for Pac Man.
+        Debug.Log("PacMan is Dead");
     }
 
     void PortalHandler(string Portal)
