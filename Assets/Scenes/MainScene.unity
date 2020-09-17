@@ -777,9 +777,9 @@ MonoBehaviour:
     s: {fileID: 0}
   - Sounds: {fileID: 8300000, guid: 7edc6f84859604f429fb84bd22d308ad, type: 3}
     Name: GHOSTSCAREDSTATE
-    Volume: 0
+    Volume: 1
     Pitch: 1
-    Loop: 0
+    Loop: 1
     s: {fileID: 0}
   - Sounds: {fileID: 8300000, guid: 684bafc57f9bc4e45b6287ddfcbf7e6f, type: 3}
     Name: INTERMISSION
