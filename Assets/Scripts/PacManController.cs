@@ -109,8 +109,8 @@ public class PacManController : MonoBehaviour
 
     void PacManIsDead(GameObject Ghost)
     {
-        Ghost.GetComponent<GhostController>().OnHitPacMan();
-        //TODO: Play the death animation for Pac Man.
+        //Ghost.GetComponent<GhostController>().OnHitPacMan();
+        //TODO: Play the death animation for Pac Man. DONE
 
         Debug.Log("PacMan is Dead");
 
@@ -127,7 +127,7 @@ public class PacManController : MonoBehaviour
 
     void OnHitScaredGhost(GameObject Ghost)
     {
-        //TODO: Play the death animation for Pac Man.
+        //TODO: Play the death animation for The Ghosts.
         Ghost.GetComponent<GhostController>().OnHitPacMan();
     }
 
@@ -150,6 +150,8 @@ public class PacManController : MonoBehaviour
         PlaySound("AMBIENT");
     }
 
+    #region Sound Controller
+
     void PlaySound(string name)
     {
         FindObjectOfType<AudioController>().PlaySound(name);
@@ -159,6 +161,8 @@ public class PacManController : MonoBehaviour
     {
         FindObjectOfType<AudioController>().StopSound(name);
     }
+
+    #endregion
 
     #region The Movement of Pac Man
 

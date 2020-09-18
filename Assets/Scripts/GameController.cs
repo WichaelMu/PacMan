@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
         Fruits[4] = Strawberry;
 
         DisplayStartingLives();
-
+        
         LifeCount = NumberOfLives-1;
     }
 
@@ -78,6 +78,11 @@ public class GameController : MonoBehaviour
             StartLife.transform.localPosition = new Vector3(-238.5f + (30 * i), -304.5f, 0f);
             StartLife.transform.localScale = new Vector3(.5f, .5f, 0f);
         }
+    }
+
+    public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
+    {
+        Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
     }
 
     public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
