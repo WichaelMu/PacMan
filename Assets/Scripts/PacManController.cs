@@ -13,7 +13,7 @@ public class PacManController : MonoBehaviour
     public Transform GhostHolder;
     public Transform PortalL;
     public Transform PortalR;
-
+    [Header("")]
     public GameObject SpawnPoint;
 
     Rigidbody PacMan;
@@ -66,7 +66,7 @@ public class PacManController : MonoBehaviour
         if (other.CompareTag("Portal"))
             PortalHandler(other.name);
         if (other.CompareTag("Fruit"))
-            EatFruit(other.gameObject);
+            EatFruit();
     }
 
     void EatPellet(GameObject Pellet)
@@ -90,9 +90,9 @@ public class PacManController : MonoBehaviour
         }
     }
 
-    void EatFruit(GameObject Fruit)
+    void EatFruit()
     {
-        Destroy(Fruit);
+        //Destroying the Fruit is done on Fruit.cs;
         PlaySound("EATFRUIT");
         PlayerStats.score += 100;
     }
@@ -104,11 +104,12 @@ public class PacManController : MonoBehaviour
         if (ghost.ScaredState)
             OnHitScaredGhost(Ghost);
         else
-            PacManIsDead();
+            PacManIsDead(Ghost);
     }
 
-    void PacManIsDead()
+    void PacManIsDead(GameObject Ghost)
     {
+        Ghost.GetComponent<GhostController>().OnHitPacMan();
         //TODO: Play the death animation for Pac Man.
 
         Debug.Log("PacMan is Dead");
@@ -119,7 +120,6 @@ public class PacManController : MonoBehaviour
         moveSpeed = 0;
 
         Invoke("ResetGame", 4f);
-
     }
 
     void OnHitScaredGhost(GameObject Ghost)

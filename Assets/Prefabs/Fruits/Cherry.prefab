@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1252675024717085324}
   - component: {fileID: 1252675024717085327}
   - component: {fileID: -8611320848878988979}
+  - component: {fileID: 5915450682714529833}
   m_Layer: 0
   m_Name: Cherry
   m_TagString: Fruit
@@ -95,3 +96,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.16
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5915450682714529833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252675024717085326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1ba78dcd6abfe47987cfad6d51458b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FruitsHolder: {fileID: 8656154249416057612, guid: 9c368fef06f6b3a43b78d6097080ff2f,
+    type: 3}
+  SPR: {fileID: 0}
