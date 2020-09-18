@@ -2032,6 +2032,12 @@ PrefabInstance:
       propertyPath: PelletHolder
       value: 
       objectReference: {fileID: 1484138681}
+    - target: {fileID: 8131929763903513858, guid: 30e2fc60996a33244b2aef5957a15570,
+        type: 3}
+      propertyPath: BigDot
+      value: 
+      objectReference: {fileID: 2318588577261051743, guid: d8276dabd2939724c8117b4fd63d4ebb,
+        type: 3}
     - target: {fileID: 8131929763903513859, guid: 30e2fc60996a33244b2aef5957a15570,
         type: 3}
       propertyPath: m_LocalPosition.x
