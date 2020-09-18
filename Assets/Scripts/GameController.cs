@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
 
         DisplayStartingLives();
 
-        LifeCount = NumberOfLives;
+        LifeCount = NumberOfLives-1;
     }
 
     void FixedUpdate()
@@ -80,9 +80,8 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void DeductLife()   //  TODO: Deduct a life when PacMan dies.
+    public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
     {
-        LifeCount--;
-        Destroy(LifeHolder.GetChild(LifeCount).gameObject);
+        Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
     }
 }
