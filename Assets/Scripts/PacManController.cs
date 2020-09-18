@@ -129,11 +129,6 @@ public class PacManController : MonoBehaviour
     {
         //TODO: Play the death animation for Pac Man.
         Ghost.GetComponent<GhostController>().OnHitPacMan();
-
-        DeadStateAnim.SetTrigger("PacManIsDead");
-        PlaySound("PACMANDEATH");
-
-        Invoke("ResetGame", 3f);
     }
 
     void PortalHandler(string Portal)
