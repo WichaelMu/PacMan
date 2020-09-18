@@ -111,9 +111,23 @@ public class GhostController : MonoBehaviour
         IsAlive = false;
 
         //TODO: Create a dead state, just eyes, that track back to the Ghost's spawnpoint.
+        transform.position = new Vector3(500f, 500f, 0f);
+        PlayerStats.score += 100;
+
+        Invoke("GhostRespawn", 5f);
+
+        PlaySound("EATGHOST");
         
         //TODO: Once the dead state eyes have returned to the Ghost's spawnpoint, reset the ghost; ScaredState = false, IsAlive = true;.
     }
+
+    void GhostRespawn()
+    {
+        transform.localPosition = new Vector3(1f, 1f, .043f);
+        ScaredState = false;
+        IsAlive = true;
+    }
+
     void ConstantMovement()
     {
         GhostRB.MovePosition(transform.position + (transform.up * MoveSpeed * Time.deltaTime));
