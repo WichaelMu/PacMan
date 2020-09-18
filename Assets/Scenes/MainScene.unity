@@ -694,7 +694,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &974319904 stripped
 GameObject:
@@ -785,7 +785,7 @@ MonoBehaviour:
   Sounds:
   - Sounds: {fileID: 8300000, guid: e25df966f8eab5d4a84174eed40d6dbe, type: 3}
     Name: AMBIENT
-    Volume: 0.6
+    Volume: 0.75
     Pitch: 1
     Loop: 1
     s: {fileID: 0}
@@ -809,7 +809,7 @@ MonoBehaviour:
     s: {fileID: 0}
   - Sounds: {fileID: 8300000, guid: d4795b3f25df86345a7bb8b493419bfb, type: 3}
     Name: EATPELLET
-    Volume: 0.5
+    Volume: 0.6
     Pitch: 1
     Loop: 0
     s: {fileID: 0}
@@ -849,7 +849,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044554140
 GameObject:
@@ -1039,15 +1039,7 @@ Transform:
   - {fileID: 2016862031}
   - {fileID: 1876681715}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 8
-=======
-<<<<<<< Updated upstream
-  m_RootOrder: 7
-=======
-  m_RootOrder: 9
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1245485963
 GameObject:
@@ -1077,15 +1069,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 5
-=======
-<<<<<<< Updated upstream
-  m_RootOrder: 4
-=======
-  m_RootOrder: 6
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1484138681
 GameObject:
@@ -1115,7 +1099,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597369071
 GameObject:
@@ -1214,15 +1198,7 @@ RectTransform:
   - {fileID: 323832300}
   - {fileID: 401320791}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 4
-=======
-<<<<<<< Updated upstream
-  m_RootOrder: 3
-=======
-  m_RootOrder: 5
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1518,15 +1494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 9
-=======
-<<<<<<< Updated upstream
-  m_RootOrder: 8
-=======
-  m_RootOrder: 10
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2016862030 stripped
 GameObject:
@@ -1696,15 +1664,7 @@ PrefabInstance:
     - target: {fileID: 1408999558719703718, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 3
-=======
-<<<<<<< Updated upstream
-      value: 2
-=======
-      value: 4
->>>>>>> Stashed changes
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1408999558719703718, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
@@ -2121,15 +2081,7 @@ PrefabInstance:
     - target: {fileID: 8131929763903513859, guid: 30e2fc60996a33244b2aef5957a15570,
         type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 2
-=======
-<<<<<<< Updated upstream
-      value: 1
-=======
-      value: 3
->>>>>>> Stashed changes
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8131929763903513859, guid: 30e2fc60996a33244b2aef5957a15570,
         type: 3}
@@ -2237,15 +2189,7 @@ PrefabInstance:
     - target: {fileID: 8174134097346802907, guid: bdb8099f567e92d47a89c8212c6f46fd,
         type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 6
-=======
-<<<<<<< Updated upstream
-      value: 5
-=======
-      value: 7
->>>>>>> Stashed changes
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8174134097346802907, guid: bdb8099f567e92d47a89c8212c6f46fd,
         type: 3}
@@ -2319,15 +2263,7 @@ PrefabInstance:
     - target: {fileID: 8625090304152283958, guid: be03c09b132913b40bb7486de3ccc8ca,
         type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 7
-=======
-<<<<<<< Updated upstream
-      value: 6
-=======
-      value: 8
->>>>>>> Stashed changes
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8625090304152283958, guid: be03c09b132913b40bb7486de3ccc8ca,
         type: 3}
