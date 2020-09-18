@@ -23,7 +23,7 @@ public class PacManController : MonoBehaviour
     public float moveSpeed;
 
     float DefaultMoveSpeed;
-    bool LR = false, IsStill, IsOutOfPortal = true;
+    bool LR = false, IsStill, IsOutOfPortal = true, IsAlive;
     string nextAvailableTurn, CurrentDirection;
 
     void Start()
@@ -118,6 +118,7 @@ public class PacManController : MonoBehaviour
         FindObjectOfType<AudioController>().StopAllSounds();
         PlaySound("PACMANDEATH");
         moveSpeed = 0;
+        IsAlive = false;
 
         Invoke("ResetGame", 4f);
     }
@@ -144,6 +145,7 @@ public class PacManController : MonoBehaviour
 
     void ResetGame()
     {
+        IsAlive = true;
         DeadStateAnim.SetBool("PacManIsDead", false);
         moveSpeed = DefaultMoveSpeed;
         IsOutOfPortal = true;
@@ -326,10 +328,10 @@ public class PacManController : MonoBehaviour
             IsStill = true;
             return;
         }
-        moveSpeed = DefaultMoveSpeed;
+        if (IsAlive)
+            moveSpeed = DefaultMoveSpeed;
         IsStill = false;
     }
 
     #endregion
-
 }
