@@ -25,6 +25,10 @@ public class GameController : MonoBehaviour
         Fruits[2] = Melon;
         Fruits[3] = Orange;
         Fruits[4] = Strawberry;
+
+        DisplayStartingLives();
+
+        LifeCount = NumberOfLives-1;
     }
 
     void Update()
@@ -45,5 +49,10 @@ public class GameController : MonoBehaviour
         Vector3 FPos = new Vector3(4.2f, 3.425f, 0f);
         Instantiate(Fruits[r], FPos, Quaternion.identity);
         Debug.Log("Happened");
+    }
+
+    public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
+    {
+        Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
     }
 }
