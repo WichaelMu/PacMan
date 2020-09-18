@@ -84,9 +84,4 @@ public class GameController : MonoBehaviour
     {
         Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
     }
-
-    public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
-    {
-        Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
-    }
 }
