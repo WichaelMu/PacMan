@@ -1613,7 +1613,7 @@ PrefabInstance:
     - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
       propertyPath: NumberOfLives
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1408999558719703718, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}

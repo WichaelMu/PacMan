@@ -133,6 +133,9 @@ public class PacManController : MonoBehaviour
         PlaySound("PACMANDEATH");
         moveSpeed = 0;
 
+        PlayerStats.timesDied++;
+        FindObjectOfType<GameController>().DeductLife();
+
         Invoke("ResetGame", 4f);
 
         
