@@ -50,6 +50,8 @@ public class GameController : MonoBehaviour
         LifeCount = NumberOfLives-1;
 
         StartProcedure = Countdown();
+
+        HighScore.text = "0";
     }
 
     void OnEnable()
