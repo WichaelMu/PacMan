@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator StartProcedure;
     [Header("Start Control")]
+    public TextMeshProUGUI READY;
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
     public GameObject PacMan;
@@ -114,7 +115,8 @@ public class GameController : MonoBehaviour
         yield return new WaitForFixedUpdate();
         FindObjectOfType<AudioController>().StopAllSounds();
         FindObjectOfType<AudioController>().PlaySound("STARTING");
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(4.75f);
+        READY.enabled = false;
         CountDown.enabled = true;
         int c = 3;
         for (int i = c; i > 0; i--)
