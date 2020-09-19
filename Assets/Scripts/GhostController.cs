@@ -3,16 +3,8 @@
 public class GhostController : MonoBehaviour
 {
     Rigidbody GhostRB;
-<<<<<<< Updated upstream
-    Animator Anim;
-=======
-<<<<<<< Updated upstream
-    Animator ScaredStateAnim;
-=======
     Animator Anim;
     Transform GhostHolder;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
     public float MoveSpeed, ScaredResetTime;
     public bool ScaredState, IsAlive;
@@ -109,15 +101,6 @@ public class GhostController : MonoBehaviour
         }
     }
 
-<<<<<<< Updated upstream
-    void RecoveryState()
-    {
-        Anim.SetTrigger("GhostRecovering");
-    }
-
-=======
-<<<<<<< Updated upstream
-=======
     void RecoveryState()
     {
         Anim.SetTrigger("GhostRecovering");
@@ -125,8 +108,6 @@ public class GhostController : MonoBehaviour
         PlaySound("DEAD");
     }
 
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     void ResetState()
     {
         ScaredState = false;
