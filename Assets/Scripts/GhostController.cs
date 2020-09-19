@@ -6,6 +6,8 @@ public class GhostController : MonoBehaviour
     Animator Anim;
     Transform GhostHolder;
 
+    AudioController AudioControl;
+
     public float MoveSpeed, ScaredResetTime;
     public bool ScaredState, IsAlive;
 
@@ -25,6 +27,8 @@ public class GhostController : MonoBehaviour
         DefaultMoveSpeed = MoveSpeed;
 
         GhostHolder = GetComponentInParent<Transform>();
+
+        AudioControl = FindObjectOfType<AudioController>();
     }
 
     void FixedUpdate()
@@ -82,55 +86,46 @@ public class GhostController : MonoBehaviour
 
     public void SetScared(bool instruction)
     {
-        if (instruction && ScaredState)
-        {
-            CancelInvoke();
-            Invoke("ResetState", ScaredResetTime);
-            return;
-        }
-
         if (instruction)
         {
-            MoveSpeed = .7f;
-            ScaredState = true;
-            Anim.SetTrigger("GhostScared");
-            Invoke("RecoveryState", ScaredResetTime);
-            Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> seconds of being scared.
-            PlaySound("GHOSTSCAREDSTATE");
+            CancelInvoke();
+            GetScared();
         }
     }
-    void RecoveryState()
+
+    void GetScared()
     {
-        Anim.SetTrigger("GhostRecovering");
+        MoveSpeed = .7f;
+        ScaredState = true;
+        Anim.SetTrigger("GhostScared");
+        Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> + 4 seconds of being scared.
+
+        PlaySound("GHOSTSCAREDSTATE");
     }
 
     void ResetState()
     {
+        CancelInvoke();
         IsAlive = true;
         ScaredState = false;
         MoveSpeed = DefaultMoveSpeed;
-        Anim.SetTrigger("GhostScared");
+        //Anim.SetTrigger("GhostRecover");
+        //Anim.Play("Default");
         StopSound("GHOSTSCAREDSTATE");
         StopSound("DEAD");
         PlaySound("AMBIENT");
-
-        foreach (Transform t in GhostHolder)
-            if (t.GetComponent<GhostController>().ScaredState)
-            {
-                StopSound("DEAD");
-                StopSound("AMBIENT");
-                PlaySound("GHOSTSCAREDSTATE");
-                break;
-            }
     }
 
     public void OnHitPacMan()   //  This can only be called if this Ghost is scared.
     {
+        CancelInvoke();
         IsAlive = false;
 
         //TODO: Create a dead state, just eyes, that track back to the Ghost's spawnpoint.
-        transform.position = new Vector3(500f, 500f, 0f);
+        //transform.position = new Vector3(500f, 500f, 0f);
         PlayerStats.score += 100;
+
+        Anim.SetTrigger("GhostIsDead");
 
         Invoke("GhostRespawn", 5f);
 
@@ -143,21 +138,11 @@ public class GhostController : MonoBehaviour
     void GhostRespawn()
     {
         CancelInvoke();
-        transform.localPosition = new Vector3(1f, 1f, .043f);
-        Anim.SetTrigger("GhostScared");
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(1f, 1f, .043f), .1f);
+        //Anim.SetTrigger("GhostRecover");
         StopSound("DEAD");
         ScaredState = false;
         IsAlive = true;
-
-        foreach (Transform t in GhostHolder)
-            if (t.GetComponent<GhostController>().ScaredState)
-            {
-                StopSound("DEAD");
-                StopSound("AMBIENT");
-                PlaySound("GHOSTSCAREDSTATE");
-                Debug.Log(t.name);
-                break;
-            }
     }
 
     void ConstantMovement()
@@ -167,12 +152,12 @@ public class GhostController : MonoBehaviour
 
     void PlaySound(string name)
     {
-        FindObjectOfType<AudioController>().PlaySound(name);
+        AudioControl.PlaySound(name);
     }
 
     void StopSound(string name)
     {
-        FindObjectOfType<AudioController>().StopSound(name);
+        AudioControl.StopSound(name);
     }
 
 
