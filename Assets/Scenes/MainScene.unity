@@ -1455,9 +1455,114 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.16
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
 --- !u!1001 &976572168202824175
 PrefabInstance:
   m_ObjectHideFlags: 0
+=======
+--- !u!1 &2075666765
+GameObject:
+  m_ObjectHideFlags: 0
+<<<<<<< Updated upstream
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2075666767}
+  - component: {fileID: 2075666766}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2075666766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075666765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29f48cfa75fe0048bba604406aa086b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - Sounds: {fileID: 8300000, guid: d7a9abaff8ada7f459ebb3e3073e2fab, type: 3}
+    Name: EATFRUIT
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    PlayOnAwake: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 67e8187adb340134281f6ec93965647b, type: 3}
+    Name: EATGHOST
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    PlayOnAwake: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: d4795b3f25df86345a7bb8b493419bfb, type: 3}
+    Name: EATPELLET
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    PlayOnAwake: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 7edc6f84859604f429fb84bd22d308ad, type: 3}
+    Name: GHOSTSCAREDSTATE
+    Volume: 0.75
+    Pitch: 1
+    Loop: 1
+    PlayOnAwake: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 684bafc57f9bc4e45b6287ddfcbf7e6f, type: 3}
+    Name: INTERMISSION
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    PlayOnAwake: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 273bbe985327f4a4ebc3ffba409f071c, type: 3}
+    Name: PACMANDEATH
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    PlayOnAwake: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: 65c95bab4bae67a40b467a61ccae11e9, type: 3}
+    Name: STARTING
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    PlayOnAwake: 0
+    s: {fileID: 0}
+  - Sounds: {fileID: 8300000, guid: e25df966f8eab5d4a84174eed40d6dbe, type: 3}
+    Name: AMBIENT
+    Volume: 0.5
+    Pitch: 1
+    Loop: 1
+    PlayOnAwake: 0
+    s: {fileID: 0}
+--- !u!4 &2075666767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075666765}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2, y: 4.7, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
@@ -1501,7 +1606,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+<<<<<<< Updated upstream
       value: 7
+=======
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 976572167218312268, guid: 94bc4f08919a486408d8e65bc6cfe858,
         type: 3}
@@ -1518,6 +1626,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
+=======
+    - target: {fileID: 976572167218312269, guid: 94bc4f08919a486408d8e65bc6cfe858,
+        type: 3}
+      propertyPath: Sounds.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 976572167218312269, guid: 94bc4f08919a486408d8e65bc6cfe858,
+        type: 3}
+      propertyPath: Sounds.Array.data[9].Sounds
+      value: 
+      objectReference: {fileID: 8300000, guid: b3fbad63effffc548b91a56f1393f1bd, type: 3}
+    - target: {fileID: 976572167218312269, guid: 94bc4f08919a486408d8e65bc6cfe858,
+        type: 3}
+      propertyPath: Sounds.Array.data[9].Name
+      value: DEAD
+      objectReference: {fileID: 0}
+    - target: {fileID: 976572167218312269, guid: 94bc4f08919a486408d8e65bc6cfe858,
+        type: 3}
+      propertyPath: Sounds.Array.data[9].Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976572167218312269, guid: 94bc4f08919a486408d8e65bc6cfe858,
+        type: 3}
+      propertyPath: Sounds.Array.data[9].Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976572167218312269, guid: 94bc4f08919a486408d8e65bc6cfe858,
+        type: 3}
+      propertyPath: Sounds.Array.data[9].Loop
+      value: 1
+      objectReference: {fileID: 0}
+>>>>>>> Stashed changes
     - target: {fileID: 976572167218312270, guid: 94bc4f08919a486408d8e65bc6cfe858,
         type: 3}
       propertyPath: m_Name
@@ -1525,6 +1666,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94bc4f08919a486408d8e65bc6cfe858, type: 3}
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 --- !u!1001 &1408999558595695195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1636,9 +1781,17 @@ PrefabInstance:
     - target: {fileID: 1408999558719703718, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
       propertyPath: m_RootOrder
+<<<<<<< Updated upstream
       value: 5
       value: 2
       value: 4
+=======
+<<<<<<< Updated upstream
+      value: 2
+=======
+      value: 5
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1408999558719703718, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
@@ -2061,9 +2214,17 @@ PrefabInstance:
     - target: {fileID: 8131929763903513859, guid: 30e2fc60996a33244b2aef5957a15570,
         type: 3}
       propertyPath: m_RootOrder
+<<<<<<< Updated upstream
       value: 4
       value: 1
       value: 3
+=======
+<<<<<<< Updated upstream
+      value: 1
+=======
+      value: 4
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8131929763903513859, guid: 30e2fc60996a33244b2aef5957a15570,
         type: 3}
@@ -2171,9 +2332,16 @@ PrefabInstance:
     - target: {fileID: 8174134097346802907, guid: bdb8099f567e92d47a89c8212c6f46fd,
         type: 3}
       propertyPath: m_RootOrder
+<<<<<<< Updated upstream
       value: 6
       value: 4
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       value: 5
+=======
+      value: 6
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8174134097346802907, guid: bdb8099f567e92d47a89c8212c6f46fd,
         type: 3}
@@ -2247,9 +2415,16 @@ PrefabInstance:
     - target: {fileID: 8625090304152283958, guid: be03c09b132913b40bb7486de3ccc8ca,
         type: 3}
       propertyPath: m_RootOrder
+<<<<<<< Updated upstream
       value: 7
       value: 5
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       value: 6
+=======
+      value: 7
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8625090304152283958, guid: be03c09b132913b40bb7486de3ccc8ca,
         type: 3}
