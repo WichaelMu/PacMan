@@ -1977,6 +1977,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Sounds.Array.data[10].Loop
       value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 976572167218312270, guid: 94bc4f08919a486408d8e65bc6cfe858,
         type: 3}
