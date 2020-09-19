@@ -3,7 +3,7 @@
 public class GhostController : MonoBehaviour
 {
     Rigidbody GhostRB;
-    Animator ScaredStateAnim;
+    Animator Anim;
 
     public float MoveSpeed, ScaredResetTime;
     public bool ScaredState, IsAlive;
@@ -17,7 +17,7 @@ public class GhostController : MonoBehaviour
 
         GhostRB = GetComponent<Rigidbody>();
 
-        ScaredStateAnim = GetComponent<Animator>();
+        Anim = GetComponent<Animator>();
 
         //AliveSprite = GetComponent<Animator>();
 
@@ -91,17 +91,23 @@ public class GhostController : MonoBehaviour
         {
             MoveSpeed = .7f;
             ScaredState = true;
-            ScaredStateAnim.SetTrigger("GhostScared");
-            Invoke("ResetState", ScaredResetTime);   //  The Ghosts will no longer be scared after <ScaredResetTime> seconds of being scared.
+            Anim.SetTrigger("GhostScared");
+            Invoke("RecoveryState", ScaredResetTime);
+            Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> seconds of being scared.
             PlaySound("GHOSTSCAREDSTATE");
         }
+    }
+
+    void RecoveryState()
+    {
+        Anim.SetTrigger("GhostRecovering");
     }
 
     void ResetState()
     {
         ScaredState = false;
         MoveSpeed = DefaultMoveSpeed;
-        ScaredStateAnim.SetTrigger("GhostScared");
+        Anim.SetTrigger("GhostScared");
         StopSound("GHOSTSCAREDSTATE");
         PlaySound("AMBIENT");
     }
