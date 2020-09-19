@@ -1675,6 +1675,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784221489}
   m_CullTransparentMesh: 0
+--- !u!1 &1823511684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8174134097346802902, guid: bdb8099f567e92d47a89c8212c6f46fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 8174134097197768931}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1876681714 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5673378611956297480, guid: d28d7927f40356e42b4ca19ba9394962,
@@ -1732,18 +1738,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.16
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1975748438 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 455218230, guid: bdb8099f567e92d47a89c8212c6f46fd,
-    type: 3}
-  m_PrefabInstance: {fileID: 8174134097197768931}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d96bb0aced9f4194caaf8d4a5123a8db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2003901804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,7 +2027,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PacMan
       value: 
-      objectReference: {fileID: 1975748438}
+      objectReference: {fileID: 1823511684}
     - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
       propertyPath: PelletHolder
@@ -2049,6 +2043,11 @@ PrefabInstance:
       propertyPath: CountDown
       value: 
       objectReference: {fileID: 754896454}
+    - target: {fileID: 1408999558719703717, guid: 35014f3434386814b8f3bc0747e0eae2,
+        type: 3}
+      propertyPath: GhostHolder
+      value: 
+      objectReference: {fileID: 1077753437}
     - target: {fileID: 1408999558719703718, guid: 35014f3434386814b8f3bc0747e0eae2,
         type: 3}
       propertyPath: m_LocalPosition.x
