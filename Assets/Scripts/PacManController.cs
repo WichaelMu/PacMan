@@ -42,6 +42,9 @@ public class PacManController : MonoBehaviour
     {
         Movement();
         KeyboardControl();
+
+        if (Input.GetKeyDown(KeyCode.K))
+            EatBigPellet(null);
     }
 
     void OnTriggerEnter(Collider other)
