@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Default
+  m_Name: LightBlueGhost
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -27,28 +27,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &-8768859195038273899
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -529282872845236715}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 10.992028
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1102 &-7139998034745142628
 AnimatorState:
   serializedVersion: 5
@@ -60,8 +38,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-<<<<<<< Updated upstream
   - {fileID: 3093815499762183998}
+<<<<<<< HEAD
 =======
 <<<<<<< Updated upstream
   - {fileID: -2797181921364788220}
@@ -76,6 +54,8 @@ AnimatorState:
 >>>>>>> Stashed changes
 >>>>>>> Stashed changes
 >>>>>>> parent of 4f6fbab... Animations
+=======
+>>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -158,21 +138,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -7139998034745142628}
     m_Position: {x: 445.41226, y: 136.16357, z: 0}
-<<<<<<< Updated upstream
   - serializedVersion: 1
     m_State: {fileID: -529282872845236715}
     m_Position: {x: 560, y: -10, z: 0}
-=======
-<<<<<<< Updated upstream
-=======
-  - serializedVersion: 1
-    m_State: {fileID: -529282872845236715}
-    m_Position: {x: 660, y: 30, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 4153117263306584732}
-    m_Position: {x: 440, y: -80, z: 0}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -183,36 +151,6 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -8982767013385655734}
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
---- !u!1101 &-2365496403057612489
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: GhostIsDead
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 4153117263306584732}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 0.9914554
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
->>>>>>> Stashed changes
 --- !u!1101 &-1518449818654923771
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -249,8 +187,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-<<<<<<< Updated upstream
   - {fileID: 1190351202055113984}
+<<<<<<< HEAD
 =======
   - {fileID: -2365496403057612489}
   - {fileID: 3319897505388985292}
@@ -262,6 +200,8 @@ AnimatorState:
 =======
 >>>>>>> Stashed changes
 >>>>>>> parent of 4f6fbab... Animations
+=======
+>>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -277,10 +217,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -295,10 +231,9 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-<<<<<<< Updated upstream
     m_Controller: {fileID: 9100000}
-<<<<<<< Updated upstream
   - m_Name: GhostRecovering
+<<<<<<< HEAD
 =======
 =======
     m_Controller: {fileID: 0}
@@ -311,12 +246,14 @@ AnimatorController:
 =======
 >>>>>>> Stashed changes
 >>>>>>> parent of 4f6fbab... Animations
+=======
+>>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-<<<<<<< Updated upstream
     m_Controller: {fileID: 9100000}
+<<<<<<< HEAD
 =======
     m_Controller: {fileID: 0}
 <<<<<<< HEAD
@@ -325,6 +262,8 @@ AnimatorController:
 >>>>>>> Stashed changes
 >>>>>>> Stashed changes
 >>>>>>> parent of 4f6fbab... Animations
+=======
+>>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -364,8 +303,6 @@ AnimatorStateTransition:
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &2177052799656233163
-<<<<<<< Updated upstream
-=======
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -390,8 +327,8 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
-<<<<<<< Updated upstream
 --- !u!1101 &3093815499762183998
+<<<<<<< HEAD
 =======
 --- !u!1101 &2814399519179247113
 <<<<<<< HEAD
@@ -400,6 +337,8 @@ AnimatorStateTransition:
 >>>>>>> Stashed changes
 >>>>>>> Stashed changes
 >>>>>>> parent of 4f6fbab... Animations
+=======
+>>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -408,26 +347,19 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-<<<<<<< Updated upstream
     m_ConditionEvent: GhostRecovering
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -529282872845236715}
-=======
-    m_ConditionEvent: GhostIsDead
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 4153117263306584732}
->>>>>>> Stashed changes
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-<<<<<<< Updated upstream
   m_ExitTime: 0.99110204
   m_HasExitTime: 0
+<<<<<<< HEAD
 =======
 <<<<<<< Updated upstream
   m_ExitTime: 1
@@ -512,6 +444,8 @@ AnimatorStateTransition:
 =======
 >>>>>>> Stashed changes
 >>>>>>> parent of 4f6fbab... Animations
+=======
+>>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
