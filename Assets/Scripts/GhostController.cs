@@ -38,7 +38,6 @@ public class GhostController : MonoBehaviour
         {
             Invoke(DetermineMovement(other.gameObject), 0f);
         }
-
     }
 
     string DetermineMovement(GameObject Switch)
