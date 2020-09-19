@@ -103,11 +103,11 @@ public class GhostController : MonoBehaviour
     void RecoveryState()
     {
         Anim.SetTrigger("GhostRecovering");
-        PlaySound("DEAD");
     }
 
     void ResetState()
     {
+        IsAlive = true;
         ScaredState = false;
         MoveSpeed = DefaultMoveSpeed;
         Anim.SetTrigger("GhostScared");
@@ -143,9 +143,22 @@ public class GhostController : MonoBehaviour
 
     void GhostRespawn()
     {
+        CancelInvoke();
         transform.localPosition = new Vector3(1f, 1f, .043f);
+        Anim.SetTrigger("GhostScared");
+        StopSound("DEAD");
         ScaredState = false;
         IsAlive = true;
+
+        foreach (Transform t in GhostHolder)
+            if (t.GetComponent<GhostController>().ScaredState)
+            {
+                StopSound("DEAD");
+                StopSound("AMBIENT");
+                PlaySound("GHOSTSCAREDSTATE");
+                Debug.Log(t.name);
+                break;
+            }
     }
 
     void ConstantMovement()
