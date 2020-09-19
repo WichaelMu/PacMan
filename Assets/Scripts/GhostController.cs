@@ -100,11 +100,9 @@ public class GhostController : MonoBehaviour
             PlaySound("GHOSTSCAREDSTATE");
         }
     }
-
     void RecoveryState()
     {
         Anim.SetTrigger("GhostRecovering");
-        StopSound("GHOSTSCAREDSTATE");
         PlaySound("DEAD");
     }
 
