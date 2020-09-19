@@ -32,8 +32,8 @@ public class GameController : MonoBehaviour
     [Header("Start Control")]
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
-    public Transform GhostHolder;
     public GameObject PacMan;
+    public Transform GhostHolder;
 
     void Awake()
     {
