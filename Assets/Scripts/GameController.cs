@@ -99,17 +99,36 @@ public class GameController : MonoBehaviour
 
     IEnumerator Countdown()
     {
+        Enable(false);
         START.enabled = false;
+        CountDown.enabled = false;
+        yield return new WaitForFixedUpdate();
+        FindObjectOfType<AudioController>().StopAllSounds();
+        FindObjectOfType<AudioController>().PlaySound("STARTING");
+        yield return new WaitForSeconds(.5f);
+        CountDown.enabled = true;
         int c = 3;
         for (int i = c; i > 0; i--)
         {
             CountDown.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
-
         CountDown.enabled = false;
         START.enabled = true;
         yield return new WaitForSeconds(1f);
         START.enabled = false;
+        BeginGame();
+    }
+
+    void BeginGame()
+    {
+        Enable(true);
+    }
+
+    void Enable(bool b)
+    {
+        foreach (Transform t in GhostHolder)
+            t.gameObject.GetComponent<GhostController>().enabled = b;
+        PacMan.GetComponent<PacManController>().enabled = b;
     }
 }
