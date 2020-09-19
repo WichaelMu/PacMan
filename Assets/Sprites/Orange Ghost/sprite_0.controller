@@ -38,22 +38,14 @@ AnimatorState:
   m_Transitions:
   - {fileID: -754021348862617591}
 <<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
   - {fileID: -4118522235474535929}
-=======
   - {fileID: 9214709262171362993}
   - {fileID: 1062750834135450537}
-<<<<<<< HEAD
   - {fileID: -4118522235474535929}
   - {fileID: 9214709262171362993}
   - {fileID: 1062750834135450537}
 =======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
->>>>>>> parent of 4f6fbab... Animations
-=======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -91,7 +83,7 @@ AnimatorStateTransition:
 <<<<<<< HEAD
   m_ExitTime: 0.99619716
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   m_ExitTime: 0.98992956
   m_HasExitTime: 0
   m_HasFixedDuration: 1
@@ -125,7 +117,7 @@ AnimatorStateTransition:
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
 --- !u!1102 &-2935858397028791579
 AnimatorState:
   serializedVersion: 5
@@ -157,7 +149,7 @@ AnimatorState:
 <<<<<<< HEAD
 --- !u!1101 &-1907312446720127573
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +167,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7731310172373949081}
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -188,7 +180,7 @@ AnimatorStateTransition:
   m_ExitTime: 0.9850964
   m_HasExitTime: 1
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -211,7 +203,7 @@ AnimatorController:
 <<<<<<< HEAD
     m_Controller: {fileID: 0}
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   - m_Name: GhostRecovering
     m_Type: 9
     m_DefaultFloat: 0
@@ -227,7 +219,7 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -292,7 +284,7 @@ AnimatorStateMachine:
     m_State: {fileID: 3735788973925683085}
     m_Position: {x: 340, y: -150, z: 0}
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -354,7 +346,7 @@ AnimatorStateTransition:
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
 --- !u!1101 &4983001503489880451
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -396,7 +388,7 @@ AnimatorState:
   - {fileID: -4039405927020874951}
   - {fileID: 4111590310177628278}
 =======
->>>>>>> parent of 4d45fa2... Merge branch 'Feature-Visual' into development
+>>>>>>> parent of c3e8b31... Animation Bug Fixes
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
