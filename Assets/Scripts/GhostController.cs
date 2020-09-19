@@ -4,6 +4,7 @@ public class GhostController : MonoBehaviour
 {
     Rigidbody GhostRB;
     Animator Anim;
+    Transform GhostHolder;
 
     public float MoveSpeed, ScaredResetTime;
     public bool ScaredState, IsAlive;
@@ -22,6 +23,8 @@ public class GhostController : MonoBehaviour
         //AliveSprite = GetComponent<Animator>();
 
         DefaultMoveSpeed = MoveSpeed;
+
+        GhostHolder = GetComponentInParent<Transform>();
     }
 
     void FixedUpdate()
@@ -101,6 +104,8 @@ public class GhostController : MonoBehaviour
     void RecoveryState()
     {
         Anim.SetTrigger("GhostRecovering");
+        StopSound("GHOSTSCAREDSTATE");
+        PlaySound("DEAD");
     }
 
     void ResetState()
@@ -109,7 +114,17 @@ public class GhostController : MonoBehaviour
         MoveSpeed = DefaultMoveSpeed;
         Anim.SetTrigger("GhostScared");
         StopSound("GHOSTSCAREDSTATE");
+        StopSound("DEAD");
         PlaySound("AMBIENT");
+
+        foreach (Transform t in GhostHolder)
+            if (t.GetComponent<GhostController>().ScaredState)
+            {
+                StopSound("DEAD");
+                StopSound("AMBIENT");
+                PlaySound("GHOSTSCAREDSTATE");
+                break;
+            }
     }
 
     public void OnHitPacMan()   //  This can only be called if this Ghost is scared.
