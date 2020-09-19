@@ -325,6 +325,7 @@ public class PacManController : MonoBehaviour
         {
             moveSpeed = 0f;
             IsStill = true;
+            PlaySound("WALL");
             return;
         }
         if (IsAlive)
