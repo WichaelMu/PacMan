@@ -136,6 +136,7 @@ public class GhostController : MonoBehaviour
         Invoke("GhostRespawn", 5f);
 
         PlaySound("EATGHOST");
+        PlaySound("DEAD");
         
         //TODO: Once the dead state eyes have returned to the Ghost's spawnpoint, reset the ghost; ScaredState = false, IsAlive = true;.
     }
