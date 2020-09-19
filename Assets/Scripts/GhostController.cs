@@ -127,6 +127,7 @@ public class GhostController : MonoBehaviour
 
         Anim.SetTrigger("GhostIsDead");
 
+
         Invoke("GhostRespawn", 5f);
 
         PlaySound("EATGHOST");
