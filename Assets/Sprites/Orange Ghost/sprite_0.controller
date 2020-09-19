@@ -36,16 +36,10 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-<<<<<<< Updated upstream
   - {fileID: -754021348862617591}
-=======
-<<<<<<< Updated upstream
   - {fileID: -4118522235474535929}
-=======
   - {fileID: 9214709262171362993}
   - {fileID: 1062750834135450537}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
