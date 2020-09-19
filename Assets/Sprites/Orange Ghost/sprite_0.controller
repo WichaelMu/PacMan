@@ -39,10 +39,13 @@ AnimatorState:
 <<<<<<< Updated upstream
   - {fileID: -754021348862617591}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: -4118522235474535929}
   - {fileID: 9214709262171362993}
   - {fileID: 1062750834135450537}
 =======
+=======
+>>>>>>> parent of 4f6fbab... Animations
 =======
 <<<<<<< Updated upstream
   - {fileID: -4118522235474535929}
@@ -51,7 +54,10 @@ AnimatorState:
   - {fileID: 1062750834135450537}
 >>>>>>> Stashed changes
 >>>>>>> Stashed changes
+<<<<<<< HEAD
 >>>>>>> parent of db715ec... Revert "Merge branch 'Feature-Visual' into development"
+=======
+>>>>>>> parent of 4f6fbab... Animations
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
