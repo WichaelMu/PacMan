@@ -11,6 +11,7 @@ public class Fruits : MonoBehaviour
     {
         SPR = GetComponent<SpriteRenderer>().sprite;
         FruitsHolder = GameObject.FindGameObjectsWithTag("FRUITHOLDER");
+        Destroy(gameObject, 15f);
     }
 
     void OnTriggerEnter(Collider other)
@@ -25,7 +26,6 @@ public class Fruits : MonoBehaviour
         spr.sprite = SPR;
         i++;
 
-        Debug.Log("Eaten");
         Destroy(gameObject);
     }
 }
