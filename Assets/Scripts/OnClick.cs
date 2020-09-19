@@ -5,7 +5,7 @@ public class OnClick : MonoBehaviour
 {
     public void PlayGame()
     {
-
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
