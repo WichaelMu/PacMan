@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Score Control")]
     public TextMeshProUGUI CurrentScore;
     public TextMeshProUGUI HighScore;
 
@@ -26,6 +28,13 @@ public class GameController : MonoBehaviour
     GameObject[] Fruits;
     int LifeCount;
 
+    IEnumerator StartProcedure;
+    [Header("Start Control")]
+    public TextMeshProUGUI CountDown;
+    public TextMeshProUGUI START;
+    public Transform GhostHolder;
+    public GameObject PacMan;
+
     void Awake()
     {
         InvokeRepeating("PlaceAFruitAtRandom", Random.Range(15f, 72f), 72f);
@@ -40,6 +49,9 @@ public class GameController : MonoBehaviour
         DisplayStartingLives();
         
         LifeCount = NumberOfLives-1;
+
+        StartProcedure = Countdown();
+        StartCoroutine(StartProcedure);
     }
 
     void FixedUpdate()
@@ -83,5 +95,21 @@ public class GameController : MonoBehaviour
     public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
     {
         Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
+    }
+
+    IEnumerator Countdown()
+    {
+        START.enabled = false;
+        int c = 3;
+        for (int i = c; i > 0; i--)
+        {
+            CountDown.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        CountDown.enabled = false;
+        START.enabled = true;
+        yield return new WaitForSeconds(1f);
+        START.enabled = false;
     }
 }
