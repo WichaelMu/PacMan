@@ -28,8 +28,8 @@ public class GameController : MonoBehaviour
     GameObject[] Fruits;
     int LifeCount;
 
-    IEnumerator StartProcedure;
     [Header("Start Control")]
+    IEnumerator StartProcedure;
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
     public GameObject PacMan;
