@@ -18,18 +18,17 @@ public class GameController : MonoBehaviour
     public GameObject Orange;
     public GameObject Strawberry;
 
-    [Header("Life Control")]
+    [Header("Life Control")] 
     public GameObject Life;
     public Transform LifeHolder;
-
     [Range(1, 10)]
     public int NumberOfLives;
 
     GameObject[] Fruits;
     int LifeCount;
 
-    [Header("Start Control")]
     IEnumerator StartProcedure;
+    [Header("Start Control")]
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
     public GameObject PacMan;
@@ -51,7 +50,11 @@ public class GameController : MonoBehaviour
         LifeCount = NumberOfLives-1;
 
         StartProcedure = Countdown();
-        StartCoroutine(StartProcedure);
+    }
+
+    void OnEnable()
+    {
+        BeginStartingProcedure();
     }
 
     void FixedUpdate()
@@ -96,6 +99,10 @@ public class GameController : MonoBehaviour
     {
         LifeCount--;
         Destroy(LifeHolder.GetChild(LifeCount).gameObject);
+    }
+
+    public void BeginStartingProcedure() { 
+        StartCoroutine(StartProcedure);
     }
 
     IEnumerator Countdown()
