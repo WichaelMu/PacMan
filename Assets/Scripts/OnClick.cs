@@ -18,6 +18,11 @@ public class OnClick : MonoBehaviour
         SceneManager.LoadScene(3);
     }
 
+    public void ViewMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
