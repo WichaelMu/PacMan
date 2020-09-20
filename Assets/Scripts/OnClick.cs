@@ -13,9 +13,9 @@ public class OnClick : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    public void Credits()
+    public void ViewAssets()
     {
-
+        SceneManager.LoadScene(3);
     }
 
     public void QuitGame()
