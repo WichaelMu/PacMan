@@ -139,7 +139,7 @@ public class GhostController : MonoBehaviour
     void GhostRespawn()
     {
         CancelInvoke();
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(1f, 1f, .043f), 2f);
+        transform.localPosition = new Vector3(1f, 1f, .043f);
         //Anim.SetTrigger("GhostRecover");
         StopSound("DEAD");
         ScaredState = false;
