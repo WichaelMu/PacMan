@@ -80,7 +80,7 @@ public class LevelGenerator : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 0; i < levelMap.Length+1; i++)
+        for (int i = 0; i < levelMap.Length/28; i++)
             for (int k = 0; k < 28; k++)
                 switch (levelMap[i, k])
                 {

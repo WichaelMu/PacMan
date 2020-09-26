@@ -4,27 +4,31 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    [Header("Score Control")]
+    [Header("Score Control")]   //  This keeps tract of the scores and the time played.
     public TextMeshProUGUI CurrentScore;
     public TextMeshProUGUI HighScore;
+    public TextMeshProUGUI Time;
 
     [Header("Pellet Control")]
     public Transform PelletHolder;
 
     [Header("Fruits")]
+    public Transform FruitsSpawnPoint;
     public GameObject Apple;
     public GameObject Cherry;
     public GameObject Melon;
     public GameObject Orange;
     public GameObject Strawberry;
+    GameObject[] Fruits;
 
-    [Header("Life Control")] 
+    [Header("Life Control")]
+    public Canvas GameOver;
     public GameObject Life;
     public Transform LifeHolder;
     [Range(1, 10)]
     public int NumberOfLives;
-
-    GameObject[] Fruits;
+    [HideInInspector]
+    public bool DoNotRestart = false;
     int LifeCount;
 
     IEnumerator StartProcedure;
@@ -35,9 +39,12 @@ public class GameController : MonoBehaviour
     public GameObject PacMan;
     public Transform GhostHolder;
 
+    IEnumerator GameTimer;
+    int minute=00, seconds=00, milli=000;
+
     void Awake()
     {
-        InvokeRepeating("PlaceAFruitAtRandom", Random.Range(15f, 72f), 72f);
+        InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
 
         Fruits = new GameObject[5];
         Fruits[0] = Apple;
@@ -53,6 +60,12 @@ public class GameController : MonoBehaviour
         StartProcedure = Countdown();
 
         HighScore.text = "0";
+
+        PacMan = GameObject.FindWithTag("Player");
+
+        GameTimer = UpdateTime();
+
+        GameOver.gameObject.SetActive(false);
     }
 
     void OnEnable()
@@ -72,18 +85,10 @@ public class GameController : MonoBehaviour
             HighScore.text = PlayerStats.score.ToString();
         if (PelletHolder.childCount == 0)
         {
+            //  TODO: Display a message saying "LEVEL COMPLETE" or something.
+            //  TODO: Exit back to the main menu.
+            EndGame();
             Debug.Log("This level is complete.");
-        }
-    }
-
-    void PlaceAFruitAtRandom()
-    {
-        int r = Random.Range(0, 5);
-        Vector3 FPos = new Vector3(4.2f, 3.425f, 0f);
-        if (Fruits[r] != null)
-        {
-            Instantiate(Fruits[r], FPos, Quaternion.identity);
-            Fruits[r] = null;
         }
     }
 
@@ -100,7 +105,22 @@ public class GameController : MonoBehaviour
 
     public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
     {
-        Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
+        if ((LifeCount+1) <= 0)
+            EndGame();
+        else
+            Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
+    }
+
+    void EndGame()
+    {
+        Enable(false);
+
+        DoNotRestart = true;
+
+        GameOver.gameObject.SetActive(true);
+        StopCoroutine(UpdateTime());
+        
+        Debug.Log("Pac Man is dead");
     }
 
     public void BeginStartingProcedure() { 
@@ -110,36 +130,70 @@ public class GameController : MonoBehaviour
     IEnumerator Countdown()
     {
         Enable(false);
-        START.enabled = false;
-        CountDown.enabled = false;
+        READY.gameObject.SetActive(true);
+        START.gameObject.SetActive(false);
+        CountDown.gameObject.SetActive(false);
         yield return new WaitForFixedUpdate();
         FindObjectOfType<AudioController>().StopAllSounds();
         FindObjectOfType<AudioController>().PlaySound("STARTING");
         yield return new WaitForSeconds(4.75f);
-        READY.enabled = false;
-        CountDown.enabled = true;
+        READY.gameObject.SetActive(false);
+        CountDown.gameObject.SetActive(true);
         int c = 3;
         for (int i = c; i > 0; i--)
         {
             CountDown.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
-        CountDown.enabled = false;
-        START.enabled = true;
+        CountDown.gameObject.SetActive(false);
+        START.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
-        START.enabled = false;
+        START.gameObject.SetActive(false);
         BeginGame();
+        StopCoroutine(Countdown());
     }
 
     void BeginGame()
     {
         Enable(true);
+        StartCoroutine(GameTimer);
     }
-
     void Enable(bool b)
     {
         foreach (Transform t in GhostHolder)
             t.gameObject.GetComponent<GhostController>().enabled = b;
         PacMan.GetComponent<PacManController>().enabled = b;
+    }
+
+    IEnumerator UpdateTime()
+    {
+        while (true)
+        {
+            Time.text = minute + ":" + seconds + ":" + milli;
+            yield return new WaitForSeconds(.01f);
+            milli++;
+            if (milli == 100)
+            {
+                seconds++;
+                milli = 0;
+            }
+
+            if (seconds == 60)
+            {
+                minute++;
+                seconds = 0;
+            }
+        }
+    }
+
+    void PlaceAFruitAtRandom()  //  Spawning a Fruit
+    {
+        int r = Random.Range(0, 5);
+        Vector3 FPos = FruitsSpawnPoint.position;
+        if (Fruits[r] != null)
+        {
+            Instantiate(Fruits[r], FPos, Quaternion.identity);
+            Fruits[r] = null;
+        }
     }
 }

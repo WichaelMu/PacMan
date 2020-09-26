@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8730748387593652224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8730748387593652226}
+  - component: {fileID: 8730748387593652227}
+  m_Layer: 0
+  m_Name: LevelGenerator II
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8730748387593652226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8730748387593652224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8730748387593652227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8730748387593652224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5139355deb5fc741ac4171cf3cae827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallHolder: {fileID: 0}
+  PelletHolder: {fileID: 0}
+  Empty: {fileID: 0}
+  InsideCorner: {fileID: 0}
+  InsideCornerBL: {fileID: 0}
+  InsideCornerBR: {fileID: 0}
+  InsideCornerTR: {fileID: 0}
+  InsideWall: {fileID: 0}
+  InsideWallH: {fileID: 0}
+  OutsideCorner: {fileID: 0}
+  OutsideCornerBL: {fileID: 0}
+  OutsideCornerBR: {fileID: 0}
+  OutsideCornerTR: {fileID: 0}
+  OutsideWall: {fileID: 0}
+  OutsideWallH: {fileID: 0}
+  SmallDot: {fileID: 0}
+  BigDot: {fileID: 0}
+  TJunction: {fileID: 0}
+  TJunctionU: {fileID: 0}
+  DR: {fileID: 0}
+  UR: {fileID: 0}
+  DL: {fileID: 0}
+  UL: {fileID: 0}
+  LRU: {fileID: 0}
+  LRD: {fileID: 0}
+  UDL: {fileID: 0}
+  UDR: {fileID: 0}
+  ALL: {fileID: 0}
+  PortL: {fileID: 0}
+  PortR: {fileID: 0}

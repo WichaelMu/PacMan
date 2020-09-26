@@ -1,17 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using TMPro;
 
 public class GhostController : MonoBehaviour
 {
-    Rigidbody GhostRB;
-    Animator Anim;
-    Transform GhostHolder;
+    public TextMeshProUGUI ScaredTimer; //  This is the scared timer that is required for 60%.
+    public TextMeshProUGUI NumberTags;  //  This is the Ghost's label (1-4) that is required for 60%.a
 
-    AudioController AudioControl;
+    public Transform GhostHolder;
 
-    public float MoveSpeed, ScaredResetTime;
-    public bool ScaredState, IsAlive;
+    Rigidbody GhostRB;  //  The ghosts' Rigidbody.
+    Animator Anim;  //  The animator for this ghost.
+    //Transform GhostHolder;
 
-    float DefaultMoveSpeed;
+    AudioController AudioControl;   //  The AudioController for the game.
+
+    public float MoveSpeed, ScaredResetTime;    //  The movement speed for the ghost . The time it takes for the ghost to no lnoger be scared.
+    public bool ScaredState, IsAlive;   //  If the ghost is currently scared. If the ghost is currently alive (not dead/not just eyes).
+
+    float DefaultMoveSpeed; //  The default movement speed for the ghosts.
 
     void Awake()
     {
@@ -26,9 +33,12 @@ public class GhostController : MonoBehaviour
 
         DefaultMoveSpeed = MoveSpeed;
 
-        GhostHolder = GetComponentInParent<Transform>();
+        //GhostHolder = GetComponentInParent<Transform>();
 
         AudioControl = FindObjectOfType<AudioController>();
+
+        ScaredTimer.gameObject.SetActive(false);
+        NumberTags.gameObject.SetActive(true);
     }
 
     void FixedUpdate()
@@ -38,13 +48,14 @@ public class GhostController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Switcher"))
-        {
+        if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
             Invoke(DetermineMovement(other.gameObject), 0f);
-        }
     }
 
-    string DetermineMovement(GameObject Switch)
+    #region Random Movement of the Ghosts.
+
+    //  This is not used as the ghosts will never move from their starting position.
+    string DetermineMovement(GameObject Switch) //  This allows the ghosts to turn corners randomly.
     {
         Switcher switcher = Switch.GetComponent<Switcher>();
 
@@ -53,12 +64,13 @@ public class GhostController : MonoBehaviour
 
         for (int i = 0; i < Moves.Length; i++)
             if (switcher.allowDirection(Moves[i].ToString()))
-                return Moves[i].ToString();
+                return Moves[i].ToString(); //  The ghost will turn in a durection on the next allowed turn on any corner. A corner is defined as a 'Switcher'.
             else
-                i = 0;
+                i = 0;  //  This is probably the reason why this random movement is extremly buggy.
         return null;
     }
 
+    //  This is not used as the ghosts will never move from their starting position.
     string RandomMovement(float Randomiser)
     {
         if (Randomiser < .1f)
@@ -84,36 +96,47 @@ public class GhostController : MonoBehaviour
         return null;
     }
 
+    #endregion
+
     public void SetScared(bool instruction)
     {
         if (instruction)
         {
             CancelInvoke();
+            if (ScaredState)
+                ResetState();
             GetScared();
         }
     }
 
     void GetScared()
     {
+        CancelInvoke();
         MoveSpeed = .7f;
         ScaredState = true;
-        Anim.SetTrigger("GhostScared");
-        Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> + 4 seconds of being scared.
+        Anim.SetTrigger("GhostScared"); //  Plays the blue and white ghost scared state.
+        //Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> + 4 seconds of being scared.
 
-        PlaySound("GHOSTSCAREDSTATE");
+        StopSound("AMBIENT");
+        PlaySound("GHOSTSCAREDSTATE");  //  Play the sound of the ghosts being scared. A very annoying sound.
     }
 
-    void ResetState()
+    void ResetState()   //  Resets the ghost.
     {
         CancelInvoke();
         IsAlive = true;
         ScaredState = false;
-        MoveSpeed = DefaultMoveSpeed;
-        //Anim.SetTrigger("GhostRecover");
+        MoveSpeed = DefaultMoveSpeed;   //  The movement speed of the ghosts are reset.
+
+        Anim.SetTrigger("GhostRecover");
         //Anim.Play("Default");
-        StopSound("GHOSTSCAREDSTATE");
-        StopSound("DEAD");
-        PlaySound("AMBIENT");
+
+        ScaredTimer.gameObject.SetActive(false);
+        NumberTags.gameObject.SetActive(true);
+
+        StopSound("DEAD");  //  If the ghost dead sound is still playing, stop it.
+        StopSound("GHOSTSCAREDSTATE");  //  If the ghost scared sound is still playing, stop it.
+        PlaySound("AMBIENT");   //  Play the normal sound.
     }
 
     public void OnHitPacMan()   //  This can only be called if this Ghost is scared.
@@ -121,35 +144,50 @@ public class GhostController : MonoBehaviour
         CancelInvoke();
         IsAlive = false;
 
-        //TODO: Create a dead state, just eyes, that track back to the Ghost's spawnpoint.
+        //TODO: Create a dead state, just eyes, that track back to the Ghost's spawnpoint. DONE.
         //transform.position = new Vector3(500f, 500f, 0f);
-        PlayerStats.score += 100;
+        PlayerStats.score += 300;
 
-        Anim.SetTrigger("GhostIsDead");
+        Anim.SetTrigger("GhostIsDead"); //  Set the ghost to play the animation with only eyes.
 
+        //Possibly decrease this time to fit the original game, 5 seconds seems too long.
+        //Invoke("GhostRespawn", 5f); //  Set the ghost to respawn in 5 seconds.
 
-        Invoke("GhostRespawn", 5f);
-
-        PlaySound("EATGHOST");
-        PlaySound("DEAD");
+        PlaySound("EATGHOST");  //  Play the sound of the ghost being eaten by Pac Man.
+        PlaySound("DEAD");  //  Play the sound when Pac Man eats a scared ghost.
         
-        //TODO: Once the dead state eyes have returned to the Ghost's spawnpoint, reset the ghost; ScaredState = false, IsAlive = true;.
+        //TODO: Once the dead state eyes have returned to the Ghost's spawnpoint, reset the ghost; ScaredState = false, IsAlive = true;. DONE?
     }
 
-    void GhostRespawn()
+    void GhostRespawn() //  This is called in the 'Ghost Dead State' animation as an event at the end of the animation.
     {
         CancelInvoke();
-        transform.localPosition = new Vector3(1f, 1f, -.05f);
-        //Anim.SetTrigger("GhostRecover");
-        StopSound("DEAD");
-        ScaredState = false;
-        IsAlive = true;
+        //transform.localPosition = new Vector3(1f, 1f, -.05f); //  Do not use for Assignment 3.
+
+        ResetState();
     }
 
-    void ConstantMovement()
+    void ShowScaredTimerSeconds(int n)  //  This is called in the GhostRecovery animation as an event.
     {
-        GhostRB.MovePosition(transform.position + (transform.up * MoveSpeed * Time.deltaTime));
+        NumberTags.gameObject.SetActive(false);
+        ScaredTimer.gameObject.SetActive(true);
+        ScaredTimer.text = n.ToString();
     }
+
+    void StopShowingScaredTimer()
+    {
+        NumberTags.gameObject.SetActive(true);
+        ScaredTimer.gameObject.SetActive(false);
+    }
+
+    void ConstantMovement() //  Do not use for Assignment 3.    //  This code is not in use as it is commented out in the FixedUpdate().
+    {
+        GhostRB.MovePosition(transform.position + (transform.up * MoveSpeed * Time.deltaTime)); //  Constantly moves the ghost at a contant speed.
+    }
+
+    #region Audio Control
+
+    //  Plays or Stops the sound <name>.
 
     void PlaySound(string name)
     {
@@ -161,32 +199,33 @@ public class GhostController : MonoBehaviour
         AudioControl.StopSound(name);
     }
 
+    #endregion
 
     #region The Rotation of the Ghosts
 
-    void U()
+    void U()    // UP
     {
         RotateGhost(new Vector3(000f, 000f, 090f));
     }
 
-    void D()
+    void D()    //  DOWN
     {
         RotateGhost(new Vector3(000f, 000f, 270f));
     }
 
-    void L()
+    void L()    //  LEFT
     {
         RotateGhost(new Vector3(000f, 000f, 180f));
     }
 
-    void R()
+    void R()    //  RIGHT
     {
         RotateGhost(new Vector3(000f, 000f, 000f));
     }
 
     void RotateGhost(Vector3 faceAngle)
     {
-        transform.localEulerAngles = faceAngle;
+        transform.localEulerAngles = faceAngle; //  Rotates the ghost to face a direction.  //  This may not be used for Assignment 4.
     }
 
     #endregion

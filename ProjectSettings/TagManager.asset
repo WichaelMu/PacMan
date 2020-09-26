@@ -12,6 +12,7 @@ TagManager:
   - Empty
   - Fruit
   - FRUITHOLDER
+  - GHOSTHOLDER
   layers:
   - Default
   - TransparentFX
