@@ -196,9 +196,33 @@ public class PacManController : MonoBehaviour
 
     #region The Movement of Pac Man
 
+    //float t;
+
     void Movement() //  This is called in the FixedUpdate().
     {
         PacMan.MovePosition(transform.position + (transform.right * moveSpeed * Time.deltaTime));   //  Pac Man's constant movement.
+        //t += Time.fixedDeltaTime;
+        //float UD=0f, LR=0f;
+        //switch (currentInput)
+        //{
+        //    case "U":
+        //        UD = .5f;
+        //        LR = 0f;
+        //        break;
+        //    case "D":
+        //        UD = -.5f;
+        //        LR = 0f;
+        //        break;
+        //    case "L":
+        //        LR = -.5f;
+        //        UD = 0f;
+        //        break;
+        //    case "R":
+        //        LR = .5f;
+        //        UD = 0f;
+        //        break;
+        //}
+        //transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t/moveSpeed);
     }
 
     void KeyboardControl()  //  These are the keyboard inputs from the user.

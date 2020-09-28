@@ -46,6 +46,12 @@ public class GhostController : MonoBehaviour
         NumberTags.gameObject.SetActive(true);
     }
 
+    void Update()
+    {
+        if (!IsAlive)
+            DeadLerp();
+    }
+
     void FixedUpdate()
     {
         //ConstantMovement();
@@ -160,14 +166,20 @@ public class GhostController : MonoBehaviour
         //Possibly decrease this time to fit the original game, 5 seconds seems too long.
         //Invoke("GhostRespawn", 5f); //  Set the ghost to respawn in 5 seconds.
 
-        transform.position = Vector3.Lerp(transform.position, RespawnPoint.position, 1f);
-
         Sphere.enabled = false;
 
         PlaySound("EATGHOST");  //  Play the sound of the ghost being eaten by Pac Man.
         PlaySound("DEAD");  //  Play the sound when Pac Man eats a scared ghost.
         
         //TODO: Once the dead state eyes have returned to the Ghost's spawnpoint, reset the ghost; ScaredState = false, IsAlive = true;. DONE?
+    }
+
+    float time;
+
+    void DeadLerp()
+    {
+        time += Time.deltaTime;
+        transform.position = Vector3.Lerp(transform.position, RespawnPoint.position, time*.5f);
     }
 
     void GhostRespawn() //  This is called in the 'Ghost Dead State' animation as an event at the end of the animation.
