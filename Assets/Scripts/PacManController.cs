@@ -143,7 +143,7 @@ public class PacManController : MonoBehaviour
         moveSpeed = 0;  //  Stop Pac Man.
         IsAlive = false;    //  Set Pac Man's alive state to false.
 
-        Destroy(Instantiate(PacManDeath, transform.position, Quaternion.identity), 2f);
+        Destroy(Instantiate(PacManDeath, transform.position, Quaternion.identity), 5f);
 
         PlayerStats.timesDied++;
         FindObjectOfType<GameController>().DeductLife();    //  Deducts a life in the Life UI on-screen.

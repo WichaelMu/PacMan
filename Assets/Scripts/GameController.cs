@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameController : MonoBehaviour
     GameObject[] Fruits;
 
     [Header("Life Control")]
-    public Canvas GameOver;
+    public TextMeshProUGUI GameOver;
     public GameObject Life;
     public Transform LifeHolder;
     [Range(1, 10)]
@@ -113,14 +114,21 @@ public class GameController : MonoBehaviour
 
     void EndGame()
     {
-        Enable(false);
+        Enable(false);  //  Stops all Pac Man and Ghost Movement.
 
         DoNotRestart = true;
 
         GameOver.gameObject.SetActive(true);
         StopCoroutine(UpdateTime());
+
+        Invoke("LoadMainMenu", 3f);
         
         //Debug.Log("Pac Man is dead");
+    }
+
+    void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void BeginStartingProcedure() { 
@@ -158,6 +166,7 @@ public class GameController : MonoBehaviour
         Enable(true);
         StartCoroutine(GameTimer);
     }
+
     void Enable(bool b)
     {
         foreach (Transform t in GhostHolder)
