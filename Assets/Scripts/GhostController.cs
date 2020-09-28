@@ -4,6 +4,8 @@ using TMPro;
 
 public class GhostController : MonoBehaviour
 {
+    public Transform RespawnPoint;
+
     public TextMeshProUGUI ScaredTimer; //  This is the scared timer that is required for 60%.
     public TextMeshProUGUI NumberTags;  //  This is the Ghost's label (1-4) that is required for 60%.a
 
@@ -11,6 +13,7 @@ public class GhostController : MonoBehaviour
 
     Rigidbody GhostRB;  //  The ghosts' Rigidbody.
     Animator Anim;  //  The animator for this ghost.
+    SphereCollider Sphere;
     //Transform GhostHolder;
 
     AudioController AudioControl;   //  The AudioController for the game.
@@ -28,6 +31,8 @@ public class GhostController : MonoBehaviour
         GhostRB = GetComponent<Rigidbody>();
 
         Anim = GetComponent<Animator>();
+
+        Sphere = GetComponent<SphereCollider>();
 
         //AliveSprite = GetComponent<Animator>();
 
@@ -134,6 +139,8 @@ public class GhostController : MonoBehaviour
         ScaredTimer.gameObject.SetActive(false);
         NumberTags.gameObject.SetActive(true);
 
+        Sphere.enabled = true;
+
         StopSound("DEAD");  //  If the ghost dead sound is still playing, stop it.
         StopSound("GHOSTSCAREDSTATE");  //  If the ghost scared sound is still playing, stop it.
         PlaySound("AMBIENT");   //  Play the normal sound.
@@ -152,6 +159,10 @@ public class GhostController : MonoBehaviour
 
         //Possibly decrease this time to fit the original game, 5 seconds seems too long.
         //Invoke("GhostRespawn", 5f); //  Set the ghost to respawn in 5 seconds.
+
+        transform.position = Vector3.Lerp(transform.position, RespawnPoint.position, 1f);
+
+        Sphere.enabled = false;
 
         PlaySound("EATGHOST");  //  Play the sound of the ghost being eaten by Pac Man.
         PlaySound("DEAD");  //  Play the sound when Pac Man eats a scared ghost.

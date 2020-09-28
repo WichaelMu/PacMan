@@ -12,8 +12,8 @@ public class PlayerStats : MonoBehaviour
     public static int timesDied = 0;
     public static float timePlayed = 0f;
 
-    public static void UpdateScore()
-    {
-        //CurrentScore.text = score.ToString();
-    }
+    //public static void UpdateScore()
+    //{
+    //    //CurrentScore.text = score.ToString();
+    //}
 }

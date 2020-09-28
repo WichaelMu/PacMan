@@ -14,6 +14,12 @@ public class Switcher : MonoBehaviour
             allowHorizontal = true;
     }
 
+    /// <summary>
+    /// Asks this switcher if Pac Man can move in this [direction].
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns> A Boolean stating if a movement in [direction] is allowed by this swticher.</returns>
+
     public bool allowDirection(string direction)
     {
         switch (direction)

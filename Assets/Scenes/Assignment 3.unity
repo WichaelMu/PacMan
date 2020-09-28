@@ -167,7 +167,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &216968540
 GameObject:
@@ -1179,7 +1179,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &882815587 stripped
 GameObject:
@@ -1221,7 +1221,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1036224359 stripped
 GameObject:
@@ -1423,7 +1423,7 @@ Transform:
   - {fileID: 2404825762378911715}
   - {fileID: 8289152828594163474}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1245485963
 GameObject:
@@ -1435,7 +1435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1245485964}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: PacManSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1740,7 +1740,37 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1516317151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1516317152}
+  m_Layer: 0
+  m_Name: GhostRespawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1516317152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516317151}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.25, y: 4.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597369071
 GameObject:
@@ -2202,7 +2232,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1681757707
 MonoBehaviour:
@@ -2949,6 +2979,11 @@ PrefabInstance:
       propertyPath: GhostHolder
       value: 
       objectReference: {fileID: 1077753437}
+    - target: {fileID: -7087056638866581110, guid: 94be707e83b96054388fa5537141dda6,
+        type: 3}
+      propertyPath: RespawnPoint
+      value: 
+      objectReference: {fileID: 1516317152}
     - target: {fileID: 2812907592923063717, guid: 94be707e83b96054388fa5537141dda6,
         type: 3}
       propertyPath: m_Name
@@ -3125,6 +3160,11 @@ PrefabInstance:
       propertyPath: GhostHolder
       value: 
       objectReference: {fileID: 1077753437}
+    - target: {fileID: -5393282968893807434, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
+        type: 3}
+      propertyPath: RespawnPoint
+      value: 
+      objectReference: {fileID: 1516317152}
     - target: {fileID: 71347717212716893, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -3694,6 +3734,11 @@ PrefabInstance:
       propertyPath: GhostHolder
       value: 
       objectReference: {fileID: 1077753437}
+    - target: {fileID: -3159435967408762541, guid: d28d7927f40356e42b4ca19ba9394962,
+        type: 3}
+      propertyPath: RespawnPoint
+      value: 
+      objectReference: {fileID: 1516317152}
     - target: {fileID: 1696382010710459532, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
       propertyPath: m_Name
@@ -3925,6 +3970,11 @@ PrefabInstance:
       propertyPath: GhostHolder
       value: 
       objectReference: {fileID: 1077753437}
+    - target: {fileID: 4534949377706376788, guid: 7dad62afa11299c45a5e9170bdec0d13,
+        type: 3}
+      propertyPath: RespawnPoint
+      value: 
+      objectReference: {fileID: 1516317152}
     - target: {fileID: 5940172812434626663, guid: 7dad62afa11299c45a5e9170bdec0d13,
         type: 3}
       propertyPath: m_textInfo.characterCount
