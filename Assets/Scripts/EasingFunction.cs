@@ -40,10 +40,6 @@ public static class EasingFunction
 
     private const float NATURAL_LOG_OF_2 = 0.693147181f;
 
-    //
-    // Easing functions
-    //
-
     public static float Linear(float start, float end, float value)
     {
         return Mathf.Lerp(start, end, value);
