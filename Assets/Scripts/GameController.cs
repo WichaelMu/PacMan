@@ -120,7 +120,7 @@ public class GameController : MonoBehaviour
         GameOver.gameObject.SetActive(true);
         StopCoroutine(UpdateTime());
         
-        Debug.Log("Pac Man is dead");
+        //Debug.Log("Pac Man is dead");
     }
 
     public void BeginStartingProcedure() { 
