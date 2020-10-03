@@ -107,7 +107,7 @@ public class PacManController : MonoBehaviour
 
         foreach (Transform t in GhostHolder)    //  For every ghost in the game.
         {
-            GhostController gc = t.gameObject.GetComponent<GhostController>();
+            GhostMechanics gc = t.gameObject.GetComponent<GhostMechanics>();
             if (gc.IsAlive) //  If that ghost is alive.
                 gc.SetScared(true); //  Set that ghost to a scared state.
         }
@@ -122,7 +122,7 @@ public class PacManController : MonoBehaviour
 
     void OnHitGhost(GameObject Ghost)
     {
-        GhostController ghost = Ghost.GetComponent<GhostController>();
+        GhostMechanics ghost = Ghost.GetComponent<GhostMechanics>();
 
         if (ghost.ScaredState)  //  If the ghost is scared.
             OnHitScaredGhost(Ghost);    //  Kill that ghost.
@@ -132,7 +132,7 @@ public class PacManController : MonoBehaviour
 
     void PacManIsDead()
     {
-        //Ghost.GetComponent<GhostController>().OnHitPacMan();
+        //Ghost.GetComponent<GhostMechanics>().OnHitPacMan();
         //TODO: Play the death animation for Pac Man. DONE
 
         //Debug.Log("PacMan is Dead");
@@ -155,7 +155,7 @@ public class PacManController : MonoBehaviour
     void OnHitScaredGhost(GameObject Ghost)
     {
         //TODO: Play the death animation for The Ghosts. DONE.
-        Ghost.GetComponent<GhostController>().OnHitPacMan();    //  This can only be called if the ghost that was hit is scared.
+        Ghost.GetComponent<GhostMechanics>().OnHitPacMan();    //  This can only be called if the ghost that was hit is scared.
     }
 
     void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.

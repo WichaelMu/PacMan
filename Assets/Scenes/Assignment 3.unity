@@ -2409,6 +2409,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8174134097197768931}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1823511690 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8174134097346802907, guid: bdb8099f567e92d47a89c8212c6f46fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 8174134097197768931}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1845267380
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,6 +2990,11 @@ PrefabInstance:
       propertyPath: RespawnPoint
       value: 
       objectReference: {fileID: 1516317152}
+    - target: {fileID: -7087056638866581110, guid: 94be707e83b96054388fa5537141dda6,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 2812907592923063717, guid: 94be707e83b96054388fa5537141dda6,
         type: 3}
       propertyPath: m_Name
@@ -3050,6 +3061,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OrangeGhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 7050746103214715786, guid: 94be707e83b96054388fa5537141dda6,
+        type: 3}
+      propertyPath: PacMan
+      value: 
+      objectReference: {fileID: 1823511690}
+    - target: {fileID: 7050746103214715786, guid: 94be707e83b96054388fa5537141dda6,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 7050746103214715786, guid: 94be707e83b96054388fa5537141dda6,
+        type: 3}
+      propertyPath: GhostID
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7949215984345696092, guid: 94be707e83b96054388fa5537141dda6,
         type: 3}
@@ -3145,6 +3171,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1077753437}
     m_Modifications:
+    - target: {fileID: -5487550019469978990, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
+        type: 3}
+      propertyPath: PacMan
+      value: 
+      objectReference: {fileID: 1823511690}
+    - target: {fileID: -5487550019469978990, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: -5487550019469978990, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
+        type: 3}
+      propertyPath: GhostID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -5393282968893807434, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
         type: 3}
       propertyPath: ScaredTimer
@@ -3165,6 +3206,11 @@ PrefabInstance:
       propertyPath: RespawnPoint
       value: 
       objectReference: {fileID: 1516317152}
+    - target: {fileID: -5393282968893807434, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 71347717212716893, guid: 6a7a11ff36a1ec444823ef8fbce277e0,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -3719,6 +3765,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1077753437}
     m_Modifications:
+    - target: {fileID: -5239662832688337383, guid: d28d7927f40356e42b4ca19ba9394962,
+        type: 3}
+      propertyPath: PacMan
+      value: 
+      objectReference: {fileID: 1823511690}
+    - target: {fileID: -5239662832688337383, guid: d28d7927f40356e42b4ca19ba9394962,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: -5239662832688337383, guid: d28d7927f40356e42b4ca19ba9394962,
+        type: 3}
+      propertyPath: GhostID
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: -3159435967408762541, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
       propertyPath: ScaredTimer
@@ -3739,6 +3800,11 @@ PrefabInstance:
       propertyPath: RespawnPoint
       value: 
       objectReference: {fileID: 1516317152}
+    - target: {fileID: -3159435967408762541, guid: d28d7927f40356e42b4ca19ba9394962,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 1696382010710459532, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
       propertyPath: m_Name
@@ -3779,22 +3845,22 @@ PrefabInstance:
     - target: {fileID: 4836019715014372288, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4836019715014372288, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4836019715014372288, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4836019715014372288, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6808397299756287433, guid: d28d7927f40356e42b4ca19ba9394962,
         type: 3}
@@ -3900,6 +3966,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1077753437}
     m_Modifications:
+    - target: {fileID: 3128545452842255067, guid: 7dad62afa11299c45a5e9170bdec0d13,
+        type: 3}
+      propertyPath: PacMan
+      value: 
+      objectReference: {fileID: 1823511690}
+    - target: {fileID: 3128545452842255067, guid: 7dad62afa11299c45a5e9170bdec0d13,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128545452842255067, guid: 7dad62afa11299c45a5e9170bdec0d13,
+        type: 3}
+      propertyPath: GhostID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4178501083984186588, guid: 7dad62afa11299c45a5e9170bdec0d13,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3975,6 +4056,11 @@ PrefabInstance:
       propertyPath: RespawnPoint
       value: 
       objectReference: {fileID: 1516317152}
+    - target: {fileID: 4534949377706376788, guid: 7dad62afa11299c45a5e9170bdec0d13,
+        type: 3}
+      propertyPath: Walls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 5940172812434626663, guid: 7dad62afa11299c45a5e9170bdec0d13,
         type: 3}
       propertyPath: m_textInfo.characterCount

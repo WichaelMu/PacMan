@@ -45,6 +45,27 @@ public class Switcher : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Returns true if this switcher allows a direction in a horizontal or vertical movement.
+    /// </summary>
+    /// <param name="h">The horizontal direction. -1 is Left, 1 is Right.</param>
+    /// <param name="v">The vertical direction. -1 is Down, 1 is Up.</param>
+    /// <returns>True if this switcher allows movement in this horizontal or vertical direction.</returns>
+
+    public bool allowDirection (int h, int v)
+    {
+        if (h == 0 && v == 0)
+            return false;
+        if (h < 0 && left || h > 0 && right || v < 0 && down || v > 0 && up)
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// The number of directions this switcher facilitates.
+    /// </summary>
+    /// <returns>Int number of allowed directions.</returns>
+
     public int NumberOfAllowedDirections()
     {
         int c = 0;

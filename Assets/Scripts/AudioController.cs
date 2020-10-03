@@ -20,12 +20,22 @@ public class AudioController : MonoBehaviour
         PlaySound("AMBIENT");
     }
 
+    /// <summary>
+    /// Plays sound of name n.
+    /// </summary>
+    /// <param name="n">The name of the requested sound to play in capital casing.</param>
+
     public void PlaySound(string n)
     {
         Sound s = FindSound(n);
         if (s != null&&!s.s.isPlaying)
             s.s.Play();
     }
+
+    /// <summary>
+    /// Stops sound of name n.
+    /// </summary>
+    /// <param name="n">The name of the requested sound to stop playing in capital casing.</param>
 
     public void StopSound(string n)
     {
@@ -34,11 +44,32 @@ public class AudioController : MonoBehaviour
             s.s.Stop();
     }
 
+    /// <summary>
+    /// Stop every sound in the game.
+    /// </summary>
+
     public void StopAllSounds()
     {
         foreach (Sound s in Sounds)
             s.s.Stop();
     }
+
+    /// <summary>
+    /// Check if a sound is being played or not.
+    /// </summary>
+    /// <param name="n">The name of the sound.</param>
+    /// <returns>True if the sound is already playing, false if the sound is not playing.</returns>
+
+    public bool IsPlaying(string n)
+    {
+        return FindSound(n).s.isPlaying;
+    }
+
+    /// <summary>
+    /// Returns a sound in the Sounds array.
+    /// </summary>
+    /// <param name="n">The name of the requested sound.</param>
+    /// <returns>The sound clip of the requested sound.</returns>
 
     Sound FindSound(string n)
     {

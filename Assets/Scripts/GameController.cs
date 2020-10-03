@@ -170,7 +170,7 @@ public class GameController : MonoBehaviour
     void Enable(bool b)
     {
         foreach (Transform t in GhostHolder)
-            t.gameObject.GetComponent<GhostController>().enabled = b;
+            t.gameObject.GetComponent<GhostMechanics>().enabled = b;
         PacMan.GetComponent<PacManController>().enabled = b;
     }
 

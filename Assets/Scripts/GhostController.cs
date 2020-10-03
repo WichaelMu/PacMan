@@ -1,277 +1,113 @@
-﻿using System.Collections;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 
 public class GhostController : MonoBehaviour
 {
-    public Transform RespawnPoint;
 
-    public TextMeshProUGUI ScaredTimer; //  This is the scared timer that is required for 60%.
-    public TextMeshProUGUI NumberTags;  //  This is the Ghost's label (1-4) that is required for 60%.a
+    public LayerMask Walls;
+    public Transform PacMan;
 
-    public Transform GhostHolder;
+    [Header("The Ghost Canvas Number.")]
+    public int GhostID;
 
-    Rigidbody GhostRB;  //  The ghosts' Rigidbody.
-    Animator Anim;  //  The animator for this ghost.
-    SphereCollider Sphere;
-    //Transform GhostHolder;
-
-    AudioController AudioControl;   //  The AudioController for the game.
-
-    public float MoveSpeed, ScaredResetTime;    //  The movement speed for the ghost . The time it takes for the ghost to no lnoger be scared.
-    public bool ScaredState, IsAlive;   //  If the ghost is currently scared. If the ghost is currently alive (not dead/not just eyes).
-
-    float DefaultMoveSpeed; //  The default movement speed for the ghosts.
-
-    void Awake()
+    Rigidbody GhostRB;
+    
+    void Start()
     {
-        ScaredState = false;
-        IsAlive = true;
-
         GhostRB = GetComponent<Rigidbody>();
-
-        Anim = GetComponent<Animator>();
-
-        Sphere = GetComponent<SphereCollider>();
-
-        //AliveSprite = GetComponent<Animator>();
-
-        DefaultMoveSpeed = MoveSpeed;
-
-        //GhostHolder = GetComponentInParent<Transform>();
-
-        AudioControl = FindObjectOfType<AudioController>();
-
-        ScaredTimer.gameObject.SetActive(false);
-        NumberTags.gameObject.SetActive(true);
 
         ArtificialIntelligence();
     }
 
-    void Update()
+    void OnTriggerEnter(Collider o)
     {
-        if (!IsAlive)
-            DeadLerp();
-    }
-
-    void FixedUpdate()
-    {
-        //ConstantMovement();
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        //if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
-            //Invoke(DetermineMovement(other.gameObject), 0f);
-            //ArtificialIntelligence();
+        if (o.CompareTag("Switcher"))
+            ArtificialIntelligence(o.gameObject.GetComponent<Switcher>());
     }
 
     #region Artificial Intelligence for the Ghosts
 
-    void ArtificialIntelligence()
+    void ArtificialIntelligence(Switcher switcher = null)
     {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, Mathf.Infinity))
+        //  Perform a Raycast if this Ghost is Red or Pink.
+        if (GhostID < 3 && Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(Vector3.up), out RaycastHit hit, Mathf.Infinity, Walls))
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1000, Color.white);
-            Debug.Log(name + " hit: " + hit.collider.gameObject.name);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.white);
             Debug.Log(name + "'s distance from " + hit.collider.gameObject.name + " is: " + hit.distance);
+            ArtificialIntelligence(hit.distance, GetPacManGhostDistance(transform.position), switcher);
         }
-        else
+    }
+
+    /// <summary>
+    /// Begins the Artifical Intelligence for the Ghosts.
+    /// </summary>
+    /// <param name="distance">The distance between this Ghost and the Collider in this Ghost's direction of travel.</param>
+    /// <param name="PacManDistance">The disance between this Ghost and Pac Man.</param>
+    /// <param name="switcher">The switcher that triggered this Ghost's Artifical Intelligence. It is default is null.</param>
+
+    void ArtificialIntelligence(float distance, float PacManDistance, Switcher switcher = null)
+    {
+        switch (GhostID)
         {
-            
+            case 1:
+                RedGhostAI(distance, PacManDistance, switcher);
+                break;
+            case 2:
+                PinkGhostAI(distance, PacManDistance, switcher);
+                break;
+            case 3:
+                OrangeGhostAI(distance, PacManDistance, switcher);
+                break;
+            case 4:
+                LightBlueGhostAI(distance, PacManDistance, switcher);
+                break;
+            default:
+                Debug.LogWarning("Incorrect Ghost ID on " + name);
+                break;
         }
     }
 
-    #endregion
+    /// <summary>
+    /// Pac Man's distance from the Ghost.
+    /// </summary>
+    /// <param name="position">The Ghost's Vector3 position.</param>
+    /// <returns>The float distance between the Ghost and Pac Man.</returns>
 
-    #region Random Movement of the Ghosts.
-
-    //  This is not used as the ghosts will never move from their starting position.
-    string DetermineMovement(GameObject Switch) //  This allows the ghosts to turn corners randomly.
+    float GetPacManGhostDistance(Vector3 position)
     {
-        Switcher switcher = Switch.GetComponent<Switcher>();
-
-        float Randomiser = Random.Range(0f, 1f);
-        string Moves = RandomMovement(Randomiser);
-
-        for (int i = 0; i < Moves.Length; i++)
-            if (switcher.allowDirection(Moves[i].ToString()))
-                return Moves[i].ToString(); //  The ghost will turn in a durection on the next allowed turn on any corner. A corner is defined as a 'Switcher'.
-            else
-                i = 0;  //  This is probably the reason why this random movement is extremly buggy.
-        return null;
+        return Vector3.Distance(PacMan.position, position);
     }
 
-    //  This is not used as the ghosts will never move from their starting position.
-    string RandomMovement(float Randomiser)
+    void RedGhostAI(float distance, float PacManDistance, Switcher switcher = null)
     {
-        if (Randomiser < .1f)
-            return "UDLR";
-        if (Randomiser < .2f)
-            return "DLRU";
-        if (Randomiser < .3f)
-            return "LRUD";
-        if (Randomiser < .4f)
-            return "RUDL";
-        if (Randomiser < .5f)
-            return "UDRL";
-        if (Randomiser < .6f)
-            return "DRLU";
-        if (Randomiser < .7f)
-            return "RLUD";
-        if (Randomiser < .8f)
-            return "LUDR";
-        if (Randomiser < .9f)
-            return "DULR";
-        if (Randomiser <= 1f)
-            return "ULRD";
-        return null;
+        float _nextDistance = 0f;
+        if (switcher != null && distance >= PacManDistance)   //  If the switcher is not null and the distance is greater than or equal to Pac Man's distance.
+            for (int h = -1; h < 2; h++)    //  The horitzontal direction.
+                for (int v = -1; v < 2; v++)    //  The vertical direction.
+                    if (Physics.Raycast(transform.position, new Vector3(h, v, 0f).normalized, out RaycastHit hit, Mathf.Infinity, Walls))
+                        if (hit.distance > _nextDistance)
+                            if (switcher.allowDirection(h, v))
+                                MoveDirection(h, v);
+
     }
 
-    #endregion
-
-    public void SetScared(bool instruction)
+    void PinkGhostAI(float distance, float PacManDistance, Switcher switcher = null)
     {
-        if (instruction)
-        {
-            CancelInvoke();
-            if (ScaredState)
-                ResetState();
-            GetScared();
-        }
-    }
-
-    void GetScared()
-    {
-        CancelInvoke();
-        MoveSpeed = .7f;
-        ScaredState = true;
-        Anim.SetTrigger("GhostScared"); //  Plays the blue and white ghost scared state.
-        //Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> + 4 seconds of being scared.
-
-        StopSound("AMBIENT");
-        PlaySound("GHOSTSCAREDSTATE");  //  Play the sound of the ghosts being scared. A very annoying sound.
-    }
-
-    void ResetState()   //  Resets the ghost.
-    {
-        CancelInvoke();
-        IsAlive = true;
-        ScaredState = false;
-        MoveSpeed = DefaultMoveSpeed;   //  The movement speed of the ghosts are reset.
-
-        Anim.SetTrigger("GhostRecover");
-        //Anim.Play("Default");
-
-        ScaredTimer.gameObject.SetActive(false);
-        NumberTags.gameObject.SetActive(true);
-
-        Sphere.enabled = true;
-
-        StopSound("DEAD");  //  If the ghost dead sound is still playing, stop it.
-        StopSound("GHOSTSCAREDSTATE");  //  If the ghost scared sound is still playing, stop it.
-        PlaySound("AMBIENT");   //  Play the normal sound.
-    }
-
-    public void OnHitPacMan()   //  This can only be called if this Ghost is scared.
-    {
-        CancelInvoke();
-        IsAlive = false;
-
-        //TODO: Create a dead state, just eyes, that track back to the Ghost's spawnpoint. DONE.
-        //transform.position = new Vector3(500f, 500f, 0f);
-        PlayerStats.score += 300;
-
-        Anim.SetTrigger("GhostIsDead"); //  Set the ghost to play the animation with only eyes.
-
-        //Possibly decrease this time to fit the original game, 5 seconds seems too long.
-        //Invoke("GhostRespawn", 5f); //  Set the ghost to respawn in 5 seconds.
-
-        Sphere.enabled = false;
-
-        PlaySound("EATGHOST");  //  Play the sound of the ghost being eaten by Pac Man.
-        PlaySound("DEAD");  //  Play the sound when Pac Man eats a scared ghost.
         
-        //TODO: Once the dead state eyes have returned to the Ghost's spawnpoint, reset the ghost; ScaredState = false, IsAlive = true;. DONE?
     }
 
-    float time;
-
-    void DeadLerp()
+    void OrangeGhostAI(float distance, float PacManDistance, Switcher switcher = null)
     {
-        time += Time.deltaTime;
-        transform.position = Vector3.Lerp(transform.position, RespawnPoint.position, time*.5f);
+        
     }
 
-    void GhostRespawn() //  This is called in the 'Ghost Dead State' animation as an event at the end of the animation.
+    void LightBlueGhostAI(float distance, float PacManDistance, Switcher switcher = null)
     {
-        CancelInvoke();
-        //transform.localPosition = new Vector3(1f, 1f, -.05f); //  Do not use for Assignment 3.
-
-        ResetState();
+        
     }
 
-    void ShowScaredTimerSeconds(int n)  //  This is called in the GhostRecovery animation as an event.
+    void MoveDirection(int h, int v)
     {
-        NumberTags.gameObject.SetActive(false);
-        ScaredTimer.gameObject.SetActive(true);
-        ScaredTimer.text = n.ToString();
-    }
 
-    void StopShowingScaredTimer()
-    {
-        NumberTags.gameObject.SetActive(true);
-        ScaredTimer.gameObject.SetActive(false);
-    }
-
-    void ConstantMovement() //  Do not use for Assignment 3.    //  This code is not in use as it is commented out in the FixedUpdate().
-    {
-        GhostRB.MovePosition(transform.position + (transform.up * MoveSpeed * Time.deltaTime)); //  Constantly moves the ghost at a contant speed.
-    }
-
-    #region Audio Control
-
-    //  Plays or Stops the sound <name>.
-
-    void PlaySound(string name)
-    {
-        AudioControl.PlaySound(name);
-    }
-
-    void StopSound(string name)
-    {
-        AudioControl.StopSound(name);
-    }
-
-    #endregion
-
-    #region The Rotation of the Ghosts
-
-    void U()    // UP
-    {
-        RotateGhost(new Vector3(000f, 000f, 090f));
-    }
-
-    void D()    //  DOWN
-    {
-        RotateGhost(new Vector3(000f, 000f, 270f));
-    }
-
-    void L()    //  LEFT
-    {
-        RotateGhost(new Vector3(000f, 000f, 180f));
-    }
-
-    void R()    //  RIGHT
-    {
-        RotateGhost(new Vector3(000f, 000f, 000f));
-    }
-
-    void RotateGhost(Vector3 faceAngle)
-    {
-        transform.localEulerAngles = faceAngle; //  Rotates the ghost to face a direction.  //  This may not be used for Assignment 4.
     }
 
     #endregion
