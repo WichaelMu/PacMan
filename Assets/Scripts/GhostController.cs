@@ -44,6 +44,8 @@ public class GhostController : MonoBehaviour
 
         ScaredTimer.gameObject.SetActive(false);
         NumberTags.gameObject.SetActive(true);
+
+        ArtificialIntelligence();
     }
 
     void Update()
@@ -59,9 +61,30 @@ public class GhostController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
-            Invoke(DetermineMovement(other.gameObject), 0f);
+        //if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
+            //Invoke(DetermineMovement(other.gameObject), 0f);
+            //ArtificialIntelligence();
     }
+
+    #region Artificial Intelligence for the Ghosts
+
+    void ArtificialIntelligence()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1000, Color.white);
+            Debug.Log(name + " hit: " + hit.collider.gameObject.name);
+            Debug.Log(name + "'s distance from " + hit.collider.gameObject.name + " is: " + hit.distance);
+        }
+        else
+        {
+            
+        }
+    }
+
+    #endregion
 
     #region Random Movement of the Ghosts.
 
