@@ -105,9 +105,9 @@ public class PacManController : MonoBehaviour
         PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit/Big Pellet.
         StopSound("AMBIENT");   //  Stops the ambient from playing.
 
-        foreach (Transform t in GhostHolder)    //  For every ghost in the game.
+        for (int i = 0; i < 4; i++)    //  For every ghost in the game.
         {
-            GhostMechanics gc = t.gameObject.GetComponent<GhostMechanics>();
+            GhostMechanics gc = GhostHolder.GetChild(i).gameObject.GetComponent<GhostMechanics>();
             if (gc.IsAlive) //  If that ghost is alive.
                 gc.SetScared(true); //  Set that ghost to a scared state.
         }
@@ -148,6 +148,13 @@ public class PacManController : MonoBehaviour
         PlayerStats.timesDied++;
         FindObjectOfType<GameController>().DeductLife();    //  Deducts a life in the Life UI on-screen.
 
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject Ghost = GhostHolder.GetChild(i).gameObject;
+            Ghost.GetComponent<GhostController>().enabled = false;
+            Ghost.GetComponent<GhostMechanics>().enabled = false;
+        }
+
         if (!GameController.DoNotRestart)
             Invoke("ResetGame", 4f);    //  Reset the game in 4 seconds.
     }
@@ -176,6 +183,17 @@ public class PacManController : MonoBehaviour
         transform.position = SpawnPoint.transform.position; //  Pac Man will be moved to his spawn point.
         R();    //  Pac Man will turn right by default.
         PlaySound("AMBIENT");   //  Play the ambient sound.
+
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject Ghost = GhostHolder.GetChild(i).gameObject;
+            GhostController GC = Ghost.GetComponent<GhostController>();
+            GC.enabled = true;
+            GC.ResetPositions();
+            GhostMechanics GM = Ghost.GetComponent<GhostMechanics>();
+            GM.enabled = true;
+            GM.ResetPositions();
+        }
     }
 
     #region Sound Controller

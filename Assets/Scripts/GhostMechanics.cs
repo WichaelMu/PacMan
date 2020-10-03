@@ -21,6 +21,7 @@ public class GhostMechanics : MonoBehaviour
     public bool ScaredState, IsAlive;   //  If the ghost is currently scared. If the ghost is currently alive (not dead/not just eyes).
 
     float DefaultMoveSpeed; //  The default movement speed for the ghosts.
+    bool IsOutOfPortal;
 
     void Awake()
     {
@@ -47,7 +48,7 @@ public class GhostMechanics : MonoBehaviour
     void Update()
     {
         if (!IsAlive)
-            DeadLerp();
+            Lerp(RespawnPoint.position);
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.green);
     }
 
@@ -59,8 +60,10 @@ public class GhostMechanics : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
-            //Invoke(DetermineMovement(other.gameObject), 0f);
-            //ArtificialIntelligence();
+        //Invoke(DetermineMovement(other.gameObject), 0f);
+        //ArtificialIntelligence();
+        if (other.CompareTag("Portal"))
+            PortalHandler(other.name);
     }
 
     #region Random Movement of the Ghosts.
@@ -109,6 +112,15 @@ public class GhostMechanics : MonoBehaviour
 
     #endregion
 
+    void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.
+    {
+        if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Left Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Right Portal.
+            transform.position = new Vector3(8.4375f, 4.375f, 0f);
+        if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Left Portal.
+            transform.position = new Vector3(0f, 4.375f, 0f);
+        IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
+    }
+
     public void SetScared(bool instruction)
     {
         if (instruction)
@@ -123,7 +135,7 @@ public class GhostMechanics : MonoBehaviour
     void GetScared()
     {
         CancelInvoke();
-        MoveSpeed = .7f;
+        MoveSpeed *= .7f;
         ScaredState = true;
         Anim.SetTrigger("GhostScared"); //  Plays the blue and white ghost scared state.
         //Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> + 4 seconds of being scared.
@@ -146,6 +158,8 @@ public class GhostMechanics : MonoBehaviour
         NumberTags.gameObject.SetActive(true);
 
         Sphere.enabled = true;
+
+        IsOutOfPortal = true;
 
         StopSound("DEAD");  //  If the ghost dead sound is still playing, stop it.
         StopSound("GHOSTSCAREDSTATE");  //  If the ghost scared sound is still playing, stop it.
@@ -176,10 +190,10 @@ public class GhostMechanics : MonoBehaviour
 
     float time;
 
-    void DeadLerp()
+    void Lerp(Vector3 position)
     {
         time += Time.deltaTime;
-        transform.position = Vector3.Lerp(transform.position, RespawnPoint.position, time*.5f);
+        transform.position = Vector3.Lerp(transform.position, position, time*.5f);
     }
 
     void GhostRespawn() //  This is called in the 'Ghost Dead State' animation as an event at the end of the animation.
@@ -201,6 +215,12 @@ public class GhostMechanics : MonoBehaviour
     {
         NumberTags.gameObject.SetActive(true);
         ScaredTimer.gameObject.SetActive(false);
+    }
+
+    public void ResetPositions()
+    {
+        IsOutOfPortal = true;
+        transform.position = RespawnPoint.position;
     }
 
     void ConstantMovement() //  Do not use for Assignment 3.    //  This code is not in use as it is commented out in the FixedUpdate().

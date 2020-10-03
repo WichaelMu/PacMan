@@ -52,7 +52,7 @@ public class Switcher : MonoBehaviour
     /// <param name="v">The vertical direction. -1 is Down, 1 is Up.</param>
     /// <returns>True if this switcher allows movement in this horizontal or vertical direction.</returns>
 
-    public bool allowDirection (int h, int v)
+    public bool allowDirection (int h=0, int v=0)
     {
         if (h == 0 && v == 0)
             return false;
@@ -75,5 +75,50 @@ public class Switcher : MonoBehaviour
         if (left)   c++;
         if (right)  c++;
         return c;
+    }
+
+    public string MoveRandom()
+    {
+        int r = Random.Range(0, 3);
+        while (true)
+        {
+            switch (r)
+            {
+                case 0:
+                    if (!up)
+                    {
+                        r++;
+                        r %= 4;
+                        continue;
+                    }
+                    return "U";
+                case 1:
+                    if (!down)
+                    {
+                        r++;
+                        r %= 4;
+                        continue;
+                    }
+                    return "D";
+                case 2:
+                    if (!left)
+                        {
+                        r++;
+                        r %= 4;
+                        continue;
+                    }
+                    return "L";
+                case 3:
+                    if (!right)
+                    {
+                        r++;
+                        r %= 4;
+                        continue;
+                    }
+                    return "R";
+            }
+            Debug.Log("Unable to find a valid path");
+            return "R";
+        }
     }
 }

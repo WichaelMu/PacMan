@@ -132,7 +132,7 @@ public class GameController : MonoBehaviour
     }
 
     public void BeginStartingProcedure() { 
-        StartCoroutine(StartProcedure);
+        //StartCoroutine(StartProcedure);
     }
 
     IEnumerator Countdown()
@@ -169,8 +169,12 @@ public class GameController : MonoBehaviour
 
     void Enable(bool b)
     {
-        foreach (Transform t in GhostHolder)
-            t.gameObject.GetComponent<GhostMechanics>().enabled = b;
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject Ghost = GhostHolder.GetChild(i).gameObject;
+            Ghost.GetComponent<GhostController>().enabled = b;
+            Ghost.GetComponent<GhostMechanics>().enabled = b;
+        }
         PacMan.GetComponent<PacManController>().enabled = b;
     }
 
