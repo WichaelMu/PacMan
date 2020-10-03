@@ -177,7 +177,7 @@ public class GhostController : MonoBehaviour
 
     void OrangeGhostAI(Transform Collider, Switcher switcher)
     {
-
+        Invoke(switcher.MoveRandom(), 0f);
     }
 
     void LightBlueGhostAI(Transform Collider, Switcher switcher)
