@@ -194,6 +194,13 @@ public class GhostMechanics : MonoBehaviour
     {
         time += Time.deltaTime;
         transform.position = Vector3.Lerp(transform.position, position, time*.5f);
+
+        if (Vector3.Distance(transform.position, position) < .1f)
+        {
+            time = 0;
+            transform.position = position;
+            return;
+        }
     }
 
     void GhostRespawn() //  This is called in the 'Ghost Dead State' animation as an event at the end of the animation.
