@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System;
+using UnityEngine;
 
 public class GhostController : MonoBehaviour
 {
@@ -95,13 +97,30 @@ public class GhostController : MonoBehaviour
     /// <summary>
     /// Pac Man's distance from the collider.
     /// </summary>
-    /// <param name="position">The Vecto3 position of the Collider.</param>
+    /// <param name="position">The Vector3 position of the Collider.</param>
     /// <returns>The float distance between Pac Man and the Collider.</returns>
 
     float GetColliderPacManDistance(Vector3 position)
     {
         return Vector3.Distance(PacMan.position, position);
     }
+
+    /// <summary>
+    /// The distance between this Ghost and Pac Man.
+    /// </summary>
+    /// <param name="position">The Vector3 postition of Pac Man</param>
+    /// <returns>The fliat distance between this Ghost and Pac Man.</returns>
+
+    float GetGhostPacManDistance(Vector3 position)
+    {
+        return Vector3.Distance(transform.position, position);
+    }
+
+    /// <summary>
+    /// Moves the Red Ghost in a direction where the distance to the next Collider is greater than or equal to Pac Man's distance to the Red Ghost.
+    /// </summary>
+    /// <param name="Collider">The Collider this Red Ghost is going towards.</param>
+    /// <param name="switcher">The Switcher this Red Ghost is currently on.</param>
 
     void RedGhostAI(Transform Collider, Switcher switcher)
     {
@@ -110,53 +129,50 @@ public class GhostController : MonoBehaviour
         float distance = 0f;
         Vector3 LongestDirection = directions[0];
 
-        if (GhostColliderDistance >= PacManColliderDistance)
-            for (int i = 0; i < directions.Length; i++)
-            {
-                Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-                if (hit.distance > distance)
-                {
-                    distance = hit.distance;
-                    LongestDirection = directions[i];
-                }
-            }
-        else
+        for (int i = 0; i < directions.Length; i++)
         {
-            Invoke(switcher.MoveRandom(), 0f);
-            Debug.Log(name + " moved randomly");
-            return;
+            Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
+            if (hit.distance > distance)
+            {
+                distance = hit.distance;
+                LongestDirection = directions[i];
+            }
         }
-        MoveDirection(LongestDirection);
-        Debug.Log(name + " did not move randomly");
+
+        if (GhostColliderDistance >= GetGhostPacManDistance(PacMan.position))
+            MoveDirection(LongestDirection);
+        else
+            Invoke(switcher.MoveRandom(), 0f);
     }
+
+    /// <summary>
+    /// Moves the Pink Ghost in a direction where the next Collider's position is less than or equal to Pac Man's position to the Pink Ghost.
+    /// </summary>
+    /// <param name="Collider">The Collider this Pink Ghost is going towards.</param>
+    /// <param name="switcher">The Switcher this Pink Ghost is currently on.</param>
 
     void PinkGhostAI(Transform Collider, Switcher switcher)
     {
-        float GhostColliderDistance = GetColliderGhostDistance(Collider.position);
         float PacManColliderDistance = GetColliderPacManDistance(Collider.position);
-        float distance = 0f;
-        Vector3 ShortestDirection = directions[0];
+        float distance = Mathf.Infinity;
+        Vector3[] AllowedDirections = new[] { Vector3.right, -Vector3.right, -Vector3.up, Vector3.up, };
 
-        if (GhostColliderDistance >= PacManColliderDistance)
+        for (int i = 0; i < directions.Length; i++)
         {
-            for (int i = 0; i < directions.Length; i++)
+            Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
+            if (hit.distance < distance && hit.distance > .05f)
             {
-                Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-                if (hit.distance > distance)
-                {
-                    distance = hit.distance;
-                    ShortestDirection = directions[i];
-                }
+                distance = hit.distance;
+                AllowedDirections[i] = directions[i];
             }
         }
-        else
-        {
-            Invoke(switcher.MoveRandom(), 0f);
-            Debug.Log(name + " moved randomly");
-            return;
-        }
-        MoveDirection(ShortestDirection);
-        Debug.Log(name + " did not move randomly");
+
+        Array.Reverse(AllowedDirections);
+        for (int i = 0; i < AllowedDirections.Length; i++)
+            if (Vector3.Distance(transform.position, PacMan.position) >= PacManColliderDistance && switcher.allowDirection(AllowedDirections[i]))
+                MoveDirection(AllowedDirections[i]);
+            else
+                Invoke(switcher.MoveRandom(), 0f);
     }
 
     void OrangeGhostAI(Transform Collider, Switcher switcher)
@@ -219,6 +235,8 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    #region The Orientations of the Ghosts.
+
     void U()
     {
         hCurrent = 0;
@@ -243,6 +261,8 @@ public class GhostController : MonoBehaviour
         vCurrent = 0;
         dCurrent = "R";
     }
+
+    #endregion
 
     public void ResetPositions()
     {
