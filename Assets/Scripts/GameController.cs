@@ -132,7 +132,7 @@ public class GameController : MonoBehaviour
     }
 
     public void BeginStartingProcedure() { 
-        //StartCoroutine(StartProcedure);
+        StartCoroutine(StartProcedure);
     }
 
     IEnumerator Countdown()

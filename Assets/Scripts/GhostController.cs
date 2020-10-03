@@ -52,6 +52,10 @@ public class GhostController : MonoBehaviour
             //Debug.Log(name + "'s distance from " + hit.collider.gameObject.name + " is: " + hit.distance);
             ArtificialIntelligence(hit.collider.transform, switcher);
         }
+        if (GhostID == 3)
+            OrangeGhostAI(switcher);
+        if (GhostID == 4)
+            LightBlueGhostAI();
     }
 
     /// <summary>
@@ -63,24 +67,10 @@ public class GhostController : MonoBehaviour
 
     void ArtificialIntelligence(Transform Collider, Switcher switcher)
     {
-        switch (GhostID)
-        {
-            case 1:
-                RedGhostAI(Collider, switcher);
-                break;
-            case 2:
-                PinkGhostAI(Collider, switcher);
-                break;
-            case 3:
-                OrangeGhostAI(Collider, switcher);
-                break;
-            case 4:
-                LightBlueGhostAI(Collider, switcher);
-                break;
-            default:
-                Debug.LogWarning("Incorrect Ghost ID on " + name);
-                break;
-        }
+        if (GhostID==1)
+            RedGhostAI(Collider, switcher);
+        if (GhostID==2)
+            PinkGhostAI(Collider, switcher);
     }
 
     /// <summary>
@@ -175,14 +165,65 @@ public class GhostController : MonoBehaviour
                 Invoke(switcher.MoveRandom(), 0f);
     }
 
-    void OrangeGhostAI(Transform Collider, Switcher switcher)
+    void OrangeGhostAI(Switcher switcher)
     {
         Invoke(switcher.MoveRandom(), 0f);
     }
 
-    void LightBlueGhostAI(Transform Collider, Switcher switcher)
-    {
+    string[] strict = new[] { "L", "D", "R", "D", "L", "D", "U", "L", "D", "L", "L", "U", "U", "R", "U", "U", "L", "U", "U", "R", "R", "D", "R", "U", "R", "R", "D", "D", "L", "D", "D", "R", "D", "D", "L", "L", "L", };
+    int LBM = 0;
 
+    void LightBlueGhostAI()
+    {
+        #region Light Blue Strict Movement
+        //  The Light Blue Ghost needs to move:
+        /*
+         * Left
+         * Down
+         * Right
+         * Down
+         * Left
+         * Down
+
+         * LOOP HERE
+
+         * Up
+         * Left
+         * Down
+         * Left
+         * Left
+         * Up
+         * Up
+         * Right
+         * Up
+         * Up
+         * Left
+         * Up
+         * Up
+         * Right
+         * Right
+         * Down
+         * Right
+         * Up
+         * 
+         * Right
+         * Right
+         * Down
+         * Down
+         * Left
+         * Down
+         * Down
+         * Right
+         * Down
+         * Down
+         * Left
+         * Left
+         */
+        #endregion
+        Invoke(strict[LBM], 0f);
+        LBM++;
+        if (LBM == strict.Length - 1)
+            LBM = 6;
     }
 
     #endregion
