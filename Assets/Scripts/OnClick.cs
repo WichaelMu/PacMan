@@ -13,6 +13,11 @@ public class OnClick : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    public void PlayInnovation()
+    {
+        SceneManager.LoadScene(4);
+    }
+
     public void ViewAssets()
     {
         SceneManager.LoadScene(3);
