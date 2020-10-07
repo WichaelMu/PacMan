@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System;
+﻿using System;
 using UnityEngine;
 
 public class GhostController : MonoBehaviour
@@ -24,7 +23,7 @@ public class GhostController : MonoBehaviour
         GhostRB = GetComponent<Rigidbody>();
         RespawnPoint = GetComponent<GhostMechanics>().RespawnPoint;
 
-        U();
+        StartSequence();
     }
 
     void FixedUpdate()
@@ -67,9 +66,9 @@ public class GhostController : MonoBehaviour
 
     void ArtificialIntelligence(Transform Collider, Switcher switcher)
     {
-        if (GhostID==1)
+        if (GhostID == 1)
             RedGhostAI(Collider, switcher);
-        if (GhostID==2)
+        if (GhostID == 2)
             PinkGhostAI(Collider, switcher);
     }
 
@@ -98,12 +97,11 @@ public class GhostController : MonoBehaviour
     /// <summary>
     /// The distance between this Ghost and Pac Man.
     /// </summary>
-    /// <param name="position">The Vector3 postition of Pac Man</param>
     /// <returns>The fliat distance between this Ghost and Pac Man.</returns>
 
-    float GetGhostPacManDistance(Vector3 position)
+    float GetGhostPacManDistance()
     {
-        return Vector3.Distance(transform.position, position);
+        return Vector3.Distance(transform.position, PacMan.position);
     }
 
     /// <summary>
@@ -117,65 +115,122 @@ public class GhostController : MonoBehaviour
         float GhostColliderDistance = GetColliderGhostDistance(Collider.position);
         float PacManColliderDistance = GetColliderPacManDistance(Collider.position);
         float distance = 0f;
+        bool found = false;
         Vector3 LongestDirection = directions[0];
+        Vector3 opposite = GetOppositeDirection();
 
         for (int i = 0; i < directions.Length; i++)
         {
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            if (hit.distance > distance)
+            if (hit.distance > distance && hit.distance > .05f && switcher.allowDirection(directions[i]) && (GhostColliderDistance >= GetGhostPacManDistance()))
             {
                 distance = hit.distance;
-                LongestDirection = directions[i];
+                if (directions[i] != opposite)
+                    LongestDirection = directions[i];
+                found = true;
             }
         }
 
-        if (GhostColliderDistance >= GetGhostPacManDistance(PacMan.position))
+        if (found)
             MoveDirection(LongestDirection);
         else
-            Invoke(switcher.MoveRandom(), 0f);
+        {
+            while (true)
+            {
+                string s = switcher.MoveRandom();
+                if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection())
+                {
+                    Invoke(s, 0f);
+                    return;
+                }
+            }
+        }
+
+        //if (GhostColliderDistance >= GetGhostPacManDistance(PacMan.position))
+        //    MoveDirection(LongestDirection);
+        //else
+        //    Invoke(switcher.MoveRandom(), 0f);
     }
 
     /// <summary>
-    /// Moves the Pink Ghost in a direction where the next Collider's position is less than or equal to Pac Man's position to the Pink Ghost.
+    /// Moves the Pink Ghost in a direction where the distance from the next Collider's position is closer than or equal to Pac Man's position than the Pink Ghost is to Pac Man's position.
     /// </summary>
     /// <param name="Collider">The Collider this Pink Ghost is going towards.</param>
     /// <param name="switcher">The Switcher this Pink Ghost is currently on.</param>
 
     void PinkGhostAI(Transform Collider, Switcher switcher)
     {
+        float GhostPacManDistance = GetGhostPacManDistance();
         float PacManColliderDistance = GetColliderPacManDistance(Collider.position);
         float distance = Mathf.Infinity;
-        Vector3[] AllowedDirections = new[] { Vector3.right, -Vector3.right, -Vector3.up, Vector3.up, };
+        bool found = false;
+        //Vector3[] AllowedDirections = new[] { Vector3.right, -Vector3.right, -Vector3.up, Vector3.up, };
+        Vector3 ShortestDirection = directions[0];
+        Vector3 opposite = GetOppositeDirection();
 
         for (int i = 0; i < directions.Length; i++)
         {
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            if (hit.distance < distance && hit.distance > .05f)
+            if (hit.distance < distance && hit.distance > .05f && switcher.allowDirection(directions[i]) && (GhostPacManDistance >= PacManColliderDistance))
             {
                 distance = hit.distance;
-                AllowedDirections[i] = directions[i];
+                if (directions[i] != opposite)
+                    ShortestDirection = directions[i];
+                found = true;
             }
         }
 
-        Array.Reverse(AllowedDirections);
-        for (int i = 0; i < AllowedDirections.Length; i++)
-            if (Vector3.Distance(transform.position, PacMan.position) >= PacManColliderDistance && switcher.allowDirection(AllowedDirections[i]))
-                MoveDirection(AllowedDirections[i]);
-            else
-                Invoke(switcher.MoveRandom(), 0f);
+        if (found)
+            MoveDirection(ShortestDirection);
+        else
+        {
+            int i = 0;
+            while (i < 4)
+            {
+                string s = switcher.MoveRandom();
+                if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection())
+                {
+                    Invoke(s, 0f);
+                    return;
+                }
+                i++;
+            }
+            Invoke(switcher.MoveRandom(), 0f);
+        }
+
+        //Array.Reverse(AllowedDirections);
+        //for (int i = 0; i < AllowedDirections.Length; i++)
+        //    if (Vector3.Distance(transform.position, PacMan.position) >= PacManColliderDistance && switcher.allowDirection(AllowedDirections[i]))
+        //    {
+        //        MoveDirection(AllowedDirections[i]);
+        //        Debug.Log(name + " did not move randomly");
+        //    }
+        //    else
+        //    {
+        //        Invoke(switcher.MoveRandom(), 0f);
+        //        Debug.Log(name + " moved randomly");
+        //    }
     }
 
     void OrangeGhostAI(Switcher switcher)
     {
-        Invoke(switcher.MoveRandom(), 0f);
+        while (true)
+        {
+            string s = switcher.MoveRandom();
+            if (ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection())
+            {
+                Invoke(s, 0f);
+                return;
+            }
+        }
     }
 
-    string[] strict = new[] { "L", "D", "R", "D", "L", "D", "U", "L", "D", "L", "L", "U", "U", "R", "U", "U", "L", "U", "U", "R", "R", "D", "R", "U", "R", "R", "D", "D", "L", "D", "D", "R", "D", "D", "L", "L", "L", };
+    string[] strict = new[] { "D", "R", "D", "L", "D", "U", "L", "D", "L", "L", "U", "U", "R", "U", "U", "L", "U", "U", "R", "R", "D", "R", "U", "R", "R", "D", "D", "L", "D", "D", "R", "D", "D", "L", "L", "L", };
     int LBM = 0;
 
     void LightBlueGhostAI()
     {
-        #region Light Blue Strict Movement
+        #region Light Blue's Strict Movement
         //  The Light Blue Ghost needs to move:
         /*
          * Left
@@ -223,7 +278,7 @@ public class GhostController : MonoBehaviour
         Invoke(strict[LBM], 0f);
         LBM++;
         if (LBM == strict.Length - 1)
-            LBM = 6;
+            LBM = 5;
     }
 
     #endregion
@@ -241,6 +296,7 @@ public class GhostController : MonoBehaviour
             GhostRB.MovePosition(transform.position + new Vector3(horizontal, vertical, 0f) * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);
             hCurrent = horizontal;
             vCurrent = vertical;
+
         }
     }
 
@@ -251,6 +307,10 @@ public class GhostController : MonoBehaviour
             GhostRB.MovePosition(transform.position + direction * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);
             hCurrent = direction.x;
             vCurrent = direction.y;
+
+            for (int i = 0; i < directions.Length; i++)
+                if (directions[i] == direction)
+                    dCurrent = ConvertVectorDirectionToStringDirection(directions[i]);
         }
     }
 
@@ -274,6 +334,78 @@ public class GhostController : MonoBehaviour
             default:
                 return new Vector3(hCurrent, vCurrent, 0f);
         }
+    }
+
+    /// <summary>
+    /// Gets the opposite direction of this Ghost as a Vector3.
+    /// </summary>
+    /// <returns>Vector3 representing the opposite moving direction of this Ghost.</returns>
+
+    Vector3 GetOppositeDirection()
+    {
+        return GetCurrentDirection() * -1f;
+    }
+
+    /// <summary>
+    /// Converts the string direction 's' to a Vector3 direction.
+    /// </summary>
+    /// <param name="s">The string direction needed to oppose.</param>
+    /// <returns>The equivalent Vector3 direction of 's'.</returns>
+
+    Vector3 ConvertStringDirectionToVectorDirection(string s)
+    {
+        switch (s)
+        {
+            case "U":
+                return directions[0];
+            case "D":
+                return directions[1];
+            case "L":
+                return directions[2];
+            case "R":
+                return directions[3];
+        }
+        Debug.LogWarning("Cannot convert string " + s + " to Vector3.");
+        return Vector3.zero;
+    }
+
+    /// <summary>
+    /// Converts the Vector3 direction 'v' to a string direction.
+    /// </summary>
+    /// <param name="v">The Vector3 direction needed to oppose.</param>
+    /// <returns>The equivalent string direction of 'v'.</returns>
+
+    string ConvertVectorDirectionToStringDirection(Vector3 v)
+    {
+        if (v == new Vector3(0f, 1f, 0f))
+            return "U";
+        if (v == new Vector3(0f, -1f, 0f))
+            return "D";
+        if (v == new Vector3(-1f, 0f, 0f))
+            return "L";
+        if (v == new Vector3(1f, 0f, 0f))
+            return "R";
+        Debug.LogWarning("Unable to convert Vector3 " + v + " to string.");
+        return null;
+    }
+
+    public void ResetPositions()
+    {
+        transform.position = RespawnPoint.position;
+        StartSequence();
+    }
+
+    void StartSequence()
+    {
+        U();
+        if (GhostID == 4)
+            D();
+        LBM = 0;
+    }
+
+    public void ResetLBM()
+    {
+        LBM = 0;
     }
 
     #region The Orientations of the Ghosts.
@@ -304,9 +436,4 @@ public class GhostController : MonoBehaviour
     }
 
     #endregion
-
-    public void ResetPositions()
-    {
-        transform.position = RespawnPoint.position;
-    }
 }

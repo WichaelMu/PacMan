@@ -164,11 +164,35 @@ public class GhostMechanics : MonoBehaviour
         StopSound("DEAD");  //  If the ghost dead sound is still playing, stop it.
         StopSound("GHOSTSCAREDSTATE");  //  If the ghost scared sound is still playing, stop it.
         PlaySound("AMBIENT");   //  Play the normal sound.
+
+        for(int i = 0; i < 4; i++)
+        {
+            GhostMechanics GM = GhostHolder.GetChild(i).GetComponent<GhostMechanics>();
+            if (GM.ScaredState)
+            {
+                StopSound("AMBIENT");
+                PlaySound("GHOSTSCAREDSTATE");
+            }
+
+            if (!GM.IsAlive)
+            {
+                StopSound("AMBIENT");
+                PlaySound("DEAD");
+            }
+
+            if (GM.IsAlive && !GM.ScaredState)
+            {
+                StopSound("DEAD");
+                StopSound("GHOSTSCAREDSTATE");
+                PlaySound("AMBIENT");
+            }
+        }
     }
 
     public void OnHitPacMan()   //  This can only be called if this Ghost is scared.
     {
         CancelInvoke();
+        ScaredState = false;
         IsAlive = false;
 
         //TODO: Create a dead state, just eyes, that track back to the Ghost's spawnpoint. DONE.
@@ -176,6 +200,8 @@ public class GhostMechanics : MonoBehaviour
         PlayerStats.score += 300;
 
         Anim.SetTrigger("GhostIsDead"); //  Set the ghost to play the animation with only eyes.
+
+        GetComponent<GhostController>().ResetLBM();
 
         //Possibly decrease this time to fit the original game, 5 seconds seems too long.
         //Invoke("GhostRespawn", 5f); //  Set the ghost to respawn in 5 seconds.
@@ -207,6 +233,9 @@ public class GhostMechanics : MonoBehaviour
     {
         CancelInvoke();
         //transform.localPosition = new Vector3(1f, 1f, -.05f); //  Do not use for Assignment 3.
+        GhostController GC = GetComponent<GhostController>();
+        GC.ResetLBM();
+        GC.ResetPositions();
 
         ResetState();
     }
