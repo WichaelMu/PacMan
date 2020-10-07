@@ -52,11 +52,6 @@ public class GhostMechanics : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.green);
     }
 
-    void FixedUpdate()
-    {
-        //ConstantMovement();
-    }
-
     void OnTriggerEnter(Collider other)
     {
         //if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
@@ -194,11 +189,6 @@ public class GhostMechanics : MonoBehaviour
     {
         IsOutOfPortal = true;
         transform.position = RespawnPoint.position;
-    }
-
-    void ConstantMovement() //  Do not use for Assignment 3.    //  This code is not in use as it is commented out in the FixedUpdate().
-    {
-        GhostRB.MovePosition(transform.position + (transform.up * MoveSpeed * Time.deltaTime)); //  Constantly moves the ghost at a contant speed.
     }
 
     void DetermineSound()

@@ -1,34 +1,33 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GhostController : MonoBehaviour
 {
-    public LayerMask Walls;
-    public Transform PacMan;
+    public LayerMask Walls; //  The layer the walls are situated.
+    public Transform PacMan;    //  The transform of Pac Man.
 
     [Header("The Ghost Canvas Number.")]
-    public int GhostID;
+    public int GhostID; //  The ID of the Ghosts that correspond to their World Space Canvas.
 
     Rigidbody GhostRB;
-    Transform RespawnPoint;
+    Transform RespawnPoint; //  The respawn point for this Ghost.
 
-    Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), };
+    Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
 
-    float hCurrent;
-    float vCurrent;
-    string dCurrent = null;
+    float hCurrent; //  The current horizontal direction.
+    float vCurrent; //  The current vertical direction.
+    string dCurrent = null; //  The current direction as a string, "U", "D", "L" and "R".
     
     void Start()
     {
         GhostRB = GetComponent<Rigidbody>();
-        RespawnPoint = GetComponent<GhostMechanics>().RespawnPoint;
+        RespawnPoint = GetComponent<GhostMechanics>().RespawnPoint; //  Assigns this GhostController's respawn point to the same one in this Ghost's GhostMechanics.
 
-        StartSequence();
+        StartSequence();    //  Begins the starting sequence to begin/restart the game.
     }
 
     void FixedUpdate()
     {
-        MoveDirection(hCurrent, vCurrent);
+        MoveDirection(hCurrent, vCurrent);  //  By default, this will move the Ghosts upwards at the beginning/restart of the game. It will move down if this is the Light Blue Ghost.
         //if (GhostID < 3 && Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(GetCurrentDirection()), out RaycastHit hit, Mathf.Infinity, Walls))
         //{
         //    Debug.DrawLine(transform.position, hit.point, Color.white);
@@ -37,24 +36,25 @@ public class GhostController : MonoBehaviour
 
     void OnTriggerEnter(Collider o)
     {
-        if (o.CompareTag("Switcher"))
-            ArtificialIntelligence(o.gameObject.GetComponent<Switcher>());
+        if (o.CompareTag("Switcher"))   //  If this Ghost hits a switcher.
+            ArtificialIntelligence(o.gameObject.GetComponent<Switcher>());  //  It will begin the process of Artificial Intelligence.
     }
 
     #region Artificial Intelligence for the Ghosts
 
     void ArtificialIntelligence(Switcher switcher)
     {
+        //  If the ID of the Ghost is 1 or 2, i.e., the Red Ghost or the Pink Ghost, they will perform a raycast in the direction they are facing.
         if (GhostID < 3 && Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(GetCurrentDirection()), out RaycastHit hit, Mathf.Infinity, Walls))
         {
             //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.white);
             //Debug.Log(name + "'s distance from " + hit.collider.gameObject.name + " is: " + hit.distance);
-            ArtificialIntelligence(hit.collider.transform, switcher);
+            ArtificialIntelligence(hit.collider.transform, switcher);   //  If the raycast hits something, begin the Artificial Intelilgence for the Red Ghost and the Pink Ghost.
         }
-        if (GhostID == 3)
-            OrangeGhostAI(switcher);
-        if (GhostID == 4)
-            LightBlueGhostAI();
+        if (GhostID == 3)   //  If this Ghost is Orange.
+            OrangeGhostAI(switcher);    //  Do the Artificial Intelligence for the Orange Ghost.
+        if (GhostID == 4)   //  If this Ghost is Light Blue.
+            LightBlueGhostAI(); //  Do the Artificial Intelligence for the Light Blue Ghost.
     }
 
     /// <summary>
@@ -66,10 +66,10 @@ public class GhostController : MonoBehaviour
 
     void ArtificialIntelligence(Transform Collider, Switcher switcher)
     {
-        if (GhostID == 1)
-            RedGhostAI(Collider, switcher);
-        if (GhostID == 2)
-            PinkGhostAI(Collider, switcher);
+        if (GhostID == 1)   //  If this Ghost is Red.
+            RedGhostAI(Collider, switcher); //  Do the Artificial Intelligence for the Red Ghost.
+        if (GhostID == 2)   //  If this Ghost is Pink.
+            PinkGhostAI(Collider, switcher);    //  Do the Artificial Intelligence for the Pink Ghost.
     }
 
     /// <summary>
@@ -113,43 +113,46 @@ public class GhostController : MonoBehaviour
     void RedGhostAI(Transform Collider, Switcher switcher)
     {
         float GhostColliderDistance = GetColliderGhostDistance(Collider.position);
-        float PacManColliderDistance = GetColliderPacManDistance(Collider.position);
-        float distance = 0f;
-        bool found = false;
-        Vector3 LongestDirection = directions[0];
-        Vector3 opposite = GetOppositeDirection();
+        float distance = 0f;    //  The maximum distance to compare to when finding the longest distance to the next Collider.
+        bool found = false; //  If a valid path was found.
+        Vector3 LongestDirection = directions[0];   //  By default, set the longest found direction to up.
+        Vector3 opposite = GetOppositeDirection();  //  Gets the opposite direction.
 
         for (int i = 0; i < directions.Length; i++)
         {
+            //  Get information about a raycast hit on any wall in the directions up, down, left and right.
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            if (hit.distance > distance && hit.distance > .05f && switcher.allowDirection(directions[i]) && (GhostColliderDistance >= GetGhostPacManDistance()))
+            //  If the raycast distance is greater than the current maximum distance, the distance of the raycast is greater than .5, i.e., do not count this direction if this Ghost is directly facing a wall in that direction, if the current switcher allows a movement in this direction, this Ghost's distance to the Collider is greater than Pac Man's distance to this Ghost, and if this direction is not the current opposite direction.
+            if (hit.distance > distance && hit.distance > .05f && switcher.allowDirection(directions[i]) && (GhostColliderDistance >= GetGhostPacManDistance() && directions[i] != opposite))
             {
-                distance = hit.distance;
-                if (directions[i] != opposite)
-                    LongestDirection = directions[i];
-                found = true;
+                distance = hit.distance;    //  Set the maximum distance to this raycast.
+                LongestDirection = directions[i];   //  Set the longest direction to this raycast's direction.
+                found = true;   //  A path was found.
             }
         }
 
-        if (found)
-            MoveDirection(LongestDirection);
+        if (found)  //  If a path was found.
+            MoveDirection(LongestDirection);    //  Move in this direction.
         else
         {
             while (true)
             {
-                string s = switcher.MoveRandom();
-                if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection())
+                string s = switcher.MoveRandom();   //  Get a valid random movement from the switcher.
+                if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection()) //  If this random movement is allowed and is not the opposite direction.
                 {
-                    Invoke(s, 0f);
+                    Invoke(s, 0f);  //  Move in this random direction.
                     return;
                 }
             }
         }
+        #region ignore
 
         //if (GhostColliderDistance >= GetGhostPacManDistance(PacMan.position))
         //    MoveDirection(LongestDirection);
         //else
         //    Invoke(switcher.MoveRandom(), 0f);
+
+        #endregion
     }
 
     /// <summary>
@@ -162,42 +165,44 @@ public class GhostController : MonoBehaviour
     {
         float GhostPacManDistance = GetGhostPacManDistance();
         float PacManColliderDistance = GetColliderPacManDistance(Collider.position);
-        float distance = Mathf.Infinity;
-        bool found = false;
+        float distance = Mathf.Infinity;    //  The minimum distance to be compared to when finding the shortest distance to Pac Man.
+        bool found = false; //  If a valid path was found.
         //Vector3[] AllowedDirections = new[] { Vector3.right, -Vector3.right, -Vector3.up, Vector3.up, };
-        Vector3 ShortestDirection = directions[0];
-        Vector3 opposite = GetOppositeDirection();
+        Vector3 ShortestDirection = directions[0];  //  By default, set the shortest found direction to go up.
+        Vector3 opposite = GetOppositeDirection();  //  Gets the opposite direction.
 
         for (int i = 0; i < directions.Length; i++)
         {
+            //  Get information about a raycast hit on any wall in the directions up, down, left and right.
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            if (hit.distance < distance && hit.distance > .05f && switcher.allowDirection(directions[i]) && (GhostPacManDistance >= PacManColliderDistance))
+            //  If the raycast distance is greater than the current minimum distance, the distance of the raycast is greater than .5, i.e., do not count this direction if this Ghost is directly facing a wall in that direction, if the current switcher allows a movement in this direction, this Ghost's distance to Pac Man is greater is greater than Pac Man's distance to the Collider, and if this direction is not the current opposite direction.
+            if (hit.distance < distance && hit.distance > .05f && switcher.allowDirection(directions[i]) && (GhostPacManDistance >= PacManColliderDistance) && directions[i] != opposite)
             {
-                distance = hit.distance;
-                if (directions[i] != opposite)
-                    ShortestDirection = directions[i];
-                found = true;
+                distance = hit.distance;    //  Set the minimum distance to this raycast.
+                ShortestDirection = directions[i];  //  Set the shortest direction to this raycast's direction.
+                found = true;   //  A path was found.
             }
         }
 
-        if (found)
-            MoveDirection(ShortestDirection);
+        if (found)  //  If a path was found.
+            MoveDirection(ShortestDirection);   //  Move in this direction.
         else
         {
             int i = 0;
             while (i < 4)
             {
-                string s = switcher.MoveRandom();
-                if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection())
+                string s = switcher.MoveRandom();   //  Get a valid random movement from the switcher.
+                if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection()) //  If this random movement is allowed and is not the opposite direction.
                 {
-                    Invoke(s, 0f);
+                    Invoke(s, 0f);  //  Move in this random direction.
                     return;
                 }
                 i++;
             }
-            Invoke(switcher.MoveRandom(), 0f);
+            Invoke(switcher.MoveRandom(), 0f);  //  If all else fails, move in any random direction, regardless of specifications.
         }
 
+        #region ignore
         //Array.Reverse(AllowedDirections);
         //for (int i = 0; i < AllowedDirections.Length; i++)
         //    if (Vector3.Distance(transform.position, PacMan.position) >= PacManColliderDistance && switcher.allowDirection(AllowedDirections[i]))
@@ -210,23 +215,25 @@ public class GhostController : MonoBehaviour
         //        Invoke(switcher.MoveRandom(), 0f);
         //        Debug.Log(name + " moved randomly");
         //    }
+        #endregion
     }
 
     void OrangeGhostAI(Switcher switcher)
     {
         while (true)
         {
-            string s = switcher.MoveRandom();
-            if (ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection())
+            string s = switcher.MoveRandom();   //  Get a valid random movement from the switcher.
+            if (ConvertStringDirectionToVectorDirection(s) != GetOppositeDirection()) //  If this random movement is allowed and is not the opposite direction.
             {
-                Invoke(s, 0f);
+                Invoke(s, 0f);  //  Move in this direction.
                 return;
             }
         }
     }
 
+    //  A constant string that defines the movememt for the Light Blue Ghost to loop around the perimeter of the level in a clockwise rotation from the spawning position.
     string[] strict = new[] { "D", "R", "D", "L", "D", "U", "L", "D", "L", "L", "U", "U", "R", "U", "U", "L", "U", "U", "R", "R", "D", "R", "U", "R", "R", "D", "D", "L", "D", "D", "R", "D", "D", "L", "L", "L", };
-    int LBM = 0;
+    int LBM = 0;    //  Light Blue Movement index.
 
     void LightBlueGhostAI()
     {
@@ -275,42 +282,47 @@ public class GhostController : MonoBehaviour
          * Left
          */
         #endregion
-        Invoke(strict[LBM], 0f);
-        LBM++;
-        if (LBM == strict.Length - 1)
-            LBM = 5;
+        Invoke(strict[LBM], 0f);    //  Move in the direction of pre-defined movements at index LBM.
+        LBM++;  //  Increment this LBM index.
+        if (LBM == strict.Length - 1)   //  If the LBM is at the end of the string loop.
+            LBM = 5;    //  Restart at the position where the loop should begin.
     }
 
     #endregion
 
     /// <summary>
-    /// Moves this Ghost.
+    /// Moves this Ghost using float values horizontal and vertical.
     /// </summary>
     /// <param name="horizontal">Dictates a left or right movement.</param>
     /// <param name="vertical">Dictates an up or down movement.</param>
 
     void MoveDirection(float horizontal, float vertical)
     {
-        if (enabled)
+        if (enabled)    //  If GhostController.cs is enabled.
         {
-            GhostRB.MovePosition(transform.position + new Vector3(horizontal, vertical, 0f) * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);
-            hCurrent = horizontal;
-            vCurrent = vertical;
+            GhostRB.MovePosition(transform.position + new Vector3(horizontal, vertical, 0f) * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards horizontal or vertical at GhostMechanics MoveSpeed.
+            hCurrent = horizontal;  //  Set the current horizontal movement to horizontal.
+            vCurrent = vertical;    //  Set the current vertical movement to vertical.
 
         }
     }
 
+    /// <summary>
+    /// Moves this Ghost using a Vector3 direction.
+    /// </summary>
+    /// <param name="direction">The normalized Vector3 direction.</param>
+
     void MoveDirection(Vector3 direction)
     {
-        if (enabled)
+        if (enabled)    //  If GhostController.cs is enabled.
         {
-            GhostRB.MovePosition(transform.position + direction * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);
-            hCurrent = direction.x;
-            vCurrent = direction.y;
+            GhostRB.MovePosition(transform.position + direction * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards Vector3 direction at GhostMechanics MoveSpeed.
+            hCurrent = direction.x; //  Set the current horizontal movement to the x value of direction.
+            vCurrent = direction.y; //  Set the current vertical movement to the y value of direction.
 
             for (int i = 0; i < directions.Length; i++)
-                if (directions[i] == direction)
-                    dCurrent = ConvertVectorDirectionToStringDirection(directions[i]);
+                if (directions[i] == direction) //  If the directions[i] is equal to the requested direction.
+                    dCurrent = ConvertVectorDirectionToStringDirection(directions[i]);  //  Set the current direction to this Vector3 direction.
         }
     }
 
@@ -324,15 +336,16 @@ public class GhostController : MonoBehaviour
         switch (dCurrent)
         {
             case "U":
-                return new Vector3(0f, 1f, 0f);
+                return new Vector3(0f, 1f, 0f); //  Vector3 up.
             case "D":
-                return new Vector3(0f, -1f, 0f);
+                return new Vector3(0f, -1f, 0f);    //  Vector3 down.
             case "L":
-                return new Vector3(-1f, 0f, 0f);
+                return new Vector3(-1f, 0f, 0f);    //  Vector3 left.
             case "R":
-                return new Vector3(1f, 0f, 0f);
+                return new Vector3(1f, 0f, 0f); //  Vector3 right.
             default:
-                return new Vector3(hCurrent, vCurrent, 0f);
+                Debug.LogWarning("Problem with getting the current direction of: " + name);
+                return new Vector3(hCurrent, vCurrent, 0f); //  Default Vector3 to continue its current direction.
         }
     }
 
@@ -357,16 +370,16 @@ public class GhostController : MonoBehaviour
         switch (s)
         {
             case "U":
-                return directions[0];
+                return directions[0];   //  Vector3 up.
             case "D":
-                return directions[1];
+                return directions[1];   //  Vector3 down.
             case "L":
-                return directions[2];
+                return directions[2];   //  Vector3 left.
             case "R":
-                return directions[3];
+                return directions[3];   //  Vector3 right.
         }
-        Debug.LogWarning("Cannot convert string " + s + " to Vector3.");
-        return Vector3.zero;
+        Debug.LogWarning("Cannot convert string " + s + " to Vector3 for: " + name);
+        return Vector3.zero;    //  Conversion failed.
     }
 
     /// <summary>
@@ -378,37 +391,44 @@ public class GhostController : MonoBehaviour
     string ConvertVectorDirectionToStringDirection(Vector3 v)
     {
         if (v == new Vector3(0f, 1f, 0f))
-            return "U";
+            return "U"; //  Up.
         if (v == new Vector3(0f, -1f, 0f))
-            return "D";
+            return "D"; //  Down.
         if (v == new Vector3(-1f, 0f, 0f))
-            return "L";
+            return "L"; //  Left.
         if (v == new Vector3(1f, 0f, 0f))
-            return "R";
-        Debug.LogWarning("Unable to convert Vector3 " + v + " to string.");
-        return null;
+            return "R"; //  Right.
+        Debug.LogWarning("Unable to convert Vector3 " + v + " to string for: " + name);
+        return null;    //  Conversion failed.
     }
 
     public void ResetPositions()
     {
-        transform.position = RespawnPoint.position;
-        StartSequence();
+        transform.position = RespawnPoint.position; //  Respawn this Ghost at GhostMechanic's respawn point position.
+        StartSequence();    //  Re/Start the starting sequence.
     }
 
     void StartSequence()
     {
-        U();
-        if (GhostID == 4)
-            D();
-        LBM = 0;
+        U();    //  Default movement to up.
+        if (GhostID == 4)   //  If this Ghost is the Light Blue.
+            D();    //  Default movement to downm.
+        LBM = 0;    //  Reset the Light Blue Movement index.
     }
 
     public void ResetLBM()
     {
-        LBM = 0;
+        LBM = 0;    //  Reset the Light Blue Movement index.
     }
 
     #region The Orientations of the Ghosts.
+
+    /*
+     * void <direction>();
+     * horizontal value.
+     * vertical value.
+     * current direction.
+     */
 
     void U()
     {

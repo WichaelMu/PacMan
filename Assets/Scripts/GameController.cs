@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -47,6 +48,9 @@ public class GameController : MonoBehaviour
     {
         InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
 
+        PlayerStats.LoadGame();
+        ConvertMillisecondsToMSM();
+
         Fruits = new GameObject[5];
         Fruits[0] = Apple;
         Fruits[1] = Cherry;
@@ -60,7 +64,7 @@ public class GameController : MonoBehaviour
 
         StartProcedure = Countdown();
 
-        HighScore.text = "0";
+        HighScore.text = PlayerStats.highScore.ToString();
 
         PacMan = GameObject.FindWithTag("Player");
 
@@ -82,8 +86,11 @@ public class GameController : MonoBehaviour
     void UpdateScore()
     {
         CurrentScore.text = PlayerStats.score.ToString();
-        if (PlayerStats.score>PlayerStats.highScore)
-            HighScore.text = PlayerStats.score.ToString();
+        if (PlayerStats.score > PlayerStats.highScore)
+        {
+            PlayerStats.highScore = PlayerStats.score;
+            HighScore.text = PlayerStats.highScore.ToString();
+        }
         if (PelletHolder.childCount == 0)
         {
             //  TODO: Display a message saying "LEVEL COMPLETE" or something.
@@ -91,6 +98,9 @@ public class GameController : MonoBehaviour
             EndGame();
             Debug.Log("This level is complete.");
         }
+
+        if (PelletHolder.childCount % 100 == 0)
+            PlayerStats.SaveGame();
     }
 
     void DisplayStartingLives()
@@ -110,6 +120,7 @@ public class GameController : MonoBehaviour
             EndGame();
         else
             Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
+        PlayerStats.SaveGame();
     }
 
     void EndGame()
@@ -122,6 +133,8 @@ public class GameController : MonoBehaviour
         StopCoroutine(UpdateTime());
 
         Invoke("LoadMainMenu", 3f);
+
+        PlayerStats.SaveGame();
         
         //Debug.Log("Pac Man is dead");
     }
@@ -185,6 +198,7 @@ public class GameController : MonoBehaviour
             Time.text = minute + ":" + seconds + ":" + milli;
             yield return new WaitForSeconds(.01f);
             milli++;
+            PlayerStats.timePlayed++;
             if (milli == 100)
             {
                 seconds++;
@@ -199,14 +213,37 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void PlaceAFruitAtRandom()  //  Spawning a Fruit
+    void PlaceAFruitAtRandom()  //  Spawning a Fruit. This is called in an InvokeRepeating() method in Awake().
     {
-        int r = Random.Range(0, 5);
+        int r = UnityEngine.Random.Range(0, 5);
         Vector3 FPos = FruitsSpawnPoint.position;
         if (Fruits[r] != null)
         {
             Instantiate(Fruits[r], FPos, Quaternion.identity);
             Fruits[r] = null;
         }
+    }
+
+    void ConvertMillisecondsToMSM()
+    {
+        int milli = PlayerStats.timePlayed;
+        int c = 0;
+
+        for (int i = 0; i < milli; i++)
+        {
+            c++;
+            if (c== 100)
+            {
+                seconds++;
+                c = 0;
+            }
+
+            if (seconds == 60)
+            {
+                minute++;
+                seconds = 0;
+            }
+        }
+        Time.text = minute + ":" + seconds + ":" + milli;
     }
 }
