@@ -623,6 +623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179e27c6d32459342aa50308cfc9ba02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HighScore: {fileID: 0}
+  TimePlayed: {fileID: 0}
 --- !u!1 &283627626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4534,7 +4536,7 @@ PrefabInstance:
     - target: {fileID: 8656154249416057612, guid: 9c368fef06f6b3a43b78d6097080ff2f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26.1
+      value: 26.100006
       objectReference: {fileID: 0}
     - target: {fileID: 8656154249416057612, guid: 9c368fef06f6b3a43b78d6097080ff2f,
         type: 3}
