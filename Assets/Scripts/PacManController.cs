@@ -56,10 +56,14 @@ public class PacManController : MonoBehaviour
         PlayerStats.score = 0;
     }
 
+    void Update()
+    {
+        KeyboardControl();
+    }
+
     void FixedUpdate()
     {
         Movement();
-        KeyboardControl();
 
         if (Input.GetKeyDown(KeyCode.K))
             EatBigPellet(null);
@@ -245,39 +249,16 @@ public class PacManController : MonoBehaviour
 
     void KeyboardControl()  //  These are the keyboard inputs from the user.
     {
-        string lastInput = Input.inputString;
+        //string lastInput = Input.inputString;
 
         #region WASD Controls
 
         //  For some reason, these are buggy and *sometimes* work, but usually doesn't.
 
-        switch (lastInput)
-        {
-            case "w":
-                determineRotation("U");
-                return;
-            case "W":
-                determineRotation("U");
-                return;
-            case "s":
-                determineRotation("D");
-                return;
-            case "S":
-                determineRotation("D");
-                return;
-            case "a":
-                determineRotation("L");
-                return;
-            case "A":
-                determineRotation("L");
-                return;
-            case "d":
-                determineRotation("R");
-                return;
-            case "D":
-                determineRotation("R");
-                return;
-        }
+        if (Input.GetKeyDown(KeyCode.W))        determineRotation("U");
+        if (Input.GetKeyDown(KeyCode.S))        determineRotation("D");
+        if (Input.GetKeyDown(KeyCode.A))        determineRotation("L");
+        if (Input.GetKeyDown(KeyCode.D))        determineRotation("R");
 
         #endregion
 
