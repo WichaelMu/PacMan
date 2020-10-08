@@ -5,35 +5,8 @@ using TMPro;
 public class OnClick : MonoBehaviour
 {
 
-    public TextMeshProUGUI CurrentHighScore;
+    public TextMeshProUGUI HighScore;
     public TextMeshProUGUI TimePlayed;
-
-    void Awake()
-    {
-        PlayerStats.LoadGame();
-        try { CurrentHighScore.text = PlayerStats.highScore.ToString(); } catch (System.NullReferenceException){  }
-
-        int milli = PlayerStats.timePlayed;
-        int c = 0;
-        int seconds = 0, minute = 0;
-
-        for (int i = 0; i < milli; i++)
-        {
-            c++;
-            if (c == 100)
-            {
-                seconds++;
-                c = 0;
-            }
-
-            if (seconds == 60)
-            {
-                minute++;
-                seconds = 0;
-            }
-        }
-        TimePlayed.text = minute + ":" + seconds + ":" + milli;
-    }
 
     public void PlayIntermission()
     {
@@ -58,6 +31,13 @@ public class OnClick : MonoBehaviour
     public void ViewMainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void ResetSaves()
+    {
+        PlayerPrefs.DeleteAll();
+        HighScore.text = "0";
+        TimePlayed.text = "0:0:0";
     }
 
     public void QuitGame()

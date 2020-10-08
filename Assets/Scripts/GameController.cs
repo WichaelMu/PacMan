@@ -49,7 +49,6 @@ public class GameController : MonoBehaviour
         InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
 
         PlayerStats.LoadGame();
-        ConvertMillisecondsToMSM();
 
         Fruits = new GameObject[5];
         Fruits[0] = Apple;
@@ -109,7 +108,7 @@ public class GameController : MonoBehaviour
         {
             GameObject StartLife = Instantiate(Life, Vector3.zero, Quaternion.identity);
             StartLife.transform.SetParent(LifeHolder);
-            StartLife.transform.localPosition = new Vector3(-238.5f + (30 * i), -304.5f, 0f);
+            StartLife.transform.localPosition = new Vector3(0f + (30 * i), 0f, 0f);
             StartLife.transform.localScale = new Vector3(.5f, .5f, 0f);
         }
     }
@@ -222,28 +221,5 @@ public class GameController : MonoBehaviour
             Instantiate(Fruits[r], FPos, Quaternion.identity);
             Fruits[r] = null;
         }
-    }
-
-    void ConvertMillisecondsToMSM()
-    {
-        int milli = PlayerStats.timePlayed;
-        int c = 0;
-
-        for (int i = 0; i < milli; i++)
-        {
-            c++;
-            if (c== 100)
-            {
-                seconds++;
-                c = 0;
-            }
-
-            if (seconds == 60)
-            {
-                minute++;
-                seconds = 0;
-            }
-        }
-        Time.text = minute + ":" + seconds + ":" + milli;
     }
 }
