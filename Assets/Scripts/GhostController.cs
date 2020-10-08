@@ -84,27 +84,6 @@ public class GhostController : MonoBehaviour
     }
 
     /// <summary>
-    /// Pac Man's distance from the collider.
-    /// </summary>
-    /// <param name="position">The Vector3 position of the Collider.</param>
-    /// <returns>The float distance between Pac Man and the Collider.</returns>
-
-    float GetColliderPacManDistance(Vector3 position)
-    {
-        return Vector3.Distance(PacMan.position, position);
-    }
-
-    /// <summary>
-    /// The distance between this Ghost and Pac Man.
-    /// </summary>
-    /// <returns>The fliat distance between this Ghost and Pac Man.</returns>
-
-    float GetGhostPacManDistance()
-    {
-        return Vector3.Distance(transform.position, PacMan.position);
-    }
-
-    /// <summary>
     /// Moves the Red Ghost in a direction where the distance to the next Collider is greater than or equal to Pac Man's distance to the Red Ghost.
     /// </summary>
     /// <param name="Collider">The Collider this Red Ghost is going towards.</param>
@@ -289,6 +268,27 @@ public class GhostController : MonoBehaviour
     }
 
     #endregion
+
+    /// <summary>
+    /// Pac Man's distance from the collider.
+    /// </summary>
+    /// <param name="position">The Vector3 position of the Collider.</param>
+    /// <returns>The float distance between Pac Man and the Collider.</returns>
+
+    float GetColliderPacManDistance(Vector3 position)
+    {
+        return Vector3.Distance(PacMan.position, position);
+    }
+
+    /// <summary>
+    /// The distance between this Ghost and Pac Man.
+    /// </summary>
+    /// <returns>The fliat distance between this Ghost and Pac Man.</returns>
+
+    float GetGhostPacManDistance()
+    {
+        return Vector3.Distance(transform.position, PacMan.position);
+    }
 
     /// <summary>
     /// Moves this Ghost using float values horizontal and vertical.

@@ -13,6 +13,10 @@ TagManager:
   - Fruit
   - FRUITHOLDER
   - GHOSTHOLDER
+  - RED
+  - BLUE
+  - RED;SP
+  - BLUE;SP
   layers:
   - Default
   - TransparentFX

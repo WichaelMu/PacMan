@@ -2,15 +2,13 @@
 
 public class LevelGeneratorII : MonoBehaviour
 {
-    [Header("Entities")]
-    public GameObject PacMan;
-    public GameObject RedGhost;
-    public GameObject PinkGhost;
-    public GameObject OrangeGhost;
-    public GameObject LightBlueGhost;
+    [Header("Players")]
+    public GameObject P1;
+    public GameObject P1SpawnPoint;
+    public GameObject P2;
+    public GameObject P2SpawnPoint;
 
     [Header("Holders")]
-    public GameObject GhostHolder;
     public GameObject WallHolder;
     public GameObject PelletHolder;
 
@@ -117,14 +115,14 @@ public class LevelGeneratorII : MonoBehaviour
          {02,08,05,05,05,05,87,04,04,08,05,05,-4,04 , 04,-1,05,05,83,04,04,88,05,05,05,05,83,02},
          {01,21,21,21,21,12,05,04,03,41,41,32,00,04 , 04,00,31,41,41,33,04,05,11,21,21,21,21,13},
          {00,00,00,00,00,02,05,04,31,41,41,33,00,03 , 33,00,03,41,41,32,04,05,02,00,00,00,00,00},
-         {00,00,00,00,00,02,05,04,04,95,00,00,-6,00 , 00,-6,00,00,96,04,04,05,02,00,00,00,00,00},
+         {00,00,00,00,00,02,05,04,04,-1,00,00,-6,00 , 00,-6,00,00,-4,04,04,05,02,00,00,00,00,00},
          {00,00,00,00,00,02,05,04,04,00,31,41,41,00 , 00,41,41,32,00,04,04,05,02,00,00,00,00,00},
          {21,21,21,21,21,13,05,03,33,00,04,00,00,00 , 00,00,00,04,00,03,33,05,01,21,21,21,21,21},
-         {09,00,00,00,00,00,89,00,00,-7,04,00,00,00 , 00,00,00,04,-9,00,00,89,00,00,00,00,00,91},   //  Portals Ro
+         {09,00,00,00,00,00,89,00,00,-7,04,00,00,00 , 00,00,00,04,-9,00,00,89,00,00,00,00,00,91},   //  Portals Row
                                             //  Reflect Here \\
          {21,21,21,21,21,12,05,31,32,00,04,00,00,00 , 00,00,00,04,00,31,32,05,11,21,21,21,21,21},
          {00,00,00,00,00,02,05,04,04,00,03,41,41,00 , 00,41,41,33,00,04,04,05,02,00,00,00,00,00},
-         {00,00,00,00,00,02,05,04,04,93,00,00,-5,00 , 00,-5,00,00,94,04,04,05,02,00,00,00,00,00},
+         {00,00,00,00,00,02,05,04,04,-8,00,00,-5,00 , 00,-5,00,00,-3,04,04,05,02,00,00,00,00,00},
          {00,00,00,00,00,02,05,04,03,41,41,32,00,31 , 32,00,31,41,41,33,04,05,02,00,00,00,00,00},
          {11,21,21,21,21,13,05,04,31,41,41,33,00,04 , 04,00,03,41,41,32,04,05,01,21,21,21,21,12},
          {02,81,05,05,05,05,87,04,04,81,05,05,-3,04 , 04,-8,05,05,84,04,04,88,05,05,05,05,84,02},
@@ -141,7 +139,7 @@ public class LevelGeneratorII : MonoBehaviour
          {02,81,05,05,05,05,87,04,04,81,05,05,83,04 , 04,08,05,05,84,04,04,88,05,05,05,05,84,02},
          {02,05,31,41,41,32,05,04,04,05,31,41,41,33 , 03,41,41,32,05,04,04,05,31,41,41,32,05,02},
          {02,05,03,41,41,33,05,03,33,05,03,41,41,41 , 41,41,41,33,05,03,33,05,03,41,41,33,05,02},
-         {02,88,05,05,05,05,89,05,05,86,05,05,85,05 , 05,85,05,05,86,05,05,89,05,05,05,05,87,02},
+         {02,88,05,05,05,05,89,05,05,86,05,05,85,05 , 93,85,05,05,86,05,05,89,05,05,05,05,87,02},
          {02,05,31,41,41,32,05,31,41,41,41,32,05,31 , 32,05,31,41,41,41,32,05,31,41,41,32,05,02},
          {02,06,04,00,00,04,05,04,00,00,00,04,05,04 , 04,05,04,00,00,00,04,05,04,00,00,04,06,02},
          {02,05,03,41,41,33,05,03,41,41,41,33,05,04 , 04,05,03,41,41,41,33,05,03,41,41,33,05,02},
@@ -276,23 +274,12 @@ public class LevelGeneratorII : MonoBehaviour
                             GeneratePlacements(PortR, new Vector3(k, i, 0f));
                             break;
                         case 92:
-                            Instantiate(PacMan, new Vector3(k, i, 0f) / 3.2f, Quaternion.identity);
+                            Instantiate(P1, new Vector3(k, i, 0f) / 3.2f, Quaternion.identity);
+                            Instantiate(P1SpawnPoint, new Vector3(k, i, 0f) / 3.2f, Quaternion.identity);
                             break;
                         case 93:
-                            PlaceGhost(RedGhost, k, i);
-                            GeneratePlacements(DR, new Vector3(k, i, 0f));
-                            break;
-                        case 94:
-                            PlaceGhost(PinkGhost, k, i);
-                            GeneratePlacements(DL, new Vector3(k, i, 0f));
-                            break;
-                        case 95:
-                            PlaceGhost(OrangeGhost, k, i);
-                            GeneratePlacements(UR, new Vector3(k, i, 0f));
-                            break;
-                        case 96:
-                            PlaceGhost(LightBlueGhost, k, i);
-                            GeneratePlacements(UL, new Vector3(k, i, 0f));
+                            Instantiate(P2, new Vector3(k, i, 0f) / 3.2f, Quaternion.identity);
+                            Instantiate(P2SpawnPoint, new Vector3(k, i, 0f) / 3.2f, Quaternion.identity);
                             break;
                 }
     }
@@ -315,12 +302,6 @@ public class LevelGeneratorII : MonoBehaviour
     {
         GameObject go = Instantiate(BigDot, (new Vector3(k, i, 0f) * .3125f), Quaternion.identity);
         MakeParent(go, PelletHolder);
-    }
-
-    void PlaceGhost(GameObject ghost, int k, int i)
-    {
-        GameObject go = Instantiate(ghost, new Vector3(k, i, 0f) / 3.2f, Quaternion.identity);
-        MakeParent(go, GhostHolder);
     }
 
     void MakeParent(GameObject Child, GameObject Parent)
