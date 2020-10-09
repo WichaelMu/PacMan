@@ -8,8 +8,7 @@ public class Dynamite : MonoBehaviour
     public GameObject ExplodeParticle;
 
     int MaximumRange = 1;
-
-    Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
+    readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
 
     List<GameObject> ExplodeParticles;
     int NumberofExplodedParticles = 0;

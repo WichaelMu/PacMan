@@ -140,6 +140,7 @@ public class GameController : MonoBehaviour
 
     void LoadMainMenu()
     {
+        PlayerStats.SaveGame();
         SceneManager.LoadScene(0);
     }
 

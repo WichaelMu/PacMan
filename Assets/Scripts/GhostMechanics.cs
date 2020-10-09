@@ -10,7 +10,6 @@ public class GhostMechanics : MonoBehaviour
 
     public Transform GhostHolder;
 
-    Rigidbody GhostRB;  //  The ghosts' Rigidbody.
     Animator Anim;  //  The animator for this ghost.
     SphereCollider Sphere;
     //Transform GhostHolder;
@@ -27,7 +26,6 @@ public class GhostMechanics : MonoBehaviour
     {
         ScaredState = false;
         IsAlive = true;
-        GhostRB = GetComponent<Rigidbody>();
 
         Anim = GetComponent<Animator>();
 
