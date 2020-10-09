@@ -15,8 +15,9 @@ public class GameControllerII : MonoBehaviour
     [Header("Pellet Control")]
     public Transform PelletHolder;
 
-    [Header("Life Control")]
+    [Header("Game Control")]
     public TextMeshProUGUI GameOver;
+    public TextMeshProUGUI Message;
 
     IEnumerator StartProcedure;
     [Header("Start Control")]
@@ -52,17 +53,6 @@ public class GameControllerII : MonoBehaviour
         BeginStartingProcedure();
     }
 
-    void FixedUpdate()
-    {
-        //UpdateScore();
-    }
-
-    void UpdateScore()
-    {
-        P1Score.text = _P1Score.ToString();
-        P2Score.text = _P2Score.ToString();
-    }
-
     public void UpdateScore(int ID, int amount)
     {
         if (ID == 1)
@@ -71,20 +61,33 @@ public class GameControllerII : MonoBehaviour
             _P2Score += amount;
         P1Score.text = "" + _P1Score;
         P2Score.text = "" + _P2Score;
+
+        if (PelletHolder.childCount == 0)
+            EndGame();
     }
 
-    void EndGame()
+    public void EndGame()
     {
         Enable(false);  //  Stops all Pac Man and Ghost Movement.
 
         GameOver.gameObject.SetActive(true);
-        StopCoroutine(UpdateTime());
+        StopCoroutine(GameTimer);
+        Message.text = "PLAYER " + (_P1Score < _P2Score ? "1" : "2") + " WINS BY SCORE!";
 
         Invoke("LoadMainMenu", 3f);
 
-        PlayerStats.SaveGame();
-
         //Debug.Log("Pac Man is dead");
+    }
+
+    public void EndGame(int ID)
+    {
+        Enable(false);  //  Stops all movement.
+
+        GameOver.gameObject.SetActive(true);
+        StopCoroutine(GameTimer);
+        Message.text = "PLAYER " + (ID == 1 ? "2" : "1") + " WINS BY KILL!";
+
+        Invoke("LoadMainMenu", 3f);
     }
 
     void LoadMainMenu()

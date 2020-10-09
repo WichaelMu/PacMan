@@ -17,6 +17,9 @@ TagManager:
   - BLUE
   - RED;SP
   - BLUE;SP
+  - PortalR
+  - PortalL
+  - Explosion
   layers:
   - Default
   - TransparentFX

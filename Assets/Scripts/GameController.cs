@@ -129,7 +129,7 @@ public class GameController : MonoBehaviour
         DoNotRestart = true;
 
         GameOver.gameObject.SetActive(true);
-        StopCoroutine(UpdateTime());
+        StopCoroutine(GameTimer);
 
         Invoke("LoadMainMenu", 3f);
 

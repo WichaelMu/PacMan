@@ -14,8 +14,10 @@ public class PlayerControllers : MonoBehaviour
     public GameControllerII GameController;
 
     [Header("Portals")]
-    public Transform PortalL;
-    public Transform PortalR;
+    [SerializeField]
+    Transform PortalL;
+    [SerializeField]
+    Transform PortalR;
 
     Rigidbody pRB;
     Switcher switcher;
@@ -42,6 +44,9 @@ public class PlayerControllers : MonoBehaviour
 
         DeadStateAnim = GetComponent<Animator>();
         ResetGame();
+
+        PortalL = GameObject.FindWithTag("PortalL").transform;
+        PortalR = GameObject.FindWithTag("PortalR").transform;
     }
 
     void Update()
@@ -65,8 +70,10 @@ public class PlayerControllers : MonoBehaviour
             EatPellet(other.gameObject);
         if (other.CompareTag("BigPellet"))  //  WHen Pac Man hits a Big Pellet.
             EatBigPellet(other.gameObject);
-        if (other.CompareTag("Portal")) //  When Pac Man enters a Portal.
+        if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  When Pac Man enters a Portal.
             PortalHandler(other.name);
+        if (other.CompareTag("Explosion"))
+            KillPlayer();
     }
 
     void OnSwitcher(GameObject Switcher)
@@ -117,9 +124,9 @@ public class PlayerControllers : MonoBehaviour
     void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.
     {
         if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Left Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Right Portal.
-            transform.position = new Vector3(8.4375f, 4.375f, 0f);
+            transform.position = PortalR.position;
         if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Left Portal.
-            transform.position = new Vector3(0f, 4.375f, 0f);
+            transform.position = PortalL.position;
         IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
     }
 
@@ -138,7 +145,12 @@ public class PlayerControllers : MonoBehaviour
 
     void DropDynamite()
     {
-        Instantiate(Dynamite, transform.position, Quaternion.identity);
+        Instantiate(Dynamite, new Vector3(transform.position.x, transform.position.y, -.05f), Quaternion.identity);
+    }
+
+    void KillPlayer()
+    {
+        GameController.EndGame(ID);
     }
 
     #region Sound Controller
@@ -178,7 +190,7 @@ public class PlayerControllers : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.S)) determineRotation("D");
             if (Input.GetKeyDown(KeyCode.A)) determineRotation("L");
             if (Input.GetKeyDown(KeyCode.D)) determineRotation("R");
-            if (Input.GetKey(KeyCode.Space)) DropDynamite();
+            if (Input.GetKeyDown(KeyCode.Space)) DropDynamite();
             return;
         }
 
@@ -192,7 +204,7 @@ public class PlayerControllers : MonoBehaviour
             if (Input.GetKey(KeyCode.DownArrow)) determineRotation("D");
             if (Input.GetKey(KeyCode.LeftArrow)) determineRotation("L");
             if (Input.GetKey(KeyCode.RightArrow)) determineRotation("R");
-            if (Input.GetKey(KeyCode.Slash)) DropDynamite();
+            if (Input.GetKeyDown(KeyCode.Slash)) DropDynamite();
             return;
         }
 

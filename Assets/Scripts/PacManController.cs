@@ -79,7 +79,7 @@ public class PacManController : MonoBehaviour
             EatBigPellet(other.gameObject);
         if (other.CompareTag("Ghost"))  //  When Pac Man hits a Ghost.
             OnHitGhost(other.gameObject);
-        if (other.CompareTag("Portal")) //  When Pac Man enters a Portal.
+        if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  When Pac Man enters a Portal.
             PortalHandler(other.name);
         if (other.CompareTag("Fruit"))  //  When Pac Man hits a Fruit.
             EatFruit();

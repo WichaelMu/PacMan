@@ -57,7 +57,7 @@ public class GhostMechanics : MonoBehaviour
         //if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
         //Invoke(DetermineMovement(other.gameObject), 0f);
         //ArtificialIntelligence(); //  This is in GhostController.cs.
-        if (other.CompareTag("Portal"))
+        if (other.CompareTag("PortalL") || other.CompareTag("PortalR"))
             PortalHandler(other.name);
     }
 
