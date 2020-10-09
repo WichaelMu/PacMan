@@ -66,9 +66,9 @@ public class GameControllerII : MonoBehaviour
             EndGame();
     }
 
-    public void EndGame()
+    void EndGame()
     {
-        Enable(false);  //  Stops all Pac Man and Ghost Movement.
+        Enable(false);  //  Stops movement.
 
         GameOver.gameObject.SetActive(true);
         StopCoroutine(GameTimer);
