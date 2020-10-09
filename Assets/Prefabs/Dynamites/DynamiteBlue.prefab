@@ -119,3 +119,4 @@ MonoBehaviour:
     m_Bits: 256
   ExplodeParticle: {fileID: 4697251091475359133, guid: 1e3f287d7fc388a4a9d95dfa4d867073,
     type: 3}
+  MaximumRange: 1

@@ -7,6 +7,8 @@ public class Dynamite : MonoBehaviour
     public LayerMask Walls;
     public GameObject ExplodeParticle;
 
+    int MaximumRange = 1;
+
     Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
 
     List<GameObject> ExplodeParticles;
@@ -16,6 +18,7 @@ public class Dynamite : MonoBehaviour
 
     void Start()
     {
+
         Invoke("Explode", 4f);
         RemoveParticles = Aftermath();
         StartCoroutine(RemoveParticles);
@@ -44,14 +47,15 @@ public class Dynamite : MonoBehaviour
         }
 
         for (int i = 0; i < ExplodeDirections.Length && ExplodeDirections[i] != Vector3.zero; i++)
-                for (float k = 0; k < ExplodeDistances[i] && k < 7f; k += .2f)
+                for (float k = 0; k < ExplodeDistances[i] && k < MaximumRange; k += .2f)
                     ExplodeParticles.Add(Instantiate(ExplodeParticle, transform.position + ExplodeDirections[i] * k, Quaternion.identity));
         NumberofExplodedParticles = ExplodeParticles.Count;
+        transform.position = new Vector3 (100f, 100f, 100f);
     }
 
     IEnumerator Aftermath()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5.5f);
         for (int i = NumberofExplodedParticles - 1; i >= 0; i--)
         {
             Destroy(ExplodeParticles[i]);
@@ -59,5 +63,10 @@ public class Dynamite : MonoBehaviour
         }
         
         Destroy(gameObject);
+    }
+
+    public void SetMaximumRange(int amount)
+    {
+        MaximumRange += amount;
     }
 }

@@ -146,14 +146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 2
-  Dynamite: {fileID: 8862611064671737836, guid: 6480a10824b68624b883e6a4f7150130,
+  Dynamite: {fileID: 6117115094219562236, guid: 6480a10824b68624b883e6a4f7150130,
     type: 3}
   GameController: {fileID: 2606355962449800948, guid: 6b3217cce0c01a5499c5d0c4fc3022b4,
     type: 3}
   PortalL: {fileID: 3323657520782059436, guid: 7e634ae2b5eb8d1448e1efae9eff9371, type: 3}
   PortalR: {fileID: 665013338584035432, guid: 405d9d9521ed86445be4267b1d1694a7, type: 3}
-  WallBump: {fileID: 6091179712510539401, guid: 7187926a0d284db4c945539df6464ec6,
-    type: 3}
-  PacManDeath: {fileID: 8411538961477508054, guid: e2fdf615a4c24d64e99ead3a7a134cac,
-    type: 3}
   moveSpeed: 1.5

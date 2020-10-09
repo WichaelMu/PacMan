@@ -8,7 +8,7 @@ public class PlayerControllers : MonoBehaviour
     public int ID;
 
     [Header("Weapons")]
-    public GameObject Dynamite;
+    public Dynamite Dynamite;
 
     [Header("Life Controller")]
     public GameControllerII GameController;
@@ -21,7 +21,6 @@ public class PlayerControllers : MonoBehaviour
 
     Rigidbody pRB;
     Switcher switcher;
-    Animator DeadStateAnim;
     AudioController AudioControl;
 
     public float moveSpeed;
@@ -30,6 +29,7 @@ public class PlayerControllers : MonoBehaviour
     float DefaultMoveSpeed;
     bool LR = false, IsStill, IsOutOfPortal = true, IsAlive;
     string nextAvailableTurn, currentInput;
+    int collected = 1;
 
     void Awake()
     {
@@ -42,7 +42,6 @@ public class PlayerControllers : MonoBehaviour
     {
         DefaultMoveSpeed = moveSpeed;
 
-        DeadStateAnim = GetComponent<Animator>();
         ResetGame();
 
         PortalL = GameObject.FindWithTag("PortalL").transform;
@@ -57,9 +56,6 @@ public class PlayerControllers : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
-
-        if (Input.GetKeyDown(KeyCode.K))
-            EatBigPellet(null);
     }
 
     void OnTriggerEnter(Collider other)
@@ -92,6 +88,9 @@ public class PlayerControllers : MonoBehaviour
         Destroy(Pellet);    //  Remove the Pellet from the game.
 
         GameController.UpdateScore(ID, 10);
+
+        if (collected % 50 == 0)
+            collected++;
         
         PlaySound("EATPELLET"); //  Play the sound of Pac Man eating a Pellet.
     }
@@ -100,25 +99,10 @@ public class PlayerControllers : MonoBehaviour
         Destroy(BigPellet); //  Remove the Big Pellet from the game.
 
         GameController.UpdateScore(ID, 50);
+        collected++;
 
         PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit/Big Pellet.
         StopSound("AMBIENT");   //  Stops the ambient from playing.
-    }
-
-    void PacManIsDead()
-    {
-        //Ghost.GetComponent<GhostMechanics>().OnHitPacMan();
-        //TODO: Play the death animation for Pac Man. DONE
-
-        //Debug.Log("PacMan is Dead");
-
-        DeadStateAnim.SetBool("PacManIsDead", true);    //  Play Pac Man's dead animation.
-        AudioControl.StopAllSounds();    //  Stop every sound that is being played.
-        PlaySound("PACMANDEATH");   //  Play the sound of Pac Man dieding.
-        moveSpeed = 0;  //  Stop Pac Man.
-        IsAlive = false;    //  Set Pac Man's alive state to false.
-
-        FindObjectOfType<GameController>().DeductLife();    //  Deducts a life in the Life UI on-screen.
     }
 
     void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.
@@ -145,7 +129,8 @@ public class PlayerControllers : MonoBehaviour
 
     void DropDynamite()
     {
-        Instantiate(Dynamite, new Vector3(transform.position.x, transform.position.y, -.05f), Quaternion.identity);
+        Dynamite dynamite = Instantiate(Dynamite, new Vector3(transform.position.x, transform.position.y, -.05f), Quaternion.identity);
+        dynamite.SetMaximumRange(collected);
     }
 
     void KillPlayer()
@@ -209,6 +194,9 @@ public class PlayerControllers : MonoBehaviour
         }
 
         #endregion
+
+        if (Input.GetKeyDown(KeyCode.K))
+            EatBigPellet(null);
     }
 
     void determineRotation(string whereTo)
