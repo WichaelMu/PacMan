@@ -35,7 +35,7 @@ public class OnAwake : MonoBehaviour
         //TimePlayed.text = minute + ":" + seconds + ":" + milli;
         TimePlayed.text = (PlayerPrefs.GetString("StringTimePlayed").Length == 0 ? "00:00:00" : PlayerPrefs.GetString("StringTimePlayed"));
 
-        switch (Random.Range(1, 6))
+        switch (Random.Range(1, 7))
         {
             case 1:
                 subtitle.text = "TYPING LETTERS HERE SO THIS FIELD IS NOT EMPTY. IF YOU WANT TO WRITE SOMETHING USEFUL HERE, EMAIL ME OR SOMETHING";
@@ -47,10 +47,16 @@ public class OnAwake : MonoBehaviour
                 subtitle.text = "SPECIAL THANKS TO TORU IWATANI!";
                 break;
             case 4:
-                subtitle.text = "APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA ";
+                subtitle.text = "APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA APPA";
                 break;
             case 5:
                 subtitle.text = "GITHUB.COM/WICHAELMU";
+                break;
+            case 6:
+                subtitle.text = "PLAY THIS GAME AND BECOME A GAMING GENIUS BEATING EVERY SINGLE PAC MAN WORLD RECORD";
+                break;
+            case 7:
+                subtitle.text = "THIS IS UNBELIEVABLE. PLAY FAST AND BECOME A PAC MAN MASTERMIND";
                 break;
         }
     }
