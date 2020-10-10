@@ -49,6 +49,7 @@ public class GameController : MonoBehaviour
         InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
 
         PlayerStats.LoadGame();
+        PlayerStats.score = 0;
 
         Fruits = new GameObject[5];
         Fruits[0] = Apple;
@@ -98,8 +99,8 @@ public class GameController : MonoBehaviour
             Debug.Log("This level is complete.");
         }
 
-        if (PelletHolder.childCount % 100 == 0)
-            PlayerStats.SaveGame();
+        if (PelletHolder.childCount % 5 == 0)
+            SaveGame();
     }
 
     void DisplayStartingLives()
@@ -119,7 +120,7 @@ public class GameController : MonoBehaviour
             EndGame();
         else
             Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
-        PlayerStats.SaveGame();
+        SaveGame();
     }
 
     void EndGame()
@@ -132,16 +133,19 @@ public class GameController : MonoBehaviour
         StopCoroutine(GameTimer);
 
         Invoke("LoadMainMenu", 3f);
-
-        PlayerStats.SaveGame();
         
         //Debug.Log("Pac Man is dead");
     }
 
     void LoadMainMenu()
     {
-        PlayerStats.SaveGame();
+        SaveGame();
         SceneManager.LoadScene(0);
+    }
+
+    void SaveGame()
+    {
+        PlayerStats.SaveGame();
     }
 
     public void BeginStartingProcedure() { 
@@ -176,6 +180,7 @@ public class GameController : MonoBehaviour
 
     void BeginGame()
     {
+        SaveGame();
         Enable(true);
         StartCoroutine(GameTimer);
     }
@@ -198,16 +203,20 @@ public class GameController : MonoBehaviour
             Time.text = minute + ":" + seconds + ":" + milli;
             yield return new WaitForSeconds(.01f);
             milli++;
-            PlayerStats.timePlayed++;
+            PlayerStats.ms = milli;
+
             if (milli == 100)
             {
                 seconds++;
+                PlayerStats.seconds = seconds;
                 milli = 0;
+                PlayerStats.ms = milli;
             }
 
             if (seconds == 60)
             {
                 minute++;
+                PlayerStats.minutes++;
                 seconds = 0;
             }
         }

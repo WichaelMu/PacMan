@@ -122,6 +122,7 @@ public class PacManController : MonoBehaviour
         //Destroying the Fruit is done on Fruit.cs;
         PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit.
         PlayerStats.score += 100;
+        PlayerStats.SaveGame();
     }
 
     void OnHitGhost(GameObject Ghost)
@@ -132,6 +133,8 @@ public class PacManController : MonoBehaviour
             OnHitScaredGhost(Ghost);    //  Kill that ghost.
         else
             PacManIsDead();    //  Otherwise, kill Pac Man.
+
+        PlayerStats.SaveGame();
     }
 
     void PacManIsDead()
@@ -161,6 +164,8 @@ public class PacManController : MonoBehaviour
 
         if (!GameController.DoNotRestart)
             Invoke("ResetGame", 4f);    //  Reset the game in 4 seconds.
+
+        PlayerStats.SaveGame();
     }
 
     void OnHitScaredGhost(GameObject Ghost)

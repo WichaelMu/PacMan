@@ -30,6 +30,7 @@ public class OnClick : MonoBehaviour
 
     public void ViewMainMenu()
     {
+        PlayerStats.SaveGame();
         SceneManager.LoadScene(0);
     }
 
@@ -37,7 +38,7 @@ public class OnClick : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         HighScore.text = "0";
-        TimePlayed.text = "0:0:0";
+        TimePlayed.text = "00:00:00";
     }
 
     public void QuitGame()

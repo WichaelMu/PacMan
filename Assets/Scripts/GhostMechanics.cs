@@ -149,7 +149,7 @@ public class GhostMechanics : MonoBehaviour
     void Lerp(Vector3 position)
     {
         time += Time.deltaTime;
-        transform.position = Vector3.Lerp(transform.position, position, time*.5f);
+        transform.position = Vector3.Lerp(transform.position, position, time*.1f);
 
         if (Vector3.Distance(transform.position, position) < .1f)
         {

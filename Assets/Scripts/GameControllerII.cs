@@ -92,6 +92,7 @@ public class GameControllerII : MonoBehaviour
 
     void LoadMainMenu()
     {
+        PlayerStats.SaveGame();
         SceneManager.LoadScene(0);
     }
 
