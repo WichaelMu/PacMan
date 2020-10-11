@@ -55,17 +55,6 @@ public class AudioController : MonoBehaviour
     }
 
     /// <summary>
-    /// Check if a sound is being played or not.
-    /// </summary>
-    /// <param name="n">The name of the sound.</param>
-    /// <returns>True if the sound is already playing, false if the sound is not playing.</returns>
-
-    public bool IsPlaying(string n)
-    {
-        return FindSound(n).s.isPlaying;
-    }
-
-    /// <summary>
     /// Returns a sound in the Sounds array.
     /// </summary>
     /// <param name="n">The name of the requested sound.</param>

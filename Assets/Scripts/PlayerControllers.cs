@@ -102,7 +102,6 @@ public class PlayerControllers : MonoBehaviour
         collected++;
 
         PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit/Big Pellet.
-        StopSound("AMBIENT");   //  Stops the ambient from playing.
     }
 
     void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.

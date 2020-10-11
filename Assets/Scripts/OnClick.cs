@@ -20,7 +20,7 @@ public class OnClick : MonoBehaviour
 
     public void PlayInnovation()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(3);
     }
 
     public void ViewAssets()

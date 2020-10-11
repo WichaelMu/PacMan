@@ -25,6 +25,8 @@ public class GameControllerII : MonoBehaviour
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
 
+    AudioController AudioControl;
+
     GameObject P1;
     int _P1Score = 0;
     GameObject P2;
@@ -35,6 +37,8 @@ public class GameControllerII : MonoBehaviour
 
     void Awake()
     {
+        AudioControl = FindObjectOfType<AudioController>();
+
         P1 = GameObject.FindWithTag("RED");
         P2 = GameObject.FindWithTag("BLUE");
 
@@ -110,7 +114,7 @@ public class GameControllerII : MonoBehaviour
         yield return new WaitForFixedUpdate();
         FindObjectOfType<AudioController>().StopAllSounds();
         FindObjectOfType<AudioController>().PlaySound("STARTING");
-        yield return new WaitForSeconds(4.75f);
+        yield return new WaitForSeconds(1f);
         READY.gameObject.SetActive(false);
         CountDown.gameObject.SetActive(true);
         int c = 3;
@@ -119,6 +123,7 @@ public class GameControllerII : MonoBehaviour
             CountDown.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
+        AudioControl.PlaySound("COMPLEX");
         CountDown.gameObject.SetActive(false);
         START.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
@@ -136,6 +141,8 @@ public class GameControllerII : MonoBehaviour
     void Enable(bool b)
     {
         //  PLAYER CONTROLLERS EN/DISABLE.
+        if (!b)
+            AudioControl.StopSound("COMPLEX");
         P1.GetComponent<PlayerControllers>().enabled = b;
         P2.GetComponent<PlayerControllers>().enabled = b;
     }

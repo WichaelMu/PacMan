@@ -8,8 +8,14 @@ public class OnAwake : MonoBehaviour
     public TextMeshProUGUI TimePlayed;
     public TextMeshProUGUI subtitle;
 
+    AudioController AudioControl;
+
     void Awake()
     {
+        AudioControl = FindObjectOfType<AudioController>();
+        AudioControl.StopAllSounds();
+        AudioControl.PlaySound("PIANO");
+
         PlayerStats.LoadGame();
         try { CurrentHighScore.text = PlayerStats._highScore.ToString(); } catch (System.NullReferenceException) { }
 
