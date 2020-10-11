@@ -20,6 +20,7 @@ TagManager:
   - PortalR
   - PortalL
   - Explosion
+  - GREEN
   layers:
   - Default
   - TransparentFX

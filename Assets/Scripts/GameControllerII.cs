@@ -40,7 +40,7 @@ public class GameControllerII : MonoBehaviour
         AudioControl = FindObjectOfType<AudioController>();
 
         P1 = GameObject.FindWithTag("RED");
-        P2 = GameObject.FindWithTag("BLUE");
+        P2 = GameObject.FindWithTag("GREEN");
 
         StartProcedure = Countdown();
 
