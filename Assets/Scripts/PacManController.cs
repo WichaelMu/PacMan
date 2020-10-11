@@ -254,16 +254,25 @@ public class PacManController : MonoBehaviour
 
     void KeyboardControl()  //  These are the keyboard inputs from the user.
     {
-        //string lastInput = Input.inputString;
+        string lastInput = Input.inputString;
 
         #region WASD Controls
 
-        //  For some reason, these are buggy and *sometimes* work, but usually doesn't.
-
-        if (Input.GetKeyDown(KeyCode.W))        determineRotation("U");
-        if (Input.GetKeyDown(KeyCode.S))        determineRotation("D");
-        if (Input.GetKeyDown(KeyCode.A))        determineRotation("L");
-        if (Input.GetKeyDown(KeyCode.D))        determineRotation("R");
+        switch (lastInput.ToUpper())
+        {
+            case "W":
+                determineRotation("U");
+                break;
+            case "S":
+                determineRotation("D");
+                break;
+            case "A":
+                determineRotation("L");
+                break;
+            case "D":
+                determineRotation("R");
+                break;
+        }
 
         #endregion
 

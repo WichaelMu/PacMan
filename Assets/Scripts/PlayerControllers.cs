@@ -164,17 +164,33 @@ public class PlayerControllers : MonoBehaviour
 
     void KeyboardControl()  //  These are the keyboard inputs from the user.
     {
-        //string lastInput = Input.inputString;
+        string lastInput = Input.inputString;
+
+        if (Input.GetKey(KeyCode.K))
+            EatBigPellet(null);
 
         #region P1 Controls
 
         if (ID == 1)
         {
-            if (Input.GetKeyDown(KeyCode.W)) determineRotation("U");
-            if (Input.GetKeyDown(KeyCode.S)) determineRotation("D");
-            if (Input.GetKeyDown(KeyCode.A)) determineRotation("L");
-            if (Input.GetKeyDown(KeyCode.D)) determineRotation("R");
-            if (Input.GetKeyDown(KeyCode.Space)) DropDynamite();
+            switch (lastInput.ToUpper())
+            {
+                case "W":
+                    determineRotation("U");
+                    break;
+                case "S":
+                    determineRotation("D");
+                    break;
+                case "A":
+                    determineRotation("L");
+                    break;
+                case "D":
+                    determineRotation("R");
+                    break;
+                case " ":
+                    DropDynamite();
+                    break;
+            }
             return;
         }
 
@@ -194,8 +210,6 @@ public class PlayerControllers : MonoBehaviour
 
         #endregion
 
-        if (Input.GetKeyDown(KeyCode.K))
-            EatBigPellet(null);
     }
 
     void determineRotation(string whereTo)
@@ -286,7 +300,6 @@ public class PlayerControllers : MonoBehaviour
         {
             moveSpeed = 0f; //  Stop Pac Man.
             IsStill = true; //  Set Pac Man so that he is at a standstill.
-            PlaySound("WALL");  //  Play the sound of Pac Man colliding with a wall.
             return; //  If Pac Man is set to be at a standstill, do not execute any more code.
         }
 

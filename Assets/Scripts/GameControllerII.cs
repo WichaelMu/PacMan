@@ -141,8 +141,6 @@ public class GameControllerII : MonoBehaviour
     void Enable(bool b)
     {
         //  PLAYER CONTROLLERS EN/DISABLE.
-        if (!b)
-            AudioControl.StopSound("COMPLEX");
         P1.GetComponent<PlayerControllers>().enabled = b;
         P2.GetComponent<PlayerControllers>().enabled = b;
     }

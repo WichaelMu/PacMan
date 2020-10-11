@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 123103068193010784}
   - component: {fileID: 5581537348294706657}
   - component: {fileID: 6771252272990447397}
+  - component: {fileID: 7611358400352206115}
   m_Layer: 0
   m_Name: DynamiteGREEN
   m_TagString: Untagged
@@ -119,3 +120,16 @@ MonoBehaviour:
     m_Bits: 256
   ExplodeParticle: {fileID: 8537781115130678646, guid: a33a08700b6cc814abab4440e7112c16,
     type: 3}
+--- !u!65 &7611358400352206115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836969361375139060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}

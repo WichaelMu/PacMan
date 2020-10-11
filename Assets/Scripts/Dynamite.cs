@@ -10,23 +10,30 @@ public class Dynamite : MonoBehaviour
     int MaximumRange = 1;
     readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
 
+    AudioController AudioControl;
     List<GameObject> ExplodeParticles;
     int NumberofExplodedParticles = 0;
 
     IEnumerator RemoveParticles;
 
+    static int ExplosionSound = 0;
+
     void Start()
     {
-
-        Invoke("Explode", 4f);
+        AudioControl = FindObjectOfType<AudioController>();
+        Invoke("Detonate", 4f);
         RemoveParticles = Aftermath();
         StartCoroutine(RemoveParticles);
 
         ExplodeParticles = new List<GameObject>();
     }
 
-    void Explode()
+    void Detonate()
     {
+        AudioControl.PlaySound("EX" + ExplosionSound);
+        ExplosionSound++;
+        ExplosionSound %= 5;
+
         Vector3[] ExplodeDirections = new[] { Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero, };
         float[] ExplodeDistances = new[] { -1f, -1f, -1f, -1f };
         int VIndex = 0; //  Index for the Vector directions 'Explode Directions'.

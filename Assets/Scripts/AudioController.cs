@@ -30,6 +30,8 @@ public class AudioController : MonoBehaviour
         Sound s = FindSound(n);
         if (s != null&&!s.s.isPlaying)
             s.s.Play();
+        if (s == null)
+            Debug.LogWarning("Sound of name: " + n + " could not be played!");
     }
 
     /// <summary>
@@ -42,6 +44,8 @@ public class AudioController : MonoBehaviour
         Sound s = FindSound(n);
         if (s != null)
             s.s.Stop();
+        if (s==null)
+            Debug.LogWarning("Sound of name: " + n + " could not be stopped!");
     }
 
     /// <summary>
