@@ -46,7 +46,8 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
+        //InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
+        InvokeRepeating("PlaceAFruitAtRandom", 2f, 5f);
 
         PlayerStats.LoadGame();
         PlayerStats.score = 0;
