@@ -13,8 +13,6 @@ public class OnAwake : MonoBehaviour
     void Awake()
     {
         AudioControl = FindObjectOfType<AudioController>();
-        AudioControl.StopAllSounds();
-        AudioControl.PlaySound("PIANO");
 
         PlayerStats.LoadGame();
         try { CurrentHighScore.text = PlayerStats._highScore.ToString(); } catch (System.NullReferenceException) { }
@@ -65,5 +63,11 @@ public class OnAwake : MonoBehaviour
                 subtitle.text = "THIS IS UNBELIEVABLE. PLAY FAST AND BECOME A PAC MAN MASTERMIND";
                 break;
         }
+    }
+
+    void Start()
+    {
+        AudioControl.StopSound("AMBIENT");
+        AudioControl.PlaySound("PIANO");
     }
 }
