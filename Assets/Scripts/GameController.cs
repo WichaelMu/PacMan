@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         //InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
-        InvokeRepeating("PlaceAFruitAtRandom", 2f, 5f);
+        InvokeRepeating("PlaceAFruitAtRandom", 30f, 30f);
 
         PlayerStats.LoadGame();
         PlayerStats.score = 0;
@@ -94,14 +94,14 @@ public class GameController : MonoBehaviour
         }
         if (PelletHolder.childCount == 0)
         {
-            //  TODO: Display a message saying "LEVEL COMPLETE" or something.
-            //  TODO: Exit back to the main menu.
+            //  TODO: Display a message saying "LEVEL COMPLETE" or something. DONE.
+            //  TODO: Exit back to the main menu. DONE.
             EndGame();
-            Debug.Log("This level is complete.");
+            //Debug.Log("This level is complete.");
         }
 
         if (PelletHolder.childCount % 5 == 0)
-            SaveGame();
+            PlayerStats.SaveGame();
     }
 
     void DisplayStartingLives()
@@ -121,7 +121,7 @@ public class GameController : MonoBehaviour
             EndGame();
         else
             Destroy(LifeHolder.GetChild(LifeCount--).gameObject);
-        SaveGame();
+        PlayerStats.SaveGame();
     }
 
     void EndGame()
@@ -140,13 +140,8 @@ public class GameController : MonoBehaviour
 
     void LoadMainMenu()
     {
-        SaveGame();
-        SceneManager.LoadScene(0);
-    }
-
-    void SaveGame()
-    {
         PlayerStats.SaveGame();
+        SceneManager.LoadScene(0);
     }
 
     public void BeginStartingProcedure() { 
@@ -181,7 +176,7 @@ public class GameController : MonoBehaviour
 
     void BeginGame()
     {
-        SaveGame();
+        PlayerStats.SaveGame();
         Enable(true);
         StartCoroutine(GameTimer);
     }
