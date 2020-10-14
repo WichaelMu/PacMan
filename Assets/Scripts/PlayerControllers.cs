@@ -68,7 +68,7 @@ public class PlayerControllers : MonoBehaviour
             EatBigPellet(other.gameObject);
         if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  When Pac Man enters a Portal.
             PortalHandler(other.name);
-        if (other.CompareTag("Explosion"))
+        if (other.CompareTag("Explosion") || other.CompareTag("ExplosionGHOST"))
             KillPlayer();
     }
 
@@ -128,12 +128,13 @@ public class PlayerControllers : MonoBehaviour
 
     void DropDynamite()
     {
-        Dynamite dynamite = Instantiate(Dynamite, new Vector3(transform.position.x, transform.position.y, -.05f), Quaternion.identity);
+        Dynamite dynamite = Instantiate(Dynamite, new Vector3(transform.position.x, transform.position.y, -.05f), transform.rotation);
         dynamite.SetMaximumRange(collected);
     }
 
     void KillPlayer()
     {
+        Destroy(gameObject);
         GameController.EndGame(ID);
     }
 

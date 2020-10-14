@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6246347606789597792}
   m_Layer: 0
   m_Name: TJunction
-  m_TagString: Untagged
+  m_TagString: QLL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

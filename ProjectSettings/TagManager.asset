@@ -21,6 +21,9 @@ TagManager:
   - PortalL
   - Explosion
   - GREEN
+  - QLL
+  - ExplosionGHOST
+  - GhostSpawn
   layers:
   - Default
   - TransparentFX

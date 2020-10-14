@@ -7,14 +7,13 @@ public class Dynamite : MonoBehaviour
     public LayerMask Walls;
     public GameObject ExplodeParticle;
 
-    int MaximumRange = 1;
+    float MaximumRange = 1;
     readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
 
     AudioController AudioControl;
     List<GameObject>[] ExplodeQuarters = new[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>()};
     int[] NumberOfExplosions = new[] { 0, 0, 0, 0 };
     List<GameObject> ExplodeParticles;
-    int NumberofExplodedParticles = 0;
 
     IEnumerator RemoveParticles;
 
@@ -63,7 +62,6 @@ public class Dynamite : MonoBehaviour
                 ExplodeQuarters[i].Add(Instantiate(ExplodeParticle, transform.position + ExplodeDirections[i] * k, Quaternion.identity));
                 NumberOfExplosions[i]++;
             }
-        NumberofExplodedParticles = ExplodeParticles.Count;
         transform.position = new Vector3 (100f, 100f, 100f);
     }
 
@@ -85,9 +83,16 @@ public class Dynamite : MonoBehaviour
         {
             if (last[0] == 0 && last[1] == 0 && last[2] == 0 && last[3] == 0)
                 break;
-            for (int i = 0; i < ExplodeQuarters.Length; i++)
+            for (int i = 0; i < ExplodeQuarters.Length; i++)    //  change this to int i = 1?
             {
-                Destroy(ExplodeQuarters[i][last[i]]);
+                try
+                {
+                    Destroy(ExplodeQuarters[i][last[i]]);
+                }
+                catch
+                {
+                    
+                }
                 if (last[i]!=0)
                     last[i]--;
             }
@@ -101,6 +106,11 @@ public class Dynamite : MonoBehaviour
     }
 
     public void SetMaximumRange(int amount)
+    {
+        MaximumRange += amount;
+    }
+
+    public void SetMaximumRange(float amount)
     {
         MaximumRange += amount;
     }

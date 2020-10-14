@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 346273729049067402}
   m_Layer: 8
   m_Name: InsideCornerTR
-  m_TagString: Untagged
+  m_TagString: QLL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

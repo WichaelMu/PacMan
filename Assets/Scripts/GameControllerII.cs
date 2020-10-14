@@ -25,6 +25,10 @@ public class GameControllerII : MonoBehaviour
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
 
+    [Header("Natural Enemies")]
+    public GameObject Ghost;
+    Transform GhostSpawnPoint;
+
     AudioController AudioControl;
 
     GameObject P1;
@@ -50,6 +54,13 @@ public class GameControllerII : MonoBehaviour
 
         P1Score.text = _P1Score.ToString();
         P2Score.text = _P2Score.ToString();
+
+        InvokeRepeating("SpawnGhost", 0, 30f);
+    }
+
+    void Start()
+    {
+        GhostSpawnPoint = GameObject.FindWithTag("GhostSpawn").transform;
     }
 
     void OnEnable()
@@ -165,5 +176,13 @@ public class GameControllerII : MonoBehaviour
                 seconds = 0;
             }
         }
+    }
+
+    void SpawnGhost()
+    {
+        GameObject ghost = Instantiate(Ghost, GhostSpawnPoint.position, Quaternion.identity);
+        ghost.GetComponent<InnovationAI>().SpecifyTarget = 1;
+        GameObject _ghost = Instantiate(Ghost, GhostSpawnPoint.position, Quaternion.identity);
+        _ghost.GetComponent<InnovationAI>().SpecifyTarget = 2;
     }
 }

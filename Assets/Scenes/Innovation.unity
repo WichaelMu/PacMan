@@ -2837,6 +2837,12 @@ PrefabInstance:
       propertyPath: Message
       value: 
       objectReference: {fileID: 1311373409}
+    - target: {fileID: 2606355962449800948, guid: 6b3217cce0c01a5499c5d0c4fc3022b4,
+        type: 3}
+      propertyPath: Ghost
+      value: 
+      objectReference: {fileID: 885204993947318922, guid: 17c099f90b230a04fa3b43b8c96bab8f,
+        type: 3}
     - target: {fileID: 2606355962449800949, guid: 6b3217cce0c01a5499c5d0c4fc3022b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3271,6 +3277,12 @@ PrefabInstance:
       propertyPath: P1SpawnPoint
       value: 
       objectReference: {fileID: 83028303043851022, guid: ec9254c8a6d406849951e64610379c73,
+        type: 3}
+    - target: {fileID: 8730748387593652227, guid: 7d2e020f8242266499d6f722b502c949,
+        type: 3}
+      propertyPath: GhostSpawnPoint
+      value: 
+      objectReference: {fileID: 6966722024152914936, guid: 9e34cf84337a2534aa5bd764a87b3bf9,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2e020f8242266499d6f722b502c949, type: 3}
