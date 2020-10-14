@@ -393,12 +393,14 @@ public class PacManController : MonoBehaviour
             IsStill = true; //  Set Pac Man so that he is at a standstill.
             PlaySound("WALL");  //  Play the sound of Pac Man colliding with a wall.
             Destroy(Instantiate(WallBump, transform.position, Quaternion.identity), 2f);
+            DeadStateAnim.speed = 0f;
             return; //  If Pac Man is set to be at a standstill, do not execute any more code.
         }
 
         if (IsAlive)    //  If Pac Man is alive.
             moveSpeed = DefaultMoveSpeed;   //  Reset Pac Man's movement speed.
         IsStill = false;    //  Set Pac Man so that he is no longer at a standstill.
+        DeadStateAnim.speed = 1.5f;
     }
 
     #endregion

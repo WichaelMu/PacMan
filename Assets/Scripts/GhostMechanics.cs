@@ -155,6 +155,7 @@ public class GhostMechanics : MonoBehaviour
         {
             time = 0;
             transform.position = position;
+            GhostRespawn();
             return;
         }
     }
@@ -206,6 +207,7 @@ public class GhostMechanics : MonoBehaviour
         if (OneScared && !OneDead)  //  When at least one Ghost is scared, but no Ghosts are dead.
         {
             PlaySound("GHOSTSCAREDSTATE");
+            StopSound("DEAD");
             StopSound("AMBIENT");
             return;
         }

@@ -11,17 +11,21 @@ public class Dynamite : MonoBehaviour
     readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
 
     AudioController AudioControl;
+    List<GameObject>[] ExplodeQuarters = new[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>()};
+    int[] NumberOfExplosions = new[] { 0, 0, 0, 0 };
     List<GameObject> ExplodeParticles;
     int NumberofExplodedParticles = 0;
 
     IEnumerator RemoveParticles;
+
+    int DetonationTime = 4;
 
     static int ExplosionSound = 0;
 
     void Start()
     {
         AudioControl = FindObjectOfType<AudioController>();
-        Invoke("Detonate", 4f);
+        Invoke("Detonate", DetonationTime);
         RemoveParticles = Aftermath();
         StartCoroutine(RemoveParticles);
 
@@ -53,21 +57,46 @@ public class Dynamite : MonoBehaviour
         }
 
         for (int i = 0; i < ExplodeDirections.Length && ExplodeDirections[i] != Vector3.zero; i++)
-                for (float k = 0; k < ExplodeDistances[i] && k < MaximumRange; k += .2f)
-                    ExplodeParticles.Add(Instantiate(ExplodeParticle, transform.position + ExplodeDirections[i] * k, Quaternion.identity));
+            for (float k = 0; k < ExplodeDistances[i] && k < MaximumRange; k += .2f)
+            {
+                //ExplodeParticles.Add(Instantiate(ExplodeParticle, transform.position + ExplodeDirections[i] * k, Quaternion.identity));
+                ExplodeQuarters[i].Add(Instantiate(ExplodeParticle, transform.position + ExplodeDirections[i] * k, Quaternion.identity));
+                NumberOfExplosions[i]++;
+            }
         NumberofExplodedParticles = ExplodeParticles.Count;
         transform.position = new Vector3 (100f, 100f, 100f);
     }
 
     IEnumerator Aftermath()
     {
-        yield return new WaitForSeconds(5.5f);
-        for (int i = NumberofExplodedParticles - 1; i >= 0; i--)
+        int[] last = new[] { 0, 0, 0, 0 };
+        yield return new WaitForSeconds(DetonationTime + 1.5f);
+
+        //for (int i = NumberofExplodedParticles - 1; i >= 0; i--)
+        //{
+        //    Destroy(ExplodeParticles[i]);
+        //    yield return new WaitForFixedUpdate();
+        //}
+
+        for (int i = 0; i < ExplodeQuarters.Length; i++)
+            last[i] = ExplodeQuarters[i].Count - 1;
+
+        while (true)
         {
-            Destroy(ExplodeParticles[i]);
+            if (last[0] == 0 && last[1] == 0 && last[2] == 0 && last[3] == 0)
+                break;
+            for (int i = 0; i < ExplodeQuarters.Length; i++)
+            {
+                Destroy(ExplodeQuarters[i][last[i]]);
+                if (last[i]!=0)
+                    last[i]--;
+            }
+
             yield return new WaitForFixedUpdate();
         }
-        
+
+        for (int i = 0; i < ExplodeQuarters.Length; i++)
+            Destroy(ExplodeQuarters[i][0]);
         Destroy(gameObject);
     }
 

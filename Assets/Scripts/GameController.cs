@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
 
         StartProcedure = Countdown();
 
-        HighScore.text = PlayerStats.highScore.ToString();
+        HighScore.text = PlayerStats._highScore.ToString();
 
         PacMan = GameObject.FindWithTag("Player");
 

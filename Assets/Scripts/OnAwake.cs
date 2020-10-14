@@ -39,7 +39,7 @@ public class OnAwake : MonoBehaviour
         //TimePlayed.text = minute + ":" + seconds + ":" + milli;
         TimePlayed.text = (PlayerPrefs.GetString("StringTimePlayed").Length == 0 ? "00:00:00" : PlayerPrefs.GetString("StringTimePlayed"));
 
-        switch (Random.Range(1, 7))
+        switch (Random.Range(1, 10))
         {
             case 1:
                 subtitle.text = "TYPING LETTERS HERE SO THIS FIELD IS NOT EMPTY. IF YOU WANT TO WRITE SOMETHING USEFUL HERE, EMAIL ME OR SOMETHING";
@@ -61,6 +61,12 @@ public class OnAwake : MonoBehaviour
                 break;
             case 7:
                 subtitle.text = "THIS IS UNBELIEVABLE. PLAY FAST AND BECOME A PAC MAN MASTERMIND";
+                break;
+            case 8:
+                subtitle.text = "ITS TIME, DON'T ASK QUESTIONS. JUST PLAY THE GAME";
+                break;
+            case 9:
+                subtitle.text = "xqcL";
                 break;
         }
     }
