@@ -4,6 +4,7 @@ public class InnovationAI : MonoBehaviour
 {
     public LayerMask Walls; //  The layer the walls are situated.
     public Dynamite Dynamite;
+
     public int SpecifyTarget;
 
     [SerializeField]
@@ -12,6 +13,9 @@ public class InnovationAI : MonoBehaviour
 
     readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(0f, -1f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
     Vector3 opposite;
+    Transform PortalL;
+    Transform PortalR;
+    bool IsOutOfPortal = true;
 
     float MoveSpeed = 1.5f;
     float hCurrent; //  The current horizontal direction.
@@ -20,6 +24,9 @@ public class InnovationAI : MonoBehaviour
 
     void Start()
     {
+        PortalL = GameObject.FindWithTag("PortalL").transform;
+        PortalR = GameObject.FindWithTag("PortalR").transform;
+
         InvokeRepeating("DropDynamite", 5, 15);
         GhostRB = GetComponent<Rigidbody>();
         if (SpecifyTarget == 1)
@@ -39,6 +46,8 @@ public class InnovationAI : MonoBehaviour
     {
         if (o.CompareTag("Switcher"))   //  If this Ghost hits a switcher.
             ArtificialIntelligence(o.gameObject.GetComponent<Switcher>());  //  It will begin the process of Artificial Intelligence.
+        if (o.CompareTag("PortalL") || o.CompareTag("PortalR"))
+            PortalHandler(o.name);
         if (o.CompareTag("Explosion") || o.CompareTag("ExplosionGHOST"))
             Destroy(gameObject);
     }
@@ -137,6 +146,15 @@ public class InnovationAI : MonoBehaviour
     {
         Dynamite dynamite = Instantiate(Dynamite, new Vector3(transform.position.x, transform.position.y, -.05f), transform.rotation);
         dynamite.SetMaximumRange(1);
+    }
+
+    void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.
+    {
+        if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Left Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Right Portal.
+            transform.position = PortalR.position;
+        if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Left Portal.
+            transform.position = PortalL.position;
+        IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
     }
 
     #region Get Methods

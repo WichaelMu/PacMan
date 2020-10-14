@@ -54,8 +54,6 @@ public class GameControllerII : MonoBehaviour
 
         P1Score.text = _P1Score.ToString();
         P2Score.text = _P2Score.ToString();
-
-        InvokeRepeating("SpawnGhost", 0, 30f);
     }
 
     void Start()
@@ -146,6 +144,7 @@ public class GameControllerII : MonoBehaviour
     void BeginGame()
     {
         Enable(true);
+        InvokeRepeating("SpawnGhost", 0, 30f);
         StartCoroutine(GameTimer);
     }
 

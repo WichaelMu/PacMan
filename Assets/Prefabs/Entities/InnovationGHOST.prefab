@@ -150,5 +150,7 @@ MonoBehaviour:
     m_Bits: 256
   Dynamite: {fileID: -7277008202574174971, guid: 6fc9607ed8b8c7b4190b544883e22254,
     type: 3}
+  PortalL: {fileID: 3323657520782059439, guid: 7e634ae2b5eb8d1448e1efae9eff9371, type: 3}
+  PortalR: {fileID: 665013338584035433, guid: 405d9d9521ed86445be4267b1d1694a7, type: 3}
   SpecifyTarget: 2
   Target: {fileID: 0}

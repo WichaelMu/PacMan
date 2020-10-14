@@ -13,7 +13,6 @@ public class Dynamite : MonoBehaviour
     AudioController AudioControl;
     List<GameObject>[] ExplodeQuarters = new[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>()};
     int[] NumberOfExplosions = new[] { 0, 0, 0, 0 };
-    List<GameObject> ExplodeParticles;
 
     IEnumerator RemoveParticles;
 
@@ -27,8 +26,6 @@ public class Dynamite : MonoBehaviour
         Invoke("Detonate", DetonationTime);
         RemoveParticles = Aftermath();
         StartCoroutine(RemoveParticles);
-
-        ExplodeParticles = new List<GameObject>();
     }
 
     void Detonate()
@@ -83,16 +80,10 @@ public class Dynamite : MonoBehaviour
         {
             if (last[0] == 0 && last[1] == 0 && last[2] == 0 && last[3] == 0)
                 break;
-            for (int i = 0; i < ExplodeQuarters.Length; i++)    //  change this to int i = 1?
+            for (int i = 0; i < ExplodeQuarters.Length; i++)
             {
-                try
-                {
+                if (last[i] >= 0)
                     Destroy(ExplodeQuarters[i][last[i]]);
-                }
-                catch
-                {
-                    
-                }
                 if (last[i]!=0)
                     last[i]--;
             }
