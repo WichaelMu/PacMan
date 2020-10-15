@@ -11350,6 +11350,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 976572167218312269, guid: 94bc4f08919a486408d8e65bc6cfe858,
+        type: 3}
+      propertyPath: Sounds.Array.data[8].Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 976572167218312270, guid: 94bc4f08919a486408d8e65bc6cfe858,
         type: 3}
       propertyPath: m_Name

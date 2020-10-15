@@ -29,10 +29,6 @@ public class GhostController : MonoBehaviour
     void FixedUpdate()
     {
         MoveDirection(hCurrent, vCurrent);  //  By default, this will move the Ghosts upwards at the beginning/restart of the game. It will move down if this is the Light Blue Ghost.
-        //if (GhostID < 3 && Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(GetCurrentDirection()), out RaycastHit hit, Mathf.Infinity, Walls))
-        //{
-        //    Debug.DrawLine(transform.position, hit.point, Color.white);
-        //}
     }
 
     void OnTriggerEnter(Collider o)
@@ -52,14 +48,6 @@ public class GhostController : MonoBehaviour
 
     void ArtificialIntelligence(Switcher switcher)
     {
-        //  If the ID of the Ghost is 1 or 2, i.e., the Red Ghost or the Pink Ghost, they will perform a raycast in the direction they are facing.
-        //if (GhostID < 3 && Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(GetCurrentDirection()), out RaycastHit hit, Mathf.Infinity, Walls))
-        //{
-        //    //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.white);
-        //    //Debug.Log(name + "'s distance from " + hit.collider.gameObject.name + " is: " + hit.distance);
-        //    ArtificialIntelligence(switcher);   //  If the raycast hits something, begin the Artificial Intelilgence for the Red Ghost and the Pink Ghost.
-        //}
-
         if (OrderNo227(switcher))
             return;
 
@@ -101,15 +89,6 @@ public class GhostController : MonoBehaviour
             MoveDirection(LongestDirection);    //  Move in this direction.
         else
             MoveRandomly(switcher);
-
-        #region ignore
-
-        //if (GhostColliderDistance >= GetGhostPacManDistance(PacMan.position))
-        //    MoveDirection(LongestDirection);
-        //else
-        //    Invoke(switcher.MoveRandom(), 0f);
-
-        #endregion
     }
 
     /// <summary>
@@ -144,21 +123,6 @@ public class GhostController : MonoBehaviour
             MoveDirection(ShortestDirection);   //  Move in this direction.
         else
             MoveRandomly(switcher);
-
-        #region ignore
-        //Array.Reverse(AllowedDirections);
-        //for (int i = 0; i < AllowedDirections.Length; i++)
-        //    if (Vector3.Distance(transform.position, PacMan.position) >= PacManColliderDistance && switcher.allowDirection(AllowedDirections[i]))
-        //    {
-        //        MoveDirection(AllowedDirections[i]);
-        //        Debug.Log(name + " did not move randomly");
-        //    }
-        //    else
-        //    {
-        //        Invoke(switcher.MoveRandom(), 0f);
-        //        Debug.Log(name + " moved randomly");
-        //    }
-        #endregion
     }
 
     void OrangeGhostAI(Switcher switcher)
