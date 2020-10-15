@@ -255,7 +255,6 @@ public class GhostController : MonoBehaviour
             for (int i = 0; i < directions.Length; i++)
                 if (directions[i] == direction) //  If the directions[i] is equal to the requested direction.
                     dCurrent = ConvertVectorDirectionToStringDirection(directions[i]);  //  Set the current direction to this Vector3 direction.
-
             opposite = GetOppositeDirection();
         }
 
@@ -264,6 +263,7 @@ public class GhostController : MonoBehaviour
 
     /// <summary>
     /// Moves this Ghost in the only allowed direction if there are only two possible directions.
+    /// Does not allow backwards movement; NOT ONE STEP BACK!
     /// </summary>
     /// <param name="switcher"></param>
     /// <returns>True if there are only two possible directions.</returns>
