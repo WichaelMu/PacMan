@@ -4,12 +4,6 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class PacManController : MonoBehaviour
 {
-    //[Header("Ghosts")]
-    //public GameObject RedGhost;
-    //public GameObject PinkGhost;
-    //public GameObject OrangeGhost;
-    //public GameObject BlueGhost;
-
     [Header("Life Controller")]
     public GameController GameController;
 
@@ -27,7 +21,7 @@ public class PacManController : MonoBehaviour
     public GameObject WallBump;
     public GameObject PacManDeath;
 
-    Rigidbody PacMan;
+    //Rigidbody PacMan;
     Switcher switcher;
     Animator DeadStateAnim;
     AudioController AudioControl;
@@ -47,7 +41,7 @@ public class PacManController : MonoBehaviour
 
     void Start()
     {
-        PacMan = GetComponent<Rigidbody>();
+        //PacMan = GetComponent<Rigidbody>();
         DefaultMoveSpeed = moveSpeed;
 
         DeadStateAnim = GetComponent<Animator>();
