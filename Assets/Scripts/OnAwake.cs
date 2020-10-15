@@ -66,7 +66,7 @@ public class OnAwake : MonoBehaviour
                 subtitle.text = "ITS TIME, DON'T ASK QUESTIONS. JUST PLAY THE GAME";
                 break;
             case 9:
-                subtitle.text = "xqcL";
+                subtitle.text = "";
                 break;
             case 10:
                 subtitle.text = "TWO + TWO IS FOUR. MINUS ONE, THATS THREE QUICK MAFFS";
