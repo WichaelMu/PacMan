@@ -64,9 +64,6 @@ public class PacManController : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
-
-        if (Input.GetKeyDown(KeyCode.K))
-            EatBigPellet(null);
     }
 
     void OnTriggerEnter(Collider other)
@@ -249,7 +246,7 @@ public class PacManController : MonoBehaviour
                 UD = 0f;
                 break;
         }
-        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t/((1/moveSpeed)*.3125f));
+        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t/(1 / (moveSpeed * LevelGenerator.PIXEL_32)));
         t = 0;
     }
 
@@ -285,6 +282,9 @@ public class PacManController : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))   determineRotation("R");
 
         #endregion
+
+        if (Input.GetKey(KeyCode.K))
+            EatBigPellet(null);
     }
 
     void determineRotation(string whereTo)

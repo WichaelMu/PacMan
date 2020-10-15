@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour
     void UpdateScore()
     {
         CurrentScore.text = PlayerStats.score.ToString();
-        if (PlayerStats.score > PlayerStats.highScore)
+        if (PlayerStats.score > PlayerStats._highScore)
         {
             PlayerStats.highScore = PlayerStats.score;
             HighScore.text = PlayerStats.highScore.ToString();

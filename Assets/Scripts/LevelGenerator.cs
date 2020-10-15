@@ -40,6 +40,8 @@ public class LevelGenerator : MonoBehaviour
     public GameObject PortL;    //  9   :   Portal on the Left
     public GameObject PortR;    //  91  :   Portal on the Right.
 
+    public const float PIXEL_32 = .3125f;
+
     #region Level Schematic
     readonly int[,] levelMap =
          {              //LEFT OF THE SCREEN\\                  //RIGHT OF THE SCREEN\\
@@ -208,19 +210,19 @@ public class LevelGenerator : MonoBehaviour
 
     void GeneratePlacements(GameObject Object, Vector3 where)
     {
-        GameObject go = Instantiate(Object, where/3.2f, Quaternion.identity);
+        GameObject go = Instantiate(Object, where * PIXEL_32, Quaternion.identity);
         MakeParent(go, WallHolder);
     }
 
     void PlaceSmallDot(int k, int i)
     {
-        GameObject go = Instantiate(SmallDot, (new Vector3(k, i, 0f)/3.2f), Quaternion.identity);
+        GameObject go = Instantiate(SmallDot, (new Vector3(k, i, 0f) * PIXEL_32), Quaternion.identity);
         MakeParent(go, PelletHolder);
     }
 
     void PlaceBigDot(int k, int i)
     {
-        GameObject go = Instantiate(BigDot, (new Vector3(k, i, 0f) / 3.2f), Quaternion.identity);
+        GameObject go = Instantiate(BigDot, (new Vector3(k, i, 0f) * PIXEL_32), Quaternion.identity);
         MakeParent(go, PelletHolder);
     }
 

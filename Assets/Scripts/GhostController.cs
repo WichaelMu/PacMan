@@ -28,7 +28,7 @@ public class GhostController : MonoBehaviour
 
     void FixedUpdate()
     {
-        MoveDirection(hCurrent, vCurrent);  //  By default, this will move the Ghosts upwards at the beginning/restart of the game. It will move down if this is the Light Blue Ghost.
+        //MoveDirection(hCurrent, vCurrent);  //  By default, this will move the Ghosts upwards at the beginning/restart of the game. It will move down if this is the Light Blue Ghost.
     }
 
     void OnTriggerEnter(Collider o)
