@@ -28,7 +28,7 @@ public class GhostController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //MoveDirection(hCurrent, vCurrent);  //  By default, this will move the Ghosts upwards at the beginning/restart of the game. It will move down if this is the Light Blue Ghost.
+        MoveDirection(hCurrent, vCurrent);  //  By default, this will move the Ghosts upwards at the beginning/restart of the game. It will move down if this is the Light Blue Ghost.
     }
 
     void OnTriggerEnter(Collider o)
@@ -195,14 +195,23 @@ public class GhostController : MonoBehaviour
     /// <param name="horizontal">Dictates a left or right movement.</param>
     /// <param name="vertical">Dictates an up or down movement.</param>
 
+    float t;
+
     void MoveDirection(float horizontal, float vertical)
     {
+        t += Time.fixedDeltaTime;
+
         if (enabled)    //  If GhostController.cs is enabled.
         {
-            GhostRB.MovePosition(transform.position + new Vector3(horizontal, vertical, 0f) * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards horizontal or vertical at GhostMechanics MoveSpeed.
+            //GhostRB.MovePosition(transform.position + new Vector3(horizontal, vertical, 0f) * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards horizontal or vertical at GhostMechanics MoveSpeed.
+
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + horizontal, transform.position.y + vertical, transform.position.z), t / (LevelGenerator.PIXEL_32 / (GetComponent<GhostMechanics>().MoveSpeed * .35f)));
+
             hCurrent = horizontal;  //  Set the current horizontal movement to horizontal.
             vCurrent = vertical;    //  Set the current vertical movement to vertical.
         }
+
+        t = 0;
     }
 
     /// <summary>
@@ -212,9 +221,12 @@ public class GhostController : MonoBehaviour
 
     void MoveDirection(Vector3 direction)
     {
+        t += Time.fixedDeltaTime;
+
         if (enabled)    //  If GhostController.cs is enabled.
         {
             GhostRB.MovePosition(transform.position + direction * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards Vector3 direction at GhostMechanics MoveSpeed.
+
             hCurrent = direction.x; //  Set the current horizontal movement to the x value of direction.
             vCurrent = direction.y; //  Set the current vertical movement to the y value of direction.
 
@@ -224,6 +236,8 @@ public class GhostController : MonoBehaviour
 
             opposite = GetOppositeDirection();
         }
+
+        t = 0;
     }
 
     /// <summary>
@@ -401,24 +415,24 @@ public class GhostController : MonoBehaviour
     void U()
     {
         hCurrent = 0;
-        vCurrent = 1;
+        vCurrent = .5f;
         dCurrent = "U";
     }
     void D()
     {
         hCurrent = 0;
-        vCurrent = -1;
+        vCurrent = -.5f;
         dCurrent = "D";
     }
     void L()
     {
-        hCurrent = -1;
+        hCurrent = -.5f;
         vCurrent = 0;
         dCurrent = "L";
     }
     void R()
     {
-        hCurrent = 1;
+        hCurrent = .5f;
         vCurrent = 0;
         dCurrent = "R";
     }

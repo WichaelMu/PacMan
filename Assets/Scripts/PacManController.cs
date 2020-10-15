@@ -246,7 +246,7 @@ public class PacManController : MonoBehaviour
                 UD = 0f;
                 break;
         }
-        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t/(1 / (moveSpeed * LevelGenerator.PIXEL_32)));
+        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t / (LevelGenerator.PIXEL_32 / (moveSpeed * .75f)));
         t = 0;
     }
 
