@@ -72,7 +72,6 @@ public class GhostController : MonoBehaviour
         bool found = false; //  If a valid path was found.
         Vector3 LongestDirection = directions[0];   //  By default, set the longest found direction to up.
 
-
         for (int i = 0; i < directions.Length; i++)
         {
             //  Get information about a raycast hit on any wall in the directions up, down, left and right.
@@ -203,8 +202,6 @@ public class GhostController : MonoBehaviour
 
         if (enabled)    //  If GhostController.cs is enabled.
         {
-            //GhostRB.MovePosition(transform.position + new Vector3(horizontal, vertical, 0f) * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards horizontal or vertical at GhostMechanics MoveSpeed.
-
             transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + horizontal, transform.position.y + vertical, transform.position.z), t / (LevelGenerator.PIXEL_32 / (GetComponent<GhostMechanics>().MoveSpeed * .35f)));
 
             hCurrent = horizontal;  //  Set the current horizontal movement to horizontal.
@@ -225,7 +222,32 @@ public class GhostController : MonoBehaviour
 
         if (enabled)    //  If GhostController.cs is enabled.
         {
-            GhostRB.MovePosition(transform.position + direction * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards Vector3 direction at GhostMechanics MoveSpeed.
+            //GhostRB.MovePosition(transform.position + direction * GetComponent<GhostMechanics>().MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards Vector3 direction at GhostMechanics MoveSpeed.
+
+            string s = ConvertVectorDirectionToStringDirection(direction);
+
+            float UD = 0f, LR = 0f;
+            switch (s)
+            {
+                case "U":
+                    UD = .5f;
+                    LR = 0f;
+                    break;
+                case "D":
+                    UD = -.5f;
+                    LR = 0f;
+                    break;
+                case "L":
+                    LR = -.5f;
+                    UD = 0f;
+                    break;
+                case "R":
+                    LR = .5f;
+                    UD = 0f;
+                    break;
+            }
+
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + LR, transform.position.y + UD, transform.position.z), t / (LevelGenerator.PIXEL_32 / (GetComponent<GhostMechanics>().MoveSpeed * .35f)));
 
             hCurrent = direction.x; //  Set the current horizontal movement to the x value of direction.
             vCurrent = direction.y; //  Set the current vertical movement to the y value of direction.
