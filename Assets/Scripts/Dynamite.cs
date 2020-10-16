@@ -11,8 +11,8 @@ public class Dynamite : MonoBehaviour
     readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
 
     AudioController AudioControl;
-    List<GameObject>[] ExplodeQuarters = new[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>()};
-    int[] NumberOfExplosions = new[] { 0, 0, 0, 0 };
+    readonly List<GameObject>[] ExplodeQuarters = new[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>()};
+    readonly int[] NumberOfExplosions = new[] { 0, 0, 0, 0 };
 
     IEnumerator RemoveParticles;
 

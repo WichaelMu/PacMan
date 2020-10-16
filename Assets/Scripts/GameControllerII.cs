@@ -92,14 +92,17 @@ public class GameControllerII : MonoBehaviour
         //Debug.Log("Pac Man is dead");
     }
 
-    public void EndGame(int ID)
+    public void EndGame(int ID, GameObject ghost = null)
     {
         Enable(false);  //  Stops all movement.
 
         GameOver.gameObject.SetActive(true);
         StopCoroutine(GameTimer);
-        Message.text = "PLAYER " + (ID == 1 ? "2" : "1") + " WINS BY KILL!";
-
+        Message.text = "PLAYER " + (ID == 1 ? "2" : "1");
+        if (ghost == null)
+            Message.text += " WINS BY KILL!";
+        else
+            Message.text += " WINS BY GHOST KILL";
         Invoke("LoadMainMenu", 3f);
     }
 
@@ -153,6 +156,11 @@ public class GameControllerII : MonoBehaviour
         //  PLAYER CONTROLLERS EN/DISABLE.
         P1.GetComponent<PlayerControllers>().enabled = b;
         P2.GetComponent<PlayerControllers>().enabled = b;
+
+        GameObject[] Ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+
+        foreach (GameObject g in Ghosts)
+            g.GetComponent<InnovationAI>().enabled = b;
     }
 
     IEnumerator UpdateTime()
