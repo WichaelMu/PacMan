@@ -15,7 +15,8 @@ public class OnAwake : MonoBehaviour
         AudioControl = FindObjectOfType<AudioController>();
 
         PlayerStats.LoadGame();
-        try { CurrentHighScore.text = PlayerStats._highScore.ToString(); } catch (System.NullReferenceException) { }
+        //try {  } catch (System.NullReferenceException) { }
+        CurrentHighScore.text = PlayerStats._highScore.ToString();
 
         int milli = PlayerStats.timePlayed;
         int c = 00;
@@ -66,7 +67,7 @@ public class OnAwake : MonoBehaviour
                 subtitle.text = "ITS TIME, DON'T ASK QUESTIONS. JUST PLAY THE GAME";
                 break;
             case 9:
-                subtitle.text = "";
+                subtitle.text = "CHECK YOUR POSTURE. HAVE YOU HAD A SIP OF WATER RECENTLY? KEEP HYDRATED. REMMEBER TO TAKE A BREAK!";
                 break;
             case 10:
                 subtitle.text = "TWO + TWO IS FOUR. MINUS ONE, THATS THREE QUICK MAFFS";

@@ -45,9 +45,9 @@ public class GhostMechanics : MonoBehaviour
 
     void Update()
     {
-        if (!IsAlive)
-            Lerp(RespawnPoint.position);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.green);
+        if (!IsAlive)   //  If this Ghost is not alive.
+            Lerp(RespawnPoint.position);    //  Lerp this Ghost back to spawn.
+        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.green);
     }
 
     void OnTriggerEnter(Collider other)
@@ -55,10 +55,17 @@ public class GhostMechanics : MonoBehaviour
         //if (other.CompareTag("Switcher"))   //  This is not used as the ghosts will never move from their starting position.
         //Invoke(DetermineMovement(other.gameObject), 0f);
         //ArtificialIntelligence(); //  This is in GhostController.cs.
-        if (other.CompareTag("PortalL") || other.CompareTag("PortalR"))
+        //  The Ghosts should no longer be in contact with a portal for Assignment 4.
+        if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  If this Ghost enters a portal.
             PortalHandler(other.name);
     }
 
+    /// <summary>
+    /// Teleports this Ghost to the opposite portal.
+    /// </summary>
+    /// <param name="Portal">The portal that this Ghost entered.</param>
+
+    // The Ghosts should no longer be in contact with a portal for Assignment 4.
     void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.
     {
         if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)   //  If this Ghost goes into the Left Portal and Pac Man is, in fact, out of any Portal, it will move this Ghost's position to the Right Portal.
@@ -68,83 +75,105 @@ public class GhostMechanics : MonoBehaviour
         IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
     }
 
+    /// <summary>
+    /// Sets this Ghost to be scared according to Boolean instruction.
+    /// </summary>
+    /// <param name="instruction">Boolean to determine if this Ghost is scared.</param>
+
     public void SetScared(bool instruction)
     {
-        if (instruction)
+        if (instruction)    //  If this Ghost needs to be scared.
         {
-            CancelInvoke();
-            if (ScaredState)
-                ResetState();
-            GetScared();
+            CancelInvoke(); //  Stop all invoke methods.
+            if (ScaredState)    //  If this Ghost is already scared.
+                ResetState();   //  Reset this Ghost's state.
+            GetScared();    //  Scare this Ghost.
         }
     }
 
+    /// <summary>
+    /// Scare this Ghost.
+    /// </summary>
+
     void GetScared()
     {
-        CancelInvoke();
-        MoveSpeed *= .7f;
-        ScaredState = true;
+        CancelInvoke(); //  Stop all invoke methods.
+        MoveSpeed *= .7f;   //  Slow this Ghost's movement speed to 70% of its original.
+        ScaredState = true; //  Set the scared state of this Ghost to true.
         Anim.SetTrigger("GhostScared"); //  Plays the blue and white ghost scared state.
         //Invoke("ResetState", ScaredResetTime+4f);   //  The Ghosts will no longer be scared after <ScaredResetTime> + 4 seconds of being scared.
 
         //StopSound("AMBIENT");
         //PlaySound("GHOSTSCAREDSTATE");  //  Play the sound of the ghosts being scared. A very annoying sound.
 
-        DetermineSound();
+        DetermineSound();   //  Determine the sound that needs to be played.
     }
+
+    /// <summary>
+    /// Resets this Ghost's state to be default.
+    /// </summary>
 
     void ResetState()   //  Resets the ghost.
     {
-        CancelInvoke();
-        IsAlive = true;
-        ScaredState = false;
+        CancelInvoke(); //  Stop all invoke methods.
+        IsAlive = true; //  Reset this Ghost to be alive.
+        ScaredState = false;    //  Reset this Ghost to no longer be scared.
         MoveSpeed = DefaultMoveSpeed;   //  The movement speed of the ghosts are reset.
 
-        Anim.SetTrigger("GhostRecover");
+        Anim.SetTrigger("GhostRecover");    //  Plays the normal Ghost animation.
         //Anim.Play("Default");
 
-        ScaredTimer.gameObject.SetActive(false);
-        NumberTags.gameObject.SetActive(true);
+        ScaredTimer.gameObject.SetActive(false);    //  Hide the ScaredTimer UI.
+        NumberTags.gameObject.SetActive(true);  //  Show the NumberTags UI.
 
-        Sphere.enabled = true;
+        Sphere.enabled = true;  //  Enable the sphere collider.
 
-        IsOutOfPortal = true;
+        IsOutOfPortal = true;   //  Reset this Ghost to be out of a portal.
 
         //StopSound("DEAD");  //  If the ghost dead sound is still playing, stop it.
         //StopSound("GHOSTSCAREDSTATE");  //  If the ghost scared sound is still playing, stop it.
         //PlaySound("AMBIENT");   //  Play the normal sound.
 
-        DetermineSound();
+        DetermineSound();   //  Determine the sound that needs to be played.
     }
+
+    /// <summary>
+    /// Kill this Ghost if it is scared and hit by Pac Man.
+    /// </summary>
 
     public void OnHitPacMan()   //  This can only be called if this Ghost is scared.
     {
-        CancelInvoke();
-        ScaredState = false;
-        IsAlive = false;
+        CancelInvoke(); //  Stop all invoke methods.
+        ScaredState = false;    //  This Ghost is no longer scared.
+        IsAlive = false;    //  This Ghost is dead.
 
         //TODO: Create a dead state, just eyes, that track back to the Ghost's spawnpoint. DONE.
         //transform.position = new Vector3(500f, 500f, 0f);
-        PlayerStats.score += 300;
+        PlayerStats.score += 300;   //  Increment the player's score by 300.
 
         Anim.SetTrigger("GhostIsDead"); //  Set the ghost to play the animation with only eyes.
 
-        GetComponent<GhostController>().ResetLBM();
+        GetComponent<GhostController>().ResetLBM(); //  If this Ghost is the Light Blue Ghost, reset the strict clockwise movement.
 
         //Possibly decrease this time to fit the original game, 5 seconds seems too long.
         //Invoke("GhostRespawn", 5f); //  Set the ghost to respawn in 5 seconds.
 
-        Sphere.enabled = false;
+        Sphere.enabled = false; //  Disable the sphere collider.
 
         PlaySound("EATGHOST");  //  Play the sound of the ghost being eaten by Pac Man.
         //PlaySound("DEAD");  //  Play the sound when Pac Man eats a scared ghost.
 
-        DetermineSound();
+        DetermineSound();   //  Determine the sound that needs to be played.
         
         //TODO: Once the dead state eyes have returned to the Ghost's spawnpoint, reset the ghost; ScaredState = false, IsAlive = true;. DONE?
     }
 
     float time;
+
+    /// <summary>
+    /// Lerp this Ghost to Vector3 position.
+    /// </summary>
+    /// <param name="position">The Vector3 position for the destination of the lerp.</param>
 
     void Lerp(Vector3 position)
     {
@@ -160,16 +189,25 @@ public class GhostMechanics : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Cause this Ghost to respawn.
+    /// </summary>
+
     void GhostRespawn() //  This is called in the 'Ghost Dead State' animation as an event at the end of the animation.
     {
-        CancelInvoke();
+        CancelInvoke(); //  Stop all invoke methods.
         //transform.localPosition = new Vector3(1f, 1f, -.05f); //  Do not use for Assignment 3.
         GhostController GC = GetComponent<GhostController>();
-        GC.ResetLBM();
-        GC.ResetPositions();
+        GC.ResetLBM();  //  If this Ghost is the Light Blue Ghost, reset the strict clockwise movement.
+        GC.ResetPositions();    //  Reset the positions of the Ghosts to their spawn point.
 
-        ResetState();
+        ResetState();   //  Reset this Ghost's state.
     }
+
+    /// <summary>
+    /// Shows the time remaining to be scared.
+    /// </summary>
+    /// <param name="n">Int number of seconds remaining to recovering from being scared.</param>
 
     void ShowScaredTimerSeconds(int n)  //  This is called in the GhostRecovery animation as an event.
     {
@@ -178,11 +216,19 @@ public class GhostMechanics : MonoBehaviour
         ScaredTimer.text = n.ToString();
     }
 
+    /// <summary>
+    /// Stop showing the scared timer.
+    /// </summary>
+
     void StopShowingScaredTimer()
     {
         NumberTags.gameObject.SetActive(true);
         ScaredTimer.gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// Reset this Ghost's position to it's spawn point.
+    /// </summary>
 
     public void ResetPositions()
     {
@@ -190,18 +236,22 @@ public class GhostMechanics : MonoBehaviour
         transform.position = RespawnPoint.position;
     }
 
+    /// <summary>
+    /// Determins the sound that needs to be played according to the other Ghost's states.
+    /// </summary>
+
     void DetermineSound()
     {
-        GameObject[] Ghosts = GameObject.FindGameObjectsWithTag("Ghost");
-        bool OneScared = false, OneDead = false;
-        for (int i = 0; i < Ghosts.Length; i++)
+        GameObject[] Ghosts = GameObject.FindGameObjectsWithTag("Ghost");   //  Find all the Ghosts in the level.
+        bool OneScared = false, OneDead = false;    //  If at least one is scared and if at least one is dead.
+        for (int i = 0; i < Ghosts.Length; i++) //  For every Ghost in the level.
         {
-            GhostMechanics GM = Ghosts[i].GetComponent<GhostMechanics>();
+            GhostMechanics GM = Ghosts[i].GetComponent<GhostMechanics>();   //  Get the Ghost's GhostMechanics.cs component.
 
-            if (GM.ScaredState)
-                OneScared = true;
-            if (!GM.IsAlive)
-                OneDead = true;
+            if (GM.ScaredState) //  If this Ghost is scared.
+                OneScared = true;   //  At least one Ghost is scared.
+            if (!GM.IsAlive)    //  If this Ghost is not alive.
+                OneDead = true; //  At least one Ghost is dead.
         }
 
         if (OneScared && !OneDead)  //  When at least one Ghost is scared, but no Ghosts are dead.
