@@ -17,7 +17,7 @@ public class GhostMechanics : MonoBehaviour
     AudioController AudioControl;   //  The AudioController for the game.
 
     public float MoveSpeed, ScaredResetTime;    //  The movement speed for the ghost . The time it takes for the ghost to no lnoger be scared.
-    public bool ScaredState, IsAlive;   //  If the ghost is currently scared. If the ghost is currently alive (not dead/not just eyes).
+    public bool ScaredState = false, IsAlive = true;   //  If the ghost is currently scared. If the ghost is currently alive (not dead/not just eyes).
 
     float DefaultMoveSpeed; //  The default movement speed for the ghosts.
     bool IsOutOfPortal;
@@ -40,7 +40,8 @@ public class GhostMechanics : MonoBehaviour
         AudioControl = FindObjectOfType<AudioController>();
 
         ScaredTimer.gameObject.SetActive(false);
-        NumberTags.gameObject.SetActive(true);
+        //NumberTags.gameObject.SetActive(true);
+        NumberTags.transform.localPosition = new Vector3(NumberTags.transform.localPosition.x, 1f, NumberTags.transform.localPosition.z);
     }
 
     void Update()
@@ -124,7 +125,8 @@ public class GhostMechanics : MonoBehaviour
         //Anim.Play("Default");
 
         ScaredTimer.gameObject.SetActive(false);    //  Hide the ScaredTimer UI.
-        NumberTags.gameObject.SetActive(true);  //  Show the NumberTags UI.
+        //NumberTags.gameObject.SetActive(true);  //  Show the NumberTags UI.
+        NumberTags.transform.localPosition = new Vector3(NumberTags.transform.localPosition.x, 1f, NumberTags.transform.localPosition.z);
 
         Sphere.enabled = true;  //  Enable the sphere collider.
 
@@ -211,7 +213,8 @@ public class GhostMechanics : MonoBehaviour
 
     void ShowScaredTimerSeconds(int n)  //  This is called in the GhostRecovery animation as an event.
     {
-        NumberTags.gameObject.SetActive(false);
+        //NumberTags.gameObject.SetActive(false);
+        NumberTags.transform.localPosition = new Vector3(NumberTags.transform.localPosition.x, 30f, NumberTags.transform.localPosition.z);
         ScaredTimer.gameObject.SetActive(true);
         ScaredTimer.text = n.ToString();
     }
@@ -222,7 +225,8 @@ public class GhostMechanics : MonoBehaviour
 
     void StopShowingScaredTimer()
     {
-        NumberTags.gameObject.SetActive(true);
+        //NumberTags.gameObject.SetActive(true);
+        NumberTags.transform.localPosition = new Vector3(NumberTags.transform.localPosition.x, 1f, NumberTags.transform.localPosition.z);
         ScaredTimer.gameObject.SetActive(false);
     }
 
@@ -234,6 +238,20 @@ public class GhostMechanics : MonoBehaviour
     {
         IsOutOfPortal = true;
         transform.position = RespawnPoint.position;
+    }
+
+    #region Audio Control
+
+    //  Plays or Stops the sound <name>.
+
+    void PlaySound(string name)
+    {
+        AudioControl.PlaySound(name);
+    }
+
+    void StopSound(string name)
+    {
+        AudioControl.StopSound(name);
     }
 
     /// <summary>
@@ -276,20 +294,6 @@ public class GhostMechanics : MonoBehaviour
             StopSound("DEAD");
             PlaySound("AMBIENT");
         }
-    }
-
-    #region Audio Control
-
-    //  Plays or Stops the sound <name>.
-
-    void PlaySound(string name)
-    {
-        AudioControl.PlaySound(name);
-    }
-
-    void StopSound(string name)
-    {
-        AudioControl.StopSound(name);
     }
 
     #endregion

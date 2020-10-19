@@ -40,7 +40,7 @@ public class OnAwake : MonoBehaviour
         //TimePlayed.text = minute + ":" + seconds + ":" + milli;
         TimePlayed.text = (PlayerPrefs.GetString("StringTimePlayed").Length == 0 ? "00:00:00" : PlayerPrefs.GetString("StringTimePlayed"));
 
-        switch (Random.Range(1, 11))
+        switch (Random.Range(1, 23))
         {
             case 1:
                 subtitle.text = "TYPING LETTERS HERE SO THIS FIELD IS NOT EMPTY. IF YOU WANT TO WRITE SOMETHING USEFUL HERE, EMAIL ME OR SOMETHING";
@@ -71,6 +71,42 @@ public class OnAwake : MonoBehaviour
                 break;
             case 10:
                 subtitle.text = "TWO + TWO IS FOUR. MINUS ONE, THATS THREE QUICK MAFFS";
+                break;
+            case 11:
+                subtitle.text = "A REIMAGINED PAC MAN GAME";
+                break;
+            case 12:
+                subtitle.text = "A PAC MAN GAME CREATED BY ALFRED NOBEL";
+                break;
+            case 13:
+                subtitle.text = "A GAME MADE FOR THE UNIVERSITY OF TECHNOLOGY SYDNEY";
+                break;
+            case 14:
+                subtitle.text = "ALSO TRY FIREPLAY 2";
+                break;
+            case 15:
+                subtitle.text = "THIS GAME WAS MADE IN 3,552 LINES OF CODE";
+                break;
+            case 16:
+                subtitle.text = "A BUGGY PAC MAN GAME";
+                break;
+            case 17:
+                subtitle.text = "WELCOME TO PAC MAN BY MICHAEL WU";
+                break;
+            case 18:
+                subtitle.text = "THIS GAME WILL WARM YOUR COMPUTER SO YOU CAN KEEP WARM DURING THE WINTER";
+                break;
+            case 19:
+                subtitle.text = "50,000 PEOPLE USED TO LIVE HERE... NOW IT'S A GHOST TOWN";
+                break;
+            case 20:
+                subtitle.text = "THE COST OF A SINGLE B-2 BOMBER IS USD$2,000,000,000";
+                break;
+            case 21:
+                subtitle.text = "MY PASSWORD IS ***************";
+                break;
+            case 22:
+                subtitle.text = "ARE YOU HUNGRY? I'M HUNGRY. USE MY CODE tou76p ON UBEREATS";
                 break;
         }
     }
