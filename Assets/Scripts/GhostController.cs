@@ -68,18 +68,17 @@ public class GhostController : MonoBehaviour
     {
         //float PacManColliderDistance;
         bool found = false; //  If a valid path was found.
-        float distance = -Mathf.Infinity;
         Vector3 LongestDirection = directions[0];   //  By default, set the longest found direction to up.
 
         for (int i = 0; i < directions.Length; i++)
         {
             //  Get information about a raycast hit on any wall in the directions up, down, left and right.
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            //try { PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position); } catch (System.Exception) { continue; }
+            if (hit.transform == null)
+                continue;
             //  If the raycast distance is greater than the current maximum distance, the distance of the raycast is greater than .5, i.e., do not count this direction if this Ghost is directly facing a wall in that direction, if the current switcher allows a movement in this direction, this Ghost's distance to the Collider is greater than Pac Man's distance to this Ghost, and if this direction is not the current opposite direction.
-            if ((hit.distance > distance) && switcher.allowDirection(directions[i]) && (hit.distance >= GetGhostPacManDistance()) && (directions[i] != opposite) && hit.distance != Mathf.Infinity)
+            if (switcher.allowDirection(directions[i]) && (hit.distance <= GetColliderPacManDistance(hit.transform.position)) && (directions[i] != opposite) && hit.distance != Mathf.Infinity)
             {
-                distance = hit.distance;
                 LongestDirection = directions[i];   //  Set the longest direction to this raycast's direction.
                 found = true;   //  A path was found.
             }
@@ -108,7 +107,9 @@ public class GhostController : MonoBehaviour
         {
             //  Get information about a raycast hit on any wall in the directions up, down, left and right.
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            try { PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position); } catch (System.Exception) { continue; }   //  If the raycast hit a wall, update the distance. Otherwise, skip this direction.
+            if (hit.transform == null)
+                continue;
+            PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position);
             //  If the raycast distance is greater than the current minimum distance, the distance of the raycast is greater than .5, i.e., do not count this direction if this Ghost is directly facing a wall in that direction, if the current switcher allows a movement in this direction, this Ghost's distance to Pac Man is greater is greater than Pac Man's distance to the Collider, and if this direction is not the current opposite direction.
             if (((hit.distance < distance) && (hit.distance > .05f) && switcher.allowDirection(directions[i]) && (PacManColliderDistance <= hit.distance) && (directions[i] != opposite) && (hit.distance != Mathf.Infinity)))
             {
