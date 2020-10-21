@@ -17,7 +17,7 @@ public class InnovationAI : MonoBehaviour
     Transform PortalR;
     bool IsOutOfPortal = true;
 
-    float MoveSpeed = 1.5f;
+    readonly float MoveSpeed = 1.5f;
     float hCurrent; //  The current horizontal direction.
     float vCurrent; //  The current vertical direction.
     string dCurrent = null; //  The current direction as a string, "U", "D", "L" and "R".

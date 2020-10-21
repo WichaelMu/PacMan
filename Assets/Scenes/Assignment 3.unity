@@ -2481,6 +2481,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8174134097197768931}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1823511685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823511684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96bb0aced9f4194caaf8d4a5123a8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameController: {fileID: 1606389787}
+  GhostHolder: {fileID: 1077753437}
+  PortalL: {fileID: 0}
+  PortalR: {fileID: 0}
+  SpawnPoint: {fileID: 1245485963}
+  WallBump: {fileID: 6091179712510539401, guid: 7187926a0d284db4c945539df6464ec6,
+    type: 3}
+  PacManDeath: {fileID: 8411538961477508054, guid: e2fdf615a4c24d64e99ead3a7a134cac,
+    type: 3}
+  moveSpeed: 1.5
 --- !u!4 &1823511690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8174134097346802907, guid: bdb8099f567e92d47a89c8212c6f46fd,
@@ -3913,7 +3935,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 455218230, guid: bdb8099f567e92d47a89c8212c6f46fd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bdb8099f567e92d47a89c8212c6f46fd, type: 3}
 --- !u!1001 &8289152828594163473
 PrefabInstance:

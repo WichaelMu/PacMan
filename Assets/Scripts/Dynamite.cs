@@ -22,7 +22,7 @@ public class Dynamite : MonoBehaviour
 
     IEnumerator RemoveParticles;    //  Remove the ExplodeParticles after DetonationTime + 1.5 seconds.
 
-    int DetonationTime = 4; //  The time in seconds for this Dynamite to detonate.
+    readonly int DetonationTime = 3; //  The time in seconds for this Dynamite to detonate.
 
     static int ExplosionSound = 0;  //  The sound for this Dynamite's detonation. This is continuous for every Dynamite and will loop after every 5 explosions.
 

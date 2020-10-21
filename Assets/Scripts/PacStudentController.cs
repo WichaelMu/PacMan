@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+﻿using UnityEngine;
 
-public class PacManController : MonoBehaviour
+public class PacStudentController : MonoBehaviour
 {
     [Header("Life Controller")]
     public GameController GameController;
@@ -25,6 +23,7 @@ public class PacManController : MonoBehaviour
     Switcher switcher;
     Animator DeadStateAnim;
     AudioController AudioControl;
+    ParticleSystem dust;
 
     public float moveSpeed;
 
@@ -37,6 +36,7 @@ public class PacManController : MonoBehaviour
         AudioControl = FindObjectOfType<AudioController>();
         if (GhostHolder==null)
             GhostHolder = GameObject.FindWithTag("GHOSTHOLDER").GetComponent<Transform>();
+        dust = GetComponentInChildren<ParticleSystem>();
     }
 
     void Start()
@@ -382,19 +382,21 @@ public class PacManController : MonoBehaviour
 
     void HoldPosition(bool instruction) //  Stop Pac Man from moving if an illegal turn is requested from the user.
     {
-        if (instruction)
+        if (instruction)    //  True to hold position.
         {
             moveSpeed = 0f; //  Stop Pac Man.
             IsStill = true; //  Set Pac Man so that he is at a standstill.
             PlaySound("WALL");  //  Play the sound of Pac Man colliding with a wall.
             Destroy(Instantiate(WallBump, transform.position, Quaternion.identity), 2f);
             DeadStateAnim.speed = 0f;
+            dust.Pause();
             return; //  If Pac Man is set to be at a standstill, do not execute any more code.
         }
 
         if (IsAlive)    //  If Pac Man is alive.
             moveSpeed = DefaultMoveSpeed;   //  Reset Pac Man's movement speed.
         IsStill = false;    //  Set Pac Man so that he is no longer at a standstill.
+        dust.Play();
         DeadStateAnim.speed = 1.5f;
     }
 

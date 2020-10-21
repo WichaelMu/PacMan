@@ -103,6 +103,11 @@ public class PlayerControllers : MonoBehaviour
         GameController.UpdateScore(ID, 50);
         collected++;
 
+        GameObject[] Ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+        foreach (GameObject g in Ghosts)
+            if (g.GetComponent<InnovationAI>().SpecifyTarget == ID)
+                Destroy(g);
+
         PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit/Big Pellet.
     }
 

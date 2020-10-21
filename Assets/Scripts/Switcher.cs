@@ -90,7 +90,8 @@ public class Switcher : MonoBehaviour
                         r %= 4;
                         continue;
                     }
-                    return "U";
+                    else
+                        return "U";
                 case 1:
                     if (!down)
                     {
@@ -98,7 +99,8 @@ public class Switcher : MonoBehaviour
                         r %= 4;
                         continue;
                     }
-                    return "D";
+                    else
+                        return "D";
                 case 2:
                     if (!left)
                         {
@@ -106,7 +108,8 @@ public class Switcher : MonoBehaviour
                         r %= 4;
                         continue;
                     }
-                    return "L";
+                    else
+                        return "L";
                 case 3:
                     if (!right)
                     {
@@ -114,7 +117,8 @@ public class Switcher : MonoBehaviour
                         r %= 4;
                         continue;
                     }
-                    return "R";
+                    else
+                        return "R";
             }
             Debug.Log("Unable to find a valid path");
             return "R";

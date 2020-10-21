@@ -226,7 +226,7 @@ public class GameController : MonoBehaviour
             Ghost.GetComponent<GhostController>().enabled = b;
             Ghost.GetComponent<GhostMechanics>().enabled = b;
         }
-        PacMan.GetComponent<PacManController>().enabled = b;
+        PacMan.GetComponent<PacStudentController>().enabled = b;
     }
 
     /// <summary>

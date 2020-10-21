@@ -66,18 +66,20 @@ public class GhostController : MonoBehaviour
 
     void RedGhostAI(Switcher switcher)
     {
-        float PacManColliderDistance;
+        //float PacManColliderDistance;
         bool found = false; //  If a valid path was found.
+        float distance = -Mathf.Infinity;
         Vector3 LongestDirection = directions[0];   //  By default, set the longest found direction to up.
 
         for (int i = 0; i < directions.Length; i++)
         {
             //  Get information about a raycast hit on any wall in the directions up, down, left and right.
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            try { PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position); } catch (System.Exception) { MoveRandomly(switcher); return; }
+            //try { PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position); } catch (System.Exception) { continue; }
             //  If the raycast distance is greater than the current maximum distance, the distance of the raycast is greater than .5, i.e., do not count this direction if this Ghost is directly facing a wall in that direction, if the current switcher allows a movement in this direction, this Ghost's distance to the Collider is greater than Pac Man's distance to this Ghost, and if this direction is not the current opposite direction.
-            if (switcher.allowDirection(directions[i]) && (hit.distance <= PacManColliderDistance && directions[i] != opposite) && hit.distance != Mathf.Infinity)
+            if ((hit.distance > distance) && switcher.allowDirection(directions[i]) && (hit.distance >= GetGhostPacManDistance()) && (directions[i] != opposite) && hit.distance != Mathf.Infinity)
             {
+                distance = hit.distance;
                 LongestDirection = directions[i];   //  Set the longest direction to this raycast's direction.
                 found = true;   //  A path was found.
             }
@@ -106,7 +108,7 @@ public class GhostController : MonoBehaviour
         {
             //  Get information about a raycast hit on any wall in the directions up, down, left and right.
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            try { PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position); } catch (System.Exception) { MoveRandomly(switcher); return; }   //  If the raycast hit a wall, update the distance. Otherwise, move randomly.
+            try { PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position); } catch (System.Exception) { continue; }   //  If the raycast hit a wall, update the distance. Otherwise, skip this direction.
             //  If the raycast distance is greater than the current minimum distance, the distance of the raycast is greater than .5, i.e., do not count this direction if this Ghost is directly facing a wall in that direction, if the current switcher allows a movement in this direction, this Ghost's distance to Pac Man is greater is greater than Pac Man's distance to the Collider, and if this direction is not the current opposite direction.
             if (((hit.distance < distance) && (hit.distance > .05f) && switcher.allowDirection(directions[i]) && (PacManColliderDistance <= hit.distance) && (directions[i] != opposite) && (hit.distance != Mathf.Infinity)))
             {
@@ -296,31 +298,31 @@ public class GhostController : MonoBehaviour
 
     void MoveRandomly(Switcher switcher)
     {
-        //for (int i = 0; i < directions.Length; i++)
-        //    if (directions[i] != opposite)
-        //    {
-        //        Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-        //        if (hit.distance != Mathf.Infinity && hit.distance > .05f)
-        //            if (switcher.allowDirection(directions[i]))
-        //            {
-        //                MoveDirection(directions[i]);
-        //                return;
-        //            }
-        //    }
-
-        string s;
-        while ((s = switcher.MoveRandom()) != null) //  This will always return true.
-        {
-            if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != opposite)   //  If the random direction is allowed by switcher and that this direction is not the opposite direction.
+        for (int i = 0; i < directions.Length; i++)
+            if (directions[i] != opposite)
             {
-                Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(ConvertStringDirectionToVectorDirection(s)), out RaycastHit hit, Mathf.Infinity, Walls);
+                Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
                 if (hit.distance != Mathf.Infinity && hit.distance > .05f)
-                {
-                    MoveDirection(ConvertStringDirectionToVectorDirection(s));
-                    return;
-                }
+                    if (switcher.allowDirection(directions[i]))
+                    {
+                        MoveDirection(directions[i]);
+                        return;
+                    }
             }
-        }
+
+        //string s;
+        //while ((s = switcher.MoveRandom()) != null) //  This will always return true.
+        //{
+        //    if (switcher.allowDirection(s) && ConvertStringDirectionToVectorDirection(s) != opposite)   //  If the random direction is allowed by switcher and that this direction is not the opposite direction.
+        //    {
+        //        Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(ConvertStringDirectionToVectorDirection(s)), out RaycastHit hit, Mathf.Infinity, Walls);
+        //        if (hit.distance != Mathf.Infinity && hit.distance > .05f)
+        //        {
+        //            MoveDirection(ConvertStringDirectionToVectorDirection(s));
+        //            return;
+        //        }
+        //    }
+        //}
     }
 
     #region Get Methods
