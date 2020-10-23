@@ -6,10 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameControllerII : MonoBehaviour
 {
-
+    /// <summary>
+    /// The current score for Player 1 (Orange).
+    /// </summary>
     [Header("Score Control")]   //  This keeps tract of the scores and the time played.
     public TextMeshProUGUI P1Score;
+    /// <summary>
+    /// The current score for Player 2 (Green).
+    /// </summary>
     public TextMeshProUGUI P2Score;
+    /// <summary>
+    /// The amount of time spent playing level 2.
+    /// </summary>
     public TextMeshProUGUI Time;
 
     [Header("Pellet Control")]
@@ -25,16 +33,37 @@ public class GameControllerII : MonoBehaviour
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
 
+    /// <summary>
+    /// The Ghosts that chase the players.
+    /// </summary>
     [Header("Natural Enemies")]
     public GameObject Ghost;
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 1.
+    /// </summary>
     Transform GhostSpawnPoint;
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 2.
+    /// </summary>
     Transform GhostSpawnPoint1;
 
     AudioController AudioControl;
 
+    /// <summary>
+    /// Player 1.
+    /// </summary>
     GameObject P1;
+    /// <summary>
+    /// The score for Player 1.
+    /// </summary>
     int _P1Score = 0;
+    /// <summary>
+    /// Player 2.
+    /// </summary>
     GameObject P2;
+    /// <summary>
+    /// The score for Player 2.
+    /// </summary>
     int _P2Score = 0;
 
     IEnumerator GameTimer;

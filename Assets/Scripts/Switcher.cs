@@ -2,7 +2,9 @@
 
 public class Switcher : MonoBehaviour
 {
-
+    /// <summary>
+    /// If an entity is allowed to move in this direction.
+    /// </summary>
     public bool up, down, left, right, allowHorizontal, allowVertical;
 
     void Awake()
@@ -76,6 +78,11 @@ public class Switcher : MonoBehaviour
         return c;
     }
 
+    /// <summary>
+    /// Moves in a random legal direction.
+    /// </summary>
+    /// <returns>A random legal string direction.</returns>
+
     public string MoveRandom()
     {
         int r = Random.Range(0, 3);
@@ -120,8 +127,8 @@ public class Switcher : MonoBehaviour
                     else
                         return "R";
             }
-            Debug.Log("Unable to find a valid path");
-            return "R";
+            Debug.LogWarning("Unable to find a valid path");
+            return "R"; //  Moves right by default.
         }
     }
 }

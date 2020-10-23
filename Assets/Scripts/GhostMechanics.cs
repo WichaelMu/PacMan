@@ -3,22 +3,49 @@ using TMPro;
 
 public class GhostMechanics : MonoBehaviour
 {
+    /// <summary>
+    /// The respawn point for this Ghost.
+    /// </summary>
     public Transform RespawnPoint;
 
+    /// <summary>
+    /// The timer that shows how long this Ghost will be scared for.
+    /// </summary>
     public TextMeshProUGUI ScaredTimer; //  This is the scared timer that is required for 60%.
+    /// <summary>
+    /// The text that labels this Ghost 1, 2, 3 or 4.
+    /// </summary>
     public TextMeshProUGUI NumberTags;  //  This is the Ghost's label (1-4) that is required for 60%.a
 
+    /// <summary>
+    /// Where all the Ghosts can be accessed.
+    /// </summary>
     public Transform GhostHolder;
 
+    /// <summary>
+    /// The animator for this Ghost.
+    /// </summary>
     Animator Anim;  //  The animator for this ghost.
+    /// <summary>
+    /// THe sphere collider for this Ghost.
+    /// </summary>
     SphereCollider Sphere;
     //Transform GhostHolder;
 
+    /// <summary>
+    /// The audio controller that controls the sounds that play.
+    /// </summary>
     AudioController AudioControl;   //  The AudioController for the game.
 
     public float MoveSpeed, ScaredResetTime;    //  The movement speed for the ghost . The time it takes for the ghost to no lnoger be scared.
+    /// <summary>
+    /// The state of this Ghost.
+    /// </summary>
     public bool ScaredState = false, IsAlive = true;   //  If the ghost is currently scared. If the ghost is currently alive (not dead/not just eyes).
 
+    /// <summary>
+    /// The default movement speed for this Ghost.
+    /// </summary>
     float DefaultMoveSpeed; //  The default movement speed for the ghosts.
     bool IsOutOfPortal;
 
@@ -248,10 +275,20 @@ public class GhostMechanics : MonoBehaviour
 
     //  Plays or Stops the sound <name>.
 
+    /// <summary>
+    /// Plays sound with name.
+    /// </summary>
+    /// <param name="name">The string name of the sound to play.</param>
+
     void PlaySound(string name)
     {
         AudioControl.PlaySound(name);
     }
+
+    /// <summary>
+    /// Stops sound with name.
+    /// </summary>
+    /// <param name="name">The string name of the sound to stop.</param>
 
     void StopSound(string name)
     {

@@ -6,14 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    /// <summary>
+    /// The current score for this level.
+    /// </summary>
     [Header("Score Control")]   //  This keeps tract of the scores and the time played.
     public TextMeshProUGUI CurrentScore;
+    /// <summary>
+    /// The current high score text.
+    /// </summary>
     public TextMeshProUGUI HighScore;
+    /// <summary>
+    /// The time spent on this level.
+    /// </summary>
     public TextMeshProUGUI Time;
 
+    /// <summary>
+    /// Where all the pellets can be accessed.
+    /// </summary>
     [Header("Pellet Control")]
     public Transform PelletHolder;
 
+    /// <summary>
+    /// The spawn point for the bonus Fruits.
+    /// </summary>
     [Header("Fruits")]
     public Transform FruitsSpawnPoint;
     public GameObject Apple;
@@ -23,16 +38,31 @@ public class GameController : MonoBehaviour
     public GameObject Strawberry;
     GameObject[] Fruits;
 
+    /// <summary>
+    /// The text saying GameOver!.
+    /// </summary>
     [Header("Life Control")]
     public TextMeshProUGUI GameOver;
+    /// <summary>
+    /// The life UI.
+    /// </summary>
     public GameObject Life;
+    /// <summary>
+    /// Where the lives are held and shown on-screen.
+    /// </summary>
     public Transform LifeHolder;
+    /// <summary>
+    /// The number of lives that the Player begins with.
+    /// </summary>
     [Range(1, 10)]
     public int NumberOfLives;
     [HideInInspector]
     public bool DoNotRestart = false;
     int LifeCount;
 
+    /// <summary>
+    /// The beginning message 3, 2, 1, GO!.
+    /// </summary>
     IEnumerator StartProcedure;
     [Header("Start Control")]
     public TextMeshProUGUI READY;

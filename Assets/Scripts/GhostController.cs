@@ -2,8 +2,14 @@
 
 public class GhostController : MonoBehaviour
 {
-    public LayerMask Walls; //  The layer the walls are situated.
-    public Transform PacMan;    //  The transform of Pac Man.
+    /// <summary>
+    /// The layer where the walls are situated.
+    /// </summary>
+    public LayerMask Walls;
+    /// <summary>
+    /// The transform of Pac Man.
+    /// </summary>
+    public Transform PacMan;
 
     /// <summary>
     /// The GhostID for 60%: P. This Ghost's World Space labelling.

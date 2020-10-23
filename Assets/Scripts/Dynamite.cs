@@ -8,23 +8,51 @@ using UnityEngine;
 
 public class Dynamite : MonoBehaviour
 {
-    public LayerMask Walls; //  The Dynamite will only check for raycast hits to walls.
-    public GameObject ExplodeParticle;  //  The particle that indicates a fatal position.
+    /// <summary>
+    /// The Dynamite will only check for raycast hits to walls.
+    /// </summary>
+    public LayerMask Walls;
+    /// <summary>
+    /// The particle that indicates a fatal position.
+    /// </summary>
+    public GameObject ExplodeParticle;
 
-    float MaximumRange = 1; //  The maximum range of a Dynamite's explosion is 1 in-game unit by default.
-    //  The up, down, left and right directions in their Vector3 equivalents.
+    /// <summary>
+    /// The maximum range of a Dynamite's explosion is 1 in-game unit by default.
+    /// </summary>
+    float MaximumRange = 1;
+    /// <summary>
+    /// The up, down, left and right directions in their Vector3 equivalents.
+    /// </summary>
     readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), };
 
-    AudioController AudioControl;   //  The Audio Controller for innovation.
-    //  The list of a list ExplodeParticles to be destroyed after DetonationTime.
+    /// <summary>
+    /// The Audio Controller for innovation.
+    /// </summary>
+    AudioController AudioControl;
+    /// <summary>
+    /// The list of a list ExplodeParticles to be destroyed after DetonationTime.
+    /// </summary>
     readonly List<GameObject>[] ExplodeQuarters = new[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>()};
-    readonly int[] NumberOfExplosions = new[] { 0, 0, 0, 0 };   //  The number of fatal positions by this Dynamite after detonation in up, down, left right directions.
+    /// <summary>
+    /// The number of fatal positions by this Dynamite after detonation in up, down, left right directions.
+    /// </summary>
+    readonly int[] NumberOfExplosions = new[] { 0, 0, 0, 0 };
 
-    IEnumerator RemoveParticles;    //  Remove the ExplodeParticles after DetonationTime + 1.5 seconds.
+    /// <summary>
+    /// Remove the ExplodeParticles after DetonationTime + 1.5 seconds.
+    /// </summary>
+    IEnumerator RemoveParticles;
 
-    readonly int DetonationTime = 3; //  The time in seconds for this Dynamite to detonate.
+    /// <summary>
+    /// The time in seconds for this Dynamite to detonate.
+    /// </summary>
+    readonly int DetonationTime = 3;
 
-    static int ExplosionSound = 0;  //  The sound for this Dynamite's detonation. This is continuous for every Dynamite and will loop after every 5 explosions.
+    /// <summary>
+    /// The sound for this Dynamite's detonation. This is continuous for every Dynamite and will loop after every 5 explosions.
+    /// </summary>
+    static int ExplosionSound = 0;
 
     void Start()
     {

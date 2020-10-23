@@ -2,8 +2,14 @@
 
 public class CherryController : MonoBehaviour
 {
-    public GameObject Cherry;   //  The Cherry to be instantiated and lerped across the screen.
-    float time; //  The time for lerping.
+    /// <summary>
+    /// The Cherry to be instantiated and lerped across the screen.
+    /// </summary>
+    public GameObject Cherry;
+    /// <summary>
+    ///  //  The time for lerping.
+    /// </summary>
+    float time;
 
     GameObject CurrentCherry;
 

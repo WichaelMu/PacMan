@@ -4,8 +4,17 @@ using TMPro;
 public class OnAwake : MonoBehaviour
 {
 
+    /// <summary>
+    /// The current high score.
+    /// </summary>
     public TextMeshProUGUI CurrentHighScore;
+    /// <summary>
+    /// The time played for this high score.
+    /// </summary>
     public TextMeshProUGUI TimePlayed;
+    /// <summary>
+    /// The 'Creative Subtitle' for this game.
+    /// </summary>
     public TextMeshProUGUI subtitle;
 
     AudioController AudioControl;

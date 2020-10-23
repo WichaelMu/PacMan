@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 
-public class InnovationAI : MonoBehaviour
+/// <summary>
+/// The AI used by the Ghosts in the Innovation Scene.
+/// </summary>
+public class InnovationAI : MonoBehaviour   //  All Ghosts in the Innovation Scene will use the Ghost 2 AI that chases either Player 1, or Player 2.
 {
     public LayerMask Walls; //  The layer the walls are situated.
     public Dynamite Dynamite;
 
+    /// <summary>
+    /// The Player this Ghost will chase.
+    /// </summary>
     public int SpecifyTarget;
 
     [SerializeField]

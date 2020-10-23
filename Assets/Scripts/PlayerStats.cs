@@ -8,17 +8,54 @@ public class PlayerStats : MonoBehaviour
 
     public static int timesTurnedU = 0, timesTurnedD = 0, timesTurnedL = 0, timesTurnedR = 0;
 
+    /// <summary>
+    /// The current level 1 score.
+    /// </summary>
     public static int score         =   0;
+    /// <summary>
+    /// The previous high score.
+    /// </summary>
     public static int _highScore    =   0;
+    /// <summary>
+    /// The current high score.
+    /// </summary>
     public static int highScore     =   0;
+    /// <summary>
+    /// The number of times died.
+    /// </summary>
     public static int timesDied     =   0;
+    /// <summary>
+    /// The total amount of time played in milliseconds.
+    /// </summary>
     public static int timePlayed    =   0;
+    /// <summary>
+    /// The amount of time played in minutes.
+    /// </summary>
     public static int minutes       =   00;
+    /// <summary>
+    /// The amount of time played in seconds.
+    /// </summary>
     public static int seconds       =   00;
+    /// <summary>
+    /// The amount of time played in milliseconds.
+    /// </summary>
     public static int ms            =   00;
+    /// <summary>
+    /// The amount of minutes played for the previous high score.
+    /// </summary>
     static int _minutes             =   00;
+    /// <summary>
+    /// The amount of seconds played for the previous high score.
+    /// </summary>
     static int _seconds             =   00;
+    /// <summary>
+    /// The amount of milliseconds played for the previous high score.
+    /// </summary>
     static int _ms                  =   00;
+
+    /// <summary>
+    /// Saves the game.
+    /// </summary>
 
     public static void SaveGame()
     {
@@ -44,6 +81,10 @@ public class PlayerStats : MonoBehaviour
             PlayerPrefs.SetInt("ms", _ms);
         }
     }
+
+    /// <summary>
+    /// Loads the game.
+    /// </summary>
 
     public static void LoadGame()
     {
