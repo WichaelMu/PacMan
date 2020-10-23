@@ -3284,5 +3284,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6966722024152914936, guid: 9e34cf84337a2534aa5bd764a87b3bf9,
         type: 3}
+    - target: {fileID: 8730748387593652227, guid: 7d2e020f8242266499d6f722b502c949,
+        type: 3}
+      propertyPath: GhostSpawnPoint1
+      value: 
+      objectReference: {fileID: 6966722024152914936, guid: fbd69b1efbc0c2544a32f0095a89b252,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2e020f8242266499d6f722b502c949, type: 3}

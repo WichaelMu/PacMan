@@ -72,7 +72,9 @@ public class InnovationAI : MonoBehaviour
         {
             //  Get information about a raycast hit on any wall in the directions up, down, left and right.
             Physics.Raycast(new Vector3(transform.position.x, transform.position.y, 0f), transform.TransformDirection(directions[i]), out RaycastHit hit, Mathf.Infinity, Walls);
-            try { PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position); } catch (System.Exception) { MoveRandomly(switcher); return; }
+            if (hit.transform == null)
+                continue;
+            PacManColliderDistance = GetColliderPacManDistance(hit.collider.transform.position);
             //  If the raycast distance is greater than the current minimum distance, the distance of the raycast is greater than .5, i.e., do not count this direction if this Ghost is directly facing a wall in that direction, if the current switcher allows a movement in this direction, this Ghost's distance to Pac Man is greater is greater than Pac Man's distance to the Collider, and if this direction is not the current opposite direction.
             if (((hit.distance < distance) && (hit.distance > .05f) && switcher.allowDirection(directions[i]) && (PacManColliderDistance <= hit.distance) && (directions[i] != opposite) && (hit.distance != Mathf.Infinity)))
             {

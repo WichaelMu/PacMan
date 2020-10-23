@@ -9,26 +9,27 @@ public class LevelGeneratorII : MonoBehaviour
     public GameObject P2SpawnPoint;
 
     public GameObject GhostSpawnPoint;
+    public GameObject GhostSpawnPoint1;
 
     [Header("Holders")]
     public GameObject WallHolder;
     public GameObject PelletHolder;
 
     [Header("Level Generator")]
-    public GameObject Empty;    //  0           :   Nothing
+    public GameObject Empty;    //  0               :   Nothing
 
-    public GameObject InsideCorner; //  3       :   Top Left
-    public GameObject InsideCornerBL;    //  31 :   Bottom Left
-    public GameObject InsideCornerBR;    //  32 :   Bottom Right
-    public GameObject InsideCornerTR;    //  33 :   Top Right
+    public GameObject InsideCorner; //  3           :   Top Left
+    public GameObject InsideCornerBL;    //  31     :   Bottom Left
+    public GameObject InsideCornerBR;    //  32     :   Bottom Right
+    public GameObject InsideCornerTR;    //  33     :   Top Right
 
-    public GameObject InsideWall;   //  4       :
-    public GameObject InsideWallH;  //  41      :
+    public GameObject InsideWall;   //  4           :
+    public GameObject InsideWallH;  //  41          :
 
-    public GameObject OutsideCorner;    //  1   :   Top Left
-    public GameObject OutsideCornerBL;  //  11  :   Bottom Left
-    public GameObject OutsideCornerBR;  //  12  :   Bottom Right
-    public GameObject OutsideCornerTR;  //  13  :   Top Right
+    public GameObject OutsideCorner;    //  1       :   Top Left
+    public GameObject OutsideCornerBL;  //  11      :   Bottom Left
+    public GameObject OutsideCornerBR;  //  12      :   Bottom Right
+    public GameObject OutsideCornerTR;  //  13      :   Top Right
 
     public GameObject OutsideWall;  //  2
     public GameObject OutsideWallH; //  21
@@ -123,7 +124,7 @@ public class LevelGeneratorII : MonoBehaviour
          {00,00,00,00,00,00,00,00,00,00,02,05,04,04,-1,00,00,-6,00 , 00,-6,00,00,-4,04,04,05,02,00,00,00,00,00,00,00,00,00,00},
          {00,00,00,00,00,00,00,00,00,00,02,05,04,04,00,31,41,41,41 , 41,41,41,32,00,04,04,05,02,00,00,00,00,00,00,00,00,00,00},
          {11,21,21,21,21,21,21,21,21,21,13,05,03,33,00,04,00,00,00 , 00,00,00,04,00,03,33,05,01,21,21,21,21,21,21,21,21,21,12},
-         {02,09,00,00,00,00,00,00,00,00,00,89,00,00,-7,04,00,00,00 , 00,94,00,04,-9,00,00,89,00,00,00,00,00,00,00,00,00,91,02},   //  Portals Row
+         {02,09,00,00,00,00,00,00,00,00,00,89,00,00,-7,04,00,95,00 , 00,94,00,04,-9,00,00,89,00,00,00,00,00,00,00,00,00,91,02},   //  Portals Row
                                             //  Reflect Here \\
          {01,21,21,21,21,21,21,21,21,21,12,05,31,32,00,04,00,00,00 , 00,00,00,04,00,31,32,05,11,21,21,21,21,21,21,21,21,21,13},
          {00,00,00,00,00,00,00,00,00,00,02,05,04,04,00,03,41,00,41 , 41,00,41,33,00,04,04,05,02,00,00,00,00,00,00,00,00,00,00},
@@ -288,6 +289,9 @@ public class LevelGeneratorII : MonoBehaviour
                             break;
                         case 94:
                             Instantiate(GhostSpawnPoint, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
+                            break;
+                        case 95:
+                            Instantiate(GhostSpawnPoint1, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
                             break;
                 }
     }

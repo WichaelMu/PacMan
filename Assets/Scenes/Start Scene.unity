@@ -6494,7 +6494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -72, y: -76}
+  m_AnchoredPosition: {x: -93, y: -76}
   m_SizeDelta: {x: 407.38, y: 90.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &309447416
@@ -6515,7 +6515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: COLLECT ALL PELLETS OR KILL THE ENEMY PLAYER TO WIN
+  m_text: KILL THE ENEMY PLAYER TO WIN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a93b3416811e594ea1b8f9697a05b8f, type: 2}
   m_sharedMaterial: {fileID: 8727513942235588515, guid: 8a93b3416811e594ea1b8f9697a05b8f,
@@ -6585,12 +6585,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -183.39922, w: 0}
   m_textInfo:
     textComponent: {fileID: 309447416}
-    characterCount: 51
+    characterCount: 28
     spriteCount: 0
-    spaceCount: 9
-    wordCount: 10
+    spaceCount: 5
+    wordCount: 6
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

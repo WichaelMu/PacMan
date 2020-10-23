@@ -7,17 +7,18 @@ public class LevelGenerator : MonoBehaviour
     public GameObject PelletHolder;
 
     [Header("Level Generator")]
-    public GameObject Empty;    //  0           :   Nothing
-    public GameObject InsideCorner; //  3       :   Top Left
-    public GameObject InsideCornerBL;    //  31 :   Bottom Left
-    public GameObject InsideCornerBR;    //  32 :   Bottom Right
-    public GameObject InsideCornerTR;    //  33 :   Top Right
-    public GameObject InsideWall;   //  4       :
-    public GameObject InsideWallH;  //  41      :
-    public GameObject OutsideCorner;    //  1   :   Top Left
-    public GameObject OutsideCornerBL;  //  11  :   Bottom Left
-    public GameObject OutsideCornerBR;  //  12  :   Bottom Right
-    public GameObject OutsideCornerTR;  //  13  :   Top Right
+    public GameObject Empty;    //  0               :   Nothing
+    public GameObject EmptyWall;    //  92
+    public GameObject InsideCorner; //  3           :   Top Left
+    public GameObject InsideCornerBL;    //  31     :   Bottom Left
+    public GameObject InsideCornerBR;    //  32     :   Bottom Right
+    public GameObject InsideCornerTR;    //  33     :   Top Right
+    public GameObject InsideWall;   //  4           :
+    public GameObject InsideWallH;  //  41          :
+    public GameObject OutsideCorner;    //  1       :   Top Left
+    public GameObject OutsideCornerBL;  //  11      :   Bottom Left
+    public GameObject OutsideCornerBR;  //  12      :   Bottom Right
+    public GameObject OutsideCornerTR;  //  13      :   Top Right
     public GameObject OutsideWall;  //  2
     public GameObject OutsideWallH; //  21
     public GameObject SmallDot; //  5
@@ -40,6 +41,9 @@ public class LevelGenerator : MonoBehaviour
     public GameObject PortL;    //  9   :   Portal on the Left
     public GameObject PortR;    //  91  :   Portal on the Right.
 
+    /// <summary>
+    /// The ratio between 32-pixel sprites and world coordinates.
+    /// </summary>
     public const float PIXEL_32 = .3125f;
 
     #region Level Schematic
@@ -57,12 +61,12 @@ public class LevelGenerator : MonoBehaviour
          {01,21,21,21,21,12,05,04,03,41,41,32,00,04 , 04,00,31,41,41,33,04,05,11,21,21,21,21,13},
          {00,00,00,00,00,02,05,04,31,41,41,33,00,03 , 33,00,03,41,41,32,04,05,02,00,00,00,00,00},
          {00,00,00,00,00,02,05,04,04,-1,00,00,-6,00 , 00,-6,00,00,-4,04,04,05,02,00,00,00,00,00},
-         {00,00,00,00,00,02,05,04,04,00,31,41,00,00 , 00,00,41,32,00,04,04,05,02,00,00,00,00,00},
+         {00,00,00,00,00,02,05,04,04,00,31,41,92,92 , 92,92,41,32,00,04,04,05,02,00,00,00,00,00},
          {21,21,21,21,21,13,05,03,33,00,04,00,00,00 , 00,00,00,04,00,03,33,05,01,21,21,21,21,21},
          {09,00,00,00,00,00,89,00,00,-7,04,00,00,00 , 00,00,00,04,-9,00,00,89,00,00,00,00,00,91},   //  Portals Row
                                             //  Reflect Here \\
          {21,21,21,21,21,12,05,31,32,00,04,00,00,00 , 00,00,00,04,00,31,32,05,11,21,21,21,21,21},
-         {00,00,00,00,00,02,05,04,04,00,03,41,00,00 , 00,00,41,33,00,04,04,05,02,00,00,00,00,00},
+         {00,00,00,00,00,02,05,04,04,00,03,41,92,92 , 92,92,41,33,00,04,04,05,02,00,00,00,00,00},
          {00,00,00,00,00,02,05,04,04,-8,00,00,-5,00 , 00,-5,00,00,-3,04,04,05,02,00,00,00,00,00},
          {00,00,00,00,00,02,05,04,03,41,41,32,00,31 , 32,00,31,41,41,33,04,05,02,00,00,00,00,00},
          {11,21,21,21,21,13,05,04,31,41,41,33,00,04 , 04,00,03,41,41,32,04,05,01,21,21,21,21,12},
@@ -204,6 +208,9 @@ public class LevelGenerator : MonoBehaviour
                         break;
                     case 91:
                         GeneratePlacements(PortR, new Vector3(k, i, 0f));
+                        break;
+                    case 92:
+                        GeneratePlacements(EmptyWall, new Vector3(k, i, 0f));
                         break;
                 }
     }

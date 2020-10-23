@@ -28,6 +28,7 @@ public class GameControllerII : MonoBehaviour
     [Header("Natural Enemies")]
     public GameObject Ghost;
     Transform GhostSpawnPoint;
+    Transform GhostSpawnPoint1;
 
     AudioController AudioControl;
 
@@ -59,6 +60,7 @@ public class GameControllerII : MonoBehaviour
     void Start()
     {
         GhostSpawnPoint = GameObject.FindWithTag("GhostSpawn").transform;
+        GhostSpawnPoint1 = GameObject.FindWithTag("GhostSpawn1").transform;
     }
 
     void OnEnable()
@@ -81,8 +83,8 @@ public class GameControllerII : MonoBehaviour
         P1Score.text = "" + _P1Score;
         P2Score.text = "" + _P2Score;
 
-        if (PelletHolder.childCount == 0)   //  If there are no more pellets.
-            EndGame();  //  End the game.
+        if (PelletHolder.childCount < 2)   //  If there are no more pellets.
+            InvokeRepeating("SpawnGhost", 0f, 12f);
     }
 
     /// <summary>
@@ -221,7 +223,7 @@ public class GameControllerII : MonoBehaviour
     {
         GameObject ghost = Instantiate(Ghost, GhostSpawnPoint.position, Quaternion.identity);
         ghost.GetComponent<InnovationAI>().SpecifyTarget = 1;
-        GameObject _ghost = Instantiate(Ghost, GhostSpawnPoint.position, Quaternion.identity);
+        GameObject _ghost = Instantiate(Ghost, GhostSpawnPoint1.position, Quaternion.identity);
         _ghost.GetComponent<InnovationAI>().SpecifyTarget = 2;
     }
 }

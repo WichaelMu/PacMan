@@ -64,54 +64,54 @@ public class PacStudentController : MonoBehaviour
     {
         if (other.CompareTag("Switcher"))   //  A switcher is a corner in the game. I don't know why I didn't name it corner.
             OnSwitcher(other.gameObject);
-        if (other.CompareTag("Pellet")) //  When Pac Man hits a Pellet.
+        if (other.CompareTag("Pellet"))     //  When Pac Man hits a Pellet.
             EatPellet(other.gameObject);
         if (other.CompareTag("BigPellet"))  //  WHen Pac Man hits a Big Pellet.
             EatBigPellet(other.gameObject);
-        if (other.CompareTag("Ghost"))  //  When Pac Man hits a Ghost.
+        if (other.CompareTag("Ghost"))      //  When Pac Man hits a Ghost.
             OnHitGhost(other.gameObject);
         if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  When Pac Man enters a Portal.
             PortalHandler(other.name);
-        if (other.CompareTag("Fruit"))  //  When Pac Man hits a Fruit.
+        if (other.CompareTag("Fruit"))      //  When Pac Man hits a Fruit.
             EatFruit();
     }
 
     void OnSwitcher(GameObject Switcher)
     {
-        this.switcher = Switcher.GetComponent<Switcher>(); //  Sets the corner Pac Man is on to <this.switcher>. This corner is accessed if Pac Man is stuck on a corner.
+        this.switcher = Switcher.GetComponent<Switcher>();  //  Sets the corner Pac Man is on to <this.switcher>. This corner is accessed if Pac Man is stuck on a corner.
 
-        if (switcher.allowDirection(nextAvailableTurn)) //  If this switcher allows Pac Man to turn in the direction of <nextAvailableTurn>, it will turn in that direction.
+        if (switcher.allowDirection(nextAvailableTurn))     //  If this switcher allows Pac Man to turn in the direction of <nextAvailableTurn>, it will turn in that direction.
             Invoke(nextAvailableTurn, 0f);
 
-        if (!switcher.allowDirection(currentInput)) //  If this switcher does not allow Pac Man to turn in the direction of <nextAvailableTurn>, it will stop Pac Man's movement in that corner until the play tells Pac Man to move in a direction that *is* allowed by this switcher.
+        if (!switcher.allowDirection(currentInput))         //  If this switcher does not allow Pac Man to turn in the direction of <nextAvailableTurn>, it will stop Pac Man's movement in that corner until the play tells Pac Man to move in a direction that *is* allowed by this switcher.
             HoldPosition(true);
     }
 
     void EatPellet(GameObject Pellet)
     {
-        Destroy(Pellet);    //  Remove the Pellet from the game.
+        Destroy(Pellet);            //  Remove the Pellet from the game.
         PlayerStats.score += 10;
-        PlaySound("EATPELLET"); //  Play the sound of Pac Man eating a Pellet.
+        PlaySound("EATPELLET");     //  Play the sound of Pac Man eating a Pellet.
     }
     void EatBigPellet(GameObject BigPellet)
     {
-        Destroy(BigPellet); //  Remove the Big Pellet from the game.
+        Destroy(BigPellet);         //  Remove the Big Pellet from the game.
         PlayerStats.score += 50;
-        PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit/Big Pellet.
-        StopSound("AMBIENT");   //  Stops the ambient from playing.
+        PlaySound("EATFRUIT");      //  Play the sound of Pac Man eating a Fruit/Big Pellet.
+        StopSound("AMBIENT");       //  Stops the ambient from playing.
 
-        for (int i = 0; i < 4; i++)    //  For every ghost in the game.
+        for (int i = 0; i < 4; i++) //  For every ghost in the game.
         {
             GhostMechanics gc = GhostHolder.GetChild(i).gameObject.GetComponent<GhostMechanics>();
-            if (gc.IsAlive) //  If that ghost is alive.
+            if (gc.IsAlive)         //  If that ghost is alive.
                 gc.SetScared(true); //  Set that ghost to a scared state.
         }
     }
 
-    void EatFruit() //  The main functinality of Pac Man eating a Fruit is done on it's own script called 'Fruit.cs'.Fruit
+    void EatFruit()                 //  The main functinality of Pac Man eating a Fruit is done on it's own script called 'Fruit.cs'.Fruit
     {
         //Destroying the Fruit is done on Fruit.cs;
-        PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit.
+        PlaySound("EATFRUIT");      //  Play the sound of Pac Man eating a Fruit.
         PlayerStats.score += 100;
         PlayerStats.SaveGame();
     }
@@ -120,10 +120,10 @@ public class PacStudentController : MonoBehaviour
     {
         GhostMechanics ghost = Ghost.GetComponent<GhostMechanics>();
 
-        if (ghost.ScaredState)  //  If the ghost is scared.
-            OnHitScaredGhost(Ghost);    //  Kill that ghost.
+        if (ghost.ScaredState)          //  If the ghost is scared.
+            OnHitScaredGhost(ghost);    //  Kill that ghost.
         else
-            PacManIsDead();    //  Otherwise, kill Pac Man.
+            PacManIsDead();             //  Otherwise, kill Pac Man.
 
         PlayerStats.SaveGame();
     }
@@ -149,8 +149,8 @@ public class PacStudentController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             GameObject Ghost = GhostHolder.GetChild(i).gameObject;
-            Ghost.GetComponent<GhostController>().enabled = false;
-            Ghost.GetComponent<GhostMechanics>().enabled = false;
+            Ghost.GetComponent<GhostController>().enabled   =   false;
+            Ghost.GetComponent<GhostMechanics>().enabled    =   false;
         }
 
         if (!GameController.DoNotRestart)
@@ -159,10 +159,10 @@ public class PacStudentController : MonoBehaviour
         PlayerStats.SaveGame();
     }
 
-    void OnHitScaredGhost(GameObject Ghost)
+    void OnHitScaredGhost(GhostMechanics Ghost)
     {
         //TODO: Play the death animation for The Ghosts. DONE.
-        Ghost.GetComponent<GhostMechanics>().OnHitPacMan();    //  This can only be called if the ghost that was hit is scared.
+        Ghost.OnHitPacMan();    //  This can only be called if the ghost that was hit is scared.
     }
 
     void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.
@@ -214,7 +214,7 @@ public class PacStudentController : MonoBehaviour
 
     #region The Movement of Pac Man
 
-    float t;
+    float t;    //  The time for lerping.
 
     void Movement() //  This is called in the FixedUpdate().
     {
@@ -223,22 +223,10 @@ public class PacStudentController : MonoBehaviour
         float UD=0f, LR=0f;
         switch (currentInput)
         {
-            case "U":
-                UD = .5f;
-                LR = 0f;
-                break;
-            case "D":
-                UD = -.5f;
-                LR = 0f;
-                break;
-            case "L":
-                LR = -.5f;
-                UD = 0f;
-                break;
-            case "R":
-                LR = .5f;
-                UD = 0f;
-                break;
+            case "U": UD = .5f;     LR = 0f; break;
+            case "D": UD = -.5f;    LR = 0f; break;
+            case "L": LR = -.5f;    UD = 0f; break;
+            case "R": LR = .5f;     UD = 0f; break;
         }
         transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t / (LevelGenerator.PIXEL_32 / (moveSpeed * .75f)));
         t = 0;
@@ -252,18 +240,10 @@ public class PacStudentController : MonoBehaviour
 
         switch (lastInput.ToUpper())
         {
-            case "W":
-                determineRotation("U");
-                break;
-            case "S":
-                determineRotation("D");
-                break;
-            case "A":
-                determineRotation("L");
-                break;
-            case "D":
-                determineRotation("R");
-                break;
+            case "W": determineRotation("U"); break;
+            case "S": determineRotation("D"); break;
+            case "A": determineRotation("L"); break;
+            case "D": determineRotation("R"); break;
         }
 
         #endregion
@@ -380,7 +360,7 @@ public class PacStudentController : MonoBehaviour
         nextAvailableTurn = null;   //  Sets the next turn to be null.
     }
 
-    void HoldPosition(bool instruction) //  Stop Pac Man from moving if an illegal turn is requested from the user.
+    void HoldPosition(bool instruction) //  Stop Pac Man from moving if an illegal turn is requested from the user or if Pac Man cannot continue to move in currentInput direction.
     {
         if (instruction)    //  True to hold position.
         {
@@ -388,16 +368,16 @@ public class PacStudentController : MonoBehaviour
             IsStill = true; //  Set Pac Man so that he is at a standstill.
             PlaySound("WALL");  //  Play the sound of Pac Man colliding with a wall.
             Destroy(Instantiate(WallBump, transform.position, Quaternion.identity), 2f);
-            DeadStateAnim.speed = 0f;
-            dust.Pause();
+            DeadStateAnim.speed = 0f;   //  Pauses the Pac Man walking animation.
+            dust.Stop();    //  Stops the dust particles from playing.
             return; //  If Pac Man is set to be at a standstill, do not execute any more code.
         }
 
         if (IsAlive)    //  If Pac Man is alive.
             moveSpeed = DefaultMoveSpeed;   //  Reset Pac Man's movement speed.
         IsStill = false;    //  Set Pac Man so that he is no longer at a standstill.
-        dust.Play();
-        DeadStateAnim.speed = 1.5f;
+        dust.Play();    //  Resumes the dust particles to plays.
+        DeadStateAnim.speed = 1.5f; //  Restores the speed of Pac Man's walking animation.
     }
 
     #endregion

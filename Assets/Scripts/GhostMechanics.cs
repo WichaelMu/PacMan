@@ -187,6 +187,10 @@ public class GhostMechanics : MonoBehaviour
             time = 0;
             transform.position = position;
             GhostRespawn();
+
+            for (int i = 0; i < 4; i++)
+                if (GhostHolder.GetChild(i).GetComponent<GhostMechanics>().ScaredState)
+                    SetScared(true);
             return;
         }
     }

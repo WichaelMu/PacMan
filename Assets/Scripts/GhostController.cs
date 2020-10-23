@@ -5,17 +5,38 @@ public class GhostController : MonoBehaviour
     public LayerMask Walls; //  The layer the walls are situated.
     public Transform PacMan;    //  The transform of Pac Man.
 
+    /// <summary>
+    /// The GhostID for 60%: P. This Ghost's World Space labelling.
+    /// </summary>
     [Header("The Ghost Canvas Number.")]
     public int GhostID; //  The ID of the Ghosts that correspond to their World Space Canvas.
 
     Rigidbody GhostRB;
+    /// <summary>
+    /// The default position and respawn point for this Ghost.
+    /// </summary>
     Transform RespawnPoint; //  The respawn point for this Ghost.
 
+    /// <summary>
+    /// The Vector3 directions. [0] Up, [1] Down, [2] Left, [3] Right.
+    /// </summary>
     readonly Vector3[] directions = new[] { new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f), new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), }; //  The up, down, left and right directions in their Vector3 equivalents.
+    /// <summary>
+    /// The opposite direction of this Ghost.
+    /// </summary>
     Vector3 opposite;
 
+    /// <summary>
+    /// The current horizontal direction of this Ghost.
+    /// </summary>
     float hCurrent; //  The current horizontal direction.
+    /// <summary>
+    /// The current vertical direction of this Ghost.
+    /// </summary>
     float vCurrent; //  The current vertical direction.
+    /// <summary>
+    /// The current direction of this Ghost.
+    /// </summary>
     string dCurrent = null; //  The current direction as a string, "U", "D", "L" and "R".
     
     void Start()
