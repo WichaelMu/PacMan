@@ -2,13 +2,31 @@
 
 public class LevelGeneratorII : MonoBehaviour
 {
+    /// <summary>
+    /// Player 1.
+    /// </summary>
     [Header("Players")]
     public GameObject P1;
+    /// <summary>
+    /// The spawn point for Player 1.
+    /// </summary>
     public GameObject P1SpawnPoint;
+    /// <summary>
+    /// Player 2.
+    /// </summary>
     public GameObject P2;
+    /// <summary>
+    /// The spawn point for Player 2.
+    /// </summary>
     public GameObject P2SpawnPoint;
 
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 1.
+    /// </summary>
     public GameObject GhostSpawnPoint;
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 2.
+    /// </summary>
     public GameObject GhostSpawnPoint1;
 
     [Header("Holders")]
