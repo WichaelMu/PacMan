@@ -1,39 +1,68 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+﻿using UnityEngine;
 
-public class PacManController : MonoBehaviour
+public class PacStudentController : MonoBehaviour
 {
-    //[Header("Ghosts")]
-    //public GameObject RedGhost;
-    //public GameObject PinkGhost;
-    //public GameObject OrangeGhost;
-    //public GameObject BlueGhost;
-
+    /// <summary>
+    /// The Game Controller that controls the logic for this game.
+    /// </summary>
     [Header("Life Controller")]
     public GameController GameController;
 
+    /// <summary>
+    /// The parent where all the Ghosts can be accessed.
+    /// </summary>
     [Header("Ghosts")]
     public Transform GhostHolder;
 
+    /// <summary>
+    /// The left portal's position.
+    /// </summary>
     [Header("Portals")]
     public Transform PortalL;
+    /// <summary>
+    /// The right portal's position.
+    /// </summary>
     public Transform PortalR;
 
+    /// <summary>
+    /// Pac Man's default position and spawn point.
+    /// </summary>
     [Header("Spawn Point")]
     public GameObject SpawnPoint;
 
+    /// <summary>
+    /// The particle effect that plays when Pac Man hits a wall.
+    /// </summary>
     [Header("")]
     public GameObject WallBump;
+    /// <summary>
+    /// The particle effect that plays when Pac Man dies.
+    /// </summary>
     public GameObject PacManDeath;
 
-    Rigidbody PacMan;
+    //Rigidbody PacMan;
+    /// <summary>
+    /// The switcher that Pac Man collides with.
+    /// </summary>
     Switcher switcher;
+    /// <summary>
+    /// Pac Man's animator.
+    /// </summary>
     Animator DeadStateAnim;
+    /// <summary>
+    /// The audio controller that controls the sounds that play.
+    /// </summary>
     AudioController AudioControl;
+    ParticleSystem dust;
 
+    /// <summary>
+    /// The movement speed for Pac Man.
+    /// </summary>
     public float moveSpeed;
 
+    /// <summary>
+    /// The default movement speed for Pac Man.
+    /// </summary>
     float DefaultMoveSpeed;
     bool LR = false, IsStill, IsOutOfPortal = true, IsAlive;
     string nextAvailableTurn, currentInput;
@@ -43,11 +72,12 @@ public class PacManController : MonoBehaviour
         AudioControl = FindObjectOfType<AudioController>();
         if (GhostHolder==null)
             GhostHolder = GameObject.FindWithTag("GHOSTHOLDER").GetComponent<Transform>();
+        dust = GetComponentInChildren<ParticleSystem>();
     }
 
     void Start()
     {
-        PacMan = GetComponent<Rigidbody>();
+        //PacMan = GetComponent<Rigidbody>();
         DefaultMoveSpeed = moveSpeed;
 
         DeadStateAnim = GetComponent<Animator>();
@@ -64,78 +94,104 @@ public class PacManController : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
-
-        if (Input.GetKeyDown(KeyCode.K))
-            EatBigPellet(null);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Switcher"))   //  A switcher is a corner in the game. I don't know why I didn't name it corner.
             OnSwitcher(other.gameObject);
-        if (other.CompareTag("Pellet")) //  When Pac Man hits a Pellet.
+        if (other.CompareTag("Pellet"))     //  When Pac Man hits a Pellet.
             EatPellet(other.gameObject);
         if (other.CompareTag("BigPellet"))  //  WHen Pac Man hits a Big Pellet.
             EatBigPellet(other.gameObject);
-        if (other.CompareTag("Ghost"))  //  When Pac Man hits a Ghost.
+        if (other.CompareTag("Ghost"))      //  When Pac Man hits a Ghost.
             OnHitGhost(other.gameObject);
         if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  When Pac Man enters a Portal.
             PortalHandler(other.name);
-        if (other.CompareTag("Fruit"))  //  When Pac Man hits a Fruit.
+        if (other.CompareTag("Fruit"))      //  When Pac Man hits a Fruit.
             EatFruit();
     }
 
+    /// <summary>
+    /// When Pac Man is on a corner.
+    /// </summary>
+    /// <param name="Switcher">The specific switcher Pac Man is on.</param>
+
     void OnSwitcher(GameObject Switcher)
     {
-        this.switcher = Switcher.GetComponent<Switcher>(); //  Sets the corner Pac Man is on to <this.switcher>. This corner is accessed if Pac Man is stuck on a corner.
+        this.switcher = Switcher.GetComponent<Switcher>();  //  Sets the corner Pac Man is on to <this.switcher>. This corner is accessed if Pac Man is stuck on a corner.
 
-        if (switcher.allowDirection(nextAvailableTurn)) //  If this switcher allows Pac Man to turn in the direction of <nextAvailableTurn>, it will turn in that direction.
+        if (switcher.allowDirection(nextAvailableTurn))     //  If this switcher allows Pac Man to turn in the direction of <nextAvailableTurn>, it will turn in that direction.
             Invoke(nextAvailableTurn, 0f);
 
-        if (!switcher.allowDirection(currentInput)) //  If this switcher does not allow Pac Man to turn in the direction of <nextAvailableTurn>, it will stop Pac Man's movement in that corner until the play tells Pac Man to move in a direction that *is* allowed by this switcher.
+        if (!switcher.allowDirection(currentInput))         //  If this switcher does not allow Pac Man to turn in the direction of <nextAvailableTurn>, it will stop Pac Man's movement in that corner until the play tells Pac Man to move in a direction that *is* allowed by this switcher.
             HoldPosition(true);
     }
 
+    /// <summary>
+    /// When Pac Man hits a pellet.
+    /// </summary>
+    /// <param name="Pellet">The pellet that Pac Man collided with.</param>
+
     void EatPellet(GameObject Pellet)
     {
-        Destroy(Pellet);    //  Remove the Pellet from the game.
+        Destroy(Pellet);            //  Remove the Pellet from the game.
         PlayerStats.score += 10;
-        PlaySound("EATPELLET"); //  Play the sound of Pac Man eating a Pellet.
+        PlaySound("EATPELLET");     //  Play the sound of Pac Man eating a Pellet.
     }
+
+    /// <summary>
+    /// When Pac Man hits a big pellet.
+    /// </summary>
+    /// <param name="BigPellet">The big pellet that Pac Man collided with.</param>
+
     void EatBigPellet(GameObject BigPellet)
     {
-        Destroy(BigPellet); //  Remove the Big Pellet from the game.
+        Destroy(BigPellet);         //  Remove the Big Pellet from the game.
         PlayerStats.score += 50;
-        PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit/Big Pellet.
-        StopSound("AMBIENT");   //  Stops the ambient from playing.
+        PlaySound("EATFRUIT");      //  Play the sound of Pac Man eating a Fruit/Big Pellet.
+        StopSound("AMBIENT");       //  Stops the ambient from playing.
 
-        for (int i = 0; i < 4; i++)    //  For every ghost in the game.
+        for (int i = 0; i < 4; i++) //  For every ghost in the game.
         {
             GhostMechanics gc = GhostHolder.GetChild(i).gameObject.GetComponent<GhostMechanics>();
-            if (gc.IsAlive) //  If that ghost is alive.
+            if (gc.IsAlive)         //  If that ghost is alive.
                 gc.SetScared(true); //  Set that ghost to a scared state.
         }
     }
 
-    void EatFruit() //  The main functinality of Pac Man eating a Fruit is done on it's own script called 'Fruit.cs'.Fruit
+    /// <summary>
+    /// When Pac Man hits a Fruit.
+    /// </summary>
+
+    void EatFruit()                 //  The main functinality of Pac Man eating a Fruit is done on it's own script called 'Fruit.cs'.Fruit
     {
         //Destroying the Fruit is done on Fruit.cs;
-        PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit.
+        PlaySound("EATFRUIT");      //  Play the sound of Pac Man eating a Fruit.
         PlayerStats.score += 100;
         PlayerStats.SaveGame();
     }
+
+    /// <summary>
+    /// When Pac Man hits a Ghost.
+    /// </summary>
+    /// <param name="Ghost">The Ghost that Pac Man collided with.</param>
 
     void OnHitGhost(GameObject Ghost)
     {
         GhostMechanics ghost = Ghost.GetComponent<GhostMechanics>();
 
-        if (ghost.ScaredState)  //  If the ghost is scared.
-            OnHitScaredGhost(Ghost);    //  Kill that ghost.
+        if (ghost.ScaredState)          //  If the ghost is scared.
+            OnHitScaredGhost(ghost);    //  Kill that ghost.
         else
-            PacManIsDead();    //  Otherwise, kill Pac Man.
+            PacManIsDead();             //  Otherwise, kill Pac Man.
 
         PlayerStats.SaveGame();
     }
+
+    /// <summary>
+    /// When Pac Man hits a non-scared Ghost.
+    /// </summary>
 
     void PacManIsDead()
     {
@@ -158,8 +214,8 @@ public class PacManController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             GameObject Ghost = GhostHolder.GetChild(i).gameObject;
-            Ghost.GetComponent<GhostController>().enabled = false;
-            Ghost.GetComponent<GhostMechanics>().enabled = false;
+            Ghost.GetComponent<GhostController>().enabled   =   false;
+            Ghost.GetComponent<GhostMechanics>().enabled    =   false;
         }
 
         if (!GameController.DoNotRestart)
@@ -168,11 +224,21 @@ public class PacManController : MonoBehaviour
         PlayerStats.SaveGame();
     }
 
-    void OnHitScaredGhost(GameObject Ghost)
+    /// <summary>
+    /// When Pac Man hits a Ghost who is scared.
+    /// </summary>
+    /// <param name="Ghost">The scared Ghost that Pac Man collided with.</param>
+
+    void OnHitScaredGhost(GhostMechanics Ghost)
     {
         //TODO: Play the death animation for The Ghosts. DONE.
-        Ghost.GetComponent<GhostMechanics>().OnHitPacMan();    //  This can only be called if the ghost that was hit is scared.
+        Ghost.OnHitPacMan();    //  This can only be called if the ghost that was hit is scared.
     }
+
+    /// <summary>
+    /// When Pac Man hits a portal.
+    /// </summary>
+    /// <param name="Portal">The portal that Pac Man collided with.</param>
 
     void PortalHandler(string Portal)   //  There is a better way in doing this. In free-time, find a solution.
     {
@@ -182,6 +248,10 @@ public class PacManController : MonoBehaviour
             transform.position = new Vector3(0f, 4.375f, 0f);
         IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
     }
+
+    /// <summary>
+    /// Resets the game to the necessary default values.
+    /// </summary>
 
     void ResetGame()
     {
@@ -209,10 +279,20 @@ public class PacManController : MonoBehaviour
 
     //  Plays or Stops the sound <name>.
 
+    /// <summary>
+    /// Plays sound with name.
+    /// </summary>
+    /// <param name="name">The string name of the sound to play.</param>
+
     void PlaySound(string name)
     {
         AudioControl.PlaySound(name);
     }
+
+    /// <summary>
+    /// Stops sound with name.
+    /// </summary>
+    /// <param name="name">The string name of the sound to stop.</param>
 
     void StopSound(string name)
     {
@@ -223,34 +303,33 @@ public class PacManController : MonoBehaviour
 
     #region The Movement of Pac Man
 
-    //float t;
+    /// <summary>
+    /// The time used for lerping.
+    /// </summary>
+    float t;    //  The time for lerping.
 
+    /// <summary>
+    /// The movement of Pac Man by lerping.
+    /// </summary>
     void Movement() //  This is called in the FixedUpdate().
     {
-        PacMan.MovePosition(transform.position + (transform.right * moveSpeed * Time.deltaTime));   //  Pac Man's constant movement.
-        //t += Time.fixedDeltaTime;
-        //float UD=0f, LR=0f;
-        //switch (currentInput)
-        //{
-        //    case "U":
-        //        UD = .5f;
-        //        LR = 0f;
-        //        break;
-        //    case "D":
-        //        UD = -.5f;
-        //        LR = 0f;
-        //        break;
-        //    case "L":
-        //        LR = -.5f;
-        //        UD = 0f;
-        //        break;
-        //    case "R":
-        //        LR = .5f;
-        //        UD = 0f;
-        //        break;
-        //}
-        //transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t/moveSpeed);
+        //PacMan.MovePosition(transform.position + (transform.right * moveSpeed * Time.deltaTime));   //  Pac Man's constant movement.
+        t += Time.fixedDeltaTime;
+        float UD=0f, LR=0f;
+        switch (currentInput)
+        {
+            case "U": UD = .5f;     LR = 0f; break;
+            case "D": UD = -.5f;    LR = 0f; break;
+            case "L": LR = -.5f;    UD = 0f; break;
+            case "R": LR = .5f;     UD = 0f; break;
+        }
+        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x+LR, transform.position.y+UD, transform.position.z), t / (LevelGenerator.PIXEL_32 / (moveSpeed * .75f)));
+        t = 0;
     }
+
+    /// <summary>
+    /// The keyboard inputs to control Pac Man's movement.
+    /// </summary>
 
     void KeyboardControl()  //  These are the keyboard inputs from the user.
     {
@@ -260,18 +339,10 @@ public class PacManController : MonoBehaviour
 
         switch (lastInput.ToUpper())
         {
-            case "W":
-                determineRotation("U");
-                break;
-            case "S":
-                determineRotation("D");
-                break;
-            case "A":
-                determineRotation("L");
-                break;
-            case "D":
-                determineRotation("R");
-                break;
+            case "W": determineRotation("U"); break;
+            case "S": determineRotation("D"); break;
+            case "A": determineRotation("L"); break;
+            case "D": determineRotation("R"); break;
         }
 
         #endregion
@@ -284,7 +355,15 @@ public class PacManController : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))   determineRotation("R");
 
         #endregion
+
+        if (Input.GetKey(KeyCode.K))
+            EatBigPellet(null);
     }
+
+    /// <summary>
+    /// Determine if Pac Man is allowed to move horizontally or vertically at any given moment.
+    /// </summary>
+    /// <param name="whereTo"></param>
 
     void determineRotation(string whereTo)
     {
@@ -309,6 +388,12 @@ public class PacManController : MonoBehaviour
         }
         else nextTurn(whereTo); //  Otherwise, make the next turn for Pac Man where the user wants to turn next. This will be done at the next switcher.
     }
+
+    /// <summary>
+    /// On the next switcher move in whereTo direction.
+    /// </summary>
+    /// <param name="whereTo">The string direction on where to move on the next Switcher.</param>
+
     void nextTurn(string whereTo)
     {
         nextAvailableTurn = whereTo;    //  Sets the next turn at the next switcher to <whereTo> direction.
@@ -380,27 +465,38 @@ public class PacManController : MonoBehaviour
 
     #endregion
 
+    /// <summary>
+    /// Removes the next requested input input direction.
+    /// </summary>
+
     void NullifyNextAvTurn()
     {
         nextAvailableTurn = null;   //  Sets the next turn to be null.
     }
 
-    void HoldPosition(bool instruction) //  Stop Pac Man from moving if an illegal turn is requested from the user.
+    /// <summary>
+    /// Stops Pac Man movement according to instruction.
+    /// </summary>
+    /// <param name="instruction">Boolean instruction on whether or not to stop Pac Man's movement.</param>
+
+    void HoldPosition(bool instruction) //  Stop Pac Man from moving if an illegal turn is requested from the user or if Pac Man cannot continue to move in currentInput direction.
     {
-        if (instruction)
+        if (instruction)    //  True to hold position.
         {
             moveSpeed = 0f; //  Stop Pac Man.
             IsStill = true; //  Set Pac Man so that he is at a standstill.
             PlaySound("WALL");  //  Play the sound of Pac Man colliding with a wall.
             Destroy(Instantiate(WallBump, transform.position, Quaternion.identity), 2f);
-            DeadStateAnim.speed = 0f;
+            DeadStateAnim.speed = 0f;   //  Pauses the Pac Man walking animation.
+            dust.Stop();    //  Stops the dust particles from playing.
             return; //  If Pac Man is set to be at a standstill, do not execute any more code.
         }
 
         if (IsAlive)    //  If Pac Man is alive.
             moveSpeed = DefaultMoveSpeed;   //  Reset Pac Man's movement speed.
         IsStill = false;    //  Set Pac Man so that he is no longer at a standstill.
-        DeadStateAnim.speed = 1.5f;
+        dust.Play();    //  Resumes the dust particles to plays.
+        DeadStateAnim.speed = 1.5f; //  Restores the speed of Pac Man's walking animation.
     }
 
     #endregion

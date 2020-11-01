@@ -70,6 +70,8 @@ public class PlayerControllers : MonoBehaviour
             PortalHandler(other.name);
         if (other.CompareTag("Explosion") || other.CompareTag("ExplosionGHOST"))
             KillPlayer();
+        if (other.CompareTag("Ghost"))
+            KillPlayer(other.gameObject);
     }
 
     void OnSwitcher(GameObject Switcher)
@@ -100,6 +102,11 @@ public class PlayerControllers : MonoBehaviour
 
         GameController.UpdateScore(ID, 50);
         collected++;
+
+        GameObject[] Ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+        foreach (GameObject g in Ghosts)
+            if (g.GetComponent<InnovationAI>().SpecifyTarget == ID)
+                Destroy(g);
 
         PlaySound("EATFRUIT");  //  Play the sound of Pac Man eating a Fruit/Big Pellet.
     }
@@ -132,10 +139,13 @@ public class PlayerControllers : MonoBehaviour
         dynamite.SetMaximumRange(collected);
     }
 
-    void KillPlayer()
+    void KillPlayer(GameObject ghost = null)
     {
         Destroy(gameObject);
-        GameController.EndGame(ID);
+        if (ghost == null)
+            GameController.EndGame(ID);
+        else
+            GameController.EndGame(ID, ghost);
     }
 
     #region Sound Controller

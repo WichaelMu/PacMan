@@ -6,6 +6,10 @@ public class AudioController : MonoBehaviour
 {
     public Sound[] Sounds;
 
+    /// <summary>
+    /// Populates the Sounds array to match the settings.
+    /// </summary>
+
     void Awake()
     {
         foreach (Sound s in Sounds)
@@ -17,7 +21,7 @@ public class AudioController : MonoBehaviour
             s.s.loop = s.Loop;
         }
 
-        PlaySound("AMBIENT");
+        PlaySound("AMBIENT");   //  Plays the AMBIENT Pac Man sound by default.
     }
 
     /// <summary>

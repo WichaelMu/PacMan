@@ -6,10 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameControllerII : MonoBehaviour
 {
-
+    /// <summary>
+    /// The current score for Player 1 (Orange).
+    /// </summary>
     [Header("Score Control")]   //  This keeps tract of the scores and the time played.
     public TextMeshProUGUI P1Score;
+    /// <summary>
+    /// The current score for Player 2 (Green).
+    /// </summary>
     public TextMeshProUGUI P2Score;
+    /// <summary>
+    /// The amount of time spent playing level 2.
+    /// </summary>
     public TextMeshProUGUI Time;
 
     [Header("Pellet Control")]
@@ -25,15 +33,37 @@ public class GameControllerII : MonoBehaviour
     public TextMeshProUGUI CountDown;
     public TextMeshProUGUI START;
 
+    /// <summary>
+    /// The Ghosts that chase the players.
+    /// </summary>
     [Header("Natural Enemies")]
     public GameObject Ghost;
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 1.
+    /// </summary>
     Transform GhostSpawnPoint;
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 2.
+    /// </summary>
+    Transform GhostSpawnPoint1;
 
     AudioController AudioControl;
 
+    /// <summary>
+    /// Player 1.
+    /// </summary>
     GameObject P1;
+    /// <summary>
+    /// The score for Player 1.
+    /// </summary>
     int _P1Score = 0;
+    /// <summary>
+    /// Player 2.
+    /// </summary>
     GameObject P2;
+    /// <summary>
+    /// The score for Player 2.
+    /// </summary>
     int _P2Score = 0;
 
     IEnumerator GameTimer;
@@ -59,12 +89,19 @@ public class GameControllerII : MonoBehaviour
     void Start()
     {
         GhostSpawnPoint = GameObject.FindWithTag("GhostSpawn").transform;
+        GhostSpawnPoint1 = GameObject.FindWithTag("GhostSpawn1").transform;
     }
 
     void OnEnable()
     {
         BeginStartingProcedure();
     }
+
+    /// <summary>
+    /// Updates the score every time either player eats a pellet.
+    /// </summary>
+    /// <param name="ID">The ID that corresponds to the player who ate a pellet.</param>
+    /// <param name="amount">The amount to increase ID player's score.</param>
 
     public void UpdateScore(int ID, int amount)
     {
@@ -75,9 +112,13 @@ public class GameControllerII : MonoBehaviour
         P1Score.text = "" + _P1Score;
         P2Score.text = "" + _P2Score;
 
-        if (PelletHolder.childCount == 0)
-            EndGame();
+        if (PelletHolder.childCount < 2)   //  If there are no more pellets.
+            InvokeRepeating("SpawnGhost", 0f, 12f);
     }
+
+    /// <summary>
+    /// Ends the game by score.
+    /// </summary>
 
     void EndGame()
     {
@@ -92,22 +133,35 @@ public class GameControllerII : MonoBehaviour
         //Debug.Log("Pac Man is dead");
     }
 
-    public void EndGame(int ID)
+    /// <summary>
+    /// Ends the game by kill.
+    /// </summary>
+    /// <param name="ID">The ID representing the winning player.</param>
+    /// <param name="ghost">The Ghost who killed a player.</param>
+
+    public void EndGame(int ID, GameObject ghost = null)
     {
         Enable(false);  //  Stops all movement.
 
         GameOver.gameObject.SetActive(true);
         StopCoroutine(GameTimer);
-        Message.text = "PLAYER " + (ID == 1 ? "2" : "1") + " WINS BY KILL!";
-
+        Message.text = "PLAYER " + (ID == 1 ? "2" : "1");
+        Message.text += (ghost == null) ? " WINS BY KILL!" : " WINS BY GHOST KILL";
         Invoke("LoadMainMenu", 3f);
     }
 
+    /// <summary>
+    /// Loads the Start Scene.
+    /// </summary>
+
     void LoadMainMenu()
     {
-        PlayerStats.SaveGame();
         SceneManager.LoadScene(0);
     }
+
+    /// <summary>
+    /// Begins the countdown 3 - 2 - 1 GO!.
+    /// </summary>
 
     public void BeginStartingProcedure()
     {
@@ -126,8 +180,7 @@ public class GameControllerII : MonoBehaviour
         yield return new WaitForSeconds(1f);
         READY.gameObject.SetActive(false);
         CountDown.gameObject.SetActive(true);
-        int c = 3;
-        for (int i = c; i > 0; i--)
+        for (int i = 3; i > 0; i--)
         {
             CountDown.text = i.ToString();
             yield return new WaitForSeconds(1f);
@@ -141,18 +194,32 @@ public class GameControllerII : MonoBehaviour
         StopCoroutine(Countdown());
     }
 
+    /// <summary>
+    /// Begins the game by enabling player movement.
+    /// </summary>
+
     void BeginGame()
     {
         Enable(true);
-        InvokeRepeating("SpawnGhost", 0, 30f);
+        InvokeRepeating("SpawnGhost", 0, 30f);  //  Spawns two Ghosts every 30 seconds.
         StartCoroutine(GameTimer);
     }
+
+    /// <summary>
+    /// Enables player movement according to Boolean b.
+    /// </summary>
+    /// <param name="b">Boolean to enable or disable player movement.</param>
 
     void Enable(bool b)
     {
         //  PLAYER CONTROLLERS EN/DISABLE.
         P1.GetComponent<PlayerControllers>().enabled = b;
         P2.GetComponent<PlayerControllers>().enabled = b;
+
+        GameObject[] Ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+
+        foreach (GameObject g in Ghosts)
+            g.GetComponent<InnovationAI>().enabled = b;
     }
 
     IEnumerator UpdateTime()
@@ -177,11 +244,15 @@ public class GameControllerII : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawns two Ghosts that target either player.
+    /// </summary>
+
     void SpawnGhost()
     {
         GameObject ghost = Instantiate(Ghost, GhostSpawnPoint.position, Quaternion.identity);
         ghost.GetComponent<InnovationAI>().SpecifyTarget = 1;
-        GameObject _ghost = Instantiate(Ghost, GhostSpawnPoint.position, Quaternion.identity);
+        GameObject _ghost = Instantiate(Ghost, GhostSpawnPoint1.position, Quaternion.identity);
         _ghost.GetComponent<InnovationAI>().SpecifyTarget = 2;
     }
 }

@@ -2,33 +2,52 @@
 
 public class LevelGeneratorII : MonoBehaviour
 {
+    /// <summary>
+    /// Player 1.
+    /// </summary>
     [Header("Players")]
     public GameObject P1;
+    /// <summary>
+    /// The spawn point for Player 1.
+    /// </summary>
     public GameObject P1SpawnPoint;
+    /// <summary>
+    /// Player 2.
+    /// </summary>
     public GameObject P2;
+    /// <summary>
+    /// The spawn point for Player 2.
+    /// </summary>
     public GameObject P2SpawnPoint;
 
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 1.
+    /// </summary>
     public GameObject GhostSpawnPoint;
+    /// <summary>
+    /// The spawn point for the Ghost that chases Player 2.
+    /// </summary>
+    public GameObject GhostSpawnPoint1;
 
     [Header("Holders")]
     public GameObject WallHolder;
     public GameObject PelletHolder;
 
     [Header("Level Generator")]
-    public GameObject Empty;    //  0           :   Nothing
+    public GameObject Empty;    //  0               :   Nothing
 
-    public GameObject InsideCorner; //  3       :   Top Left
-    public GameObject InsideCornerBL;    //  31 :   Bottom Left
-    public GameObject InsideCornerBR;    //  32 :   Bottom Right
-    public GameObject InsideCornerTR;    //  33 :   Top Right
+    public GameObject InsideCorner; //  3           :   Top Left
+    public GameObject InsideCornerBL;    //  31     :   Bottom Left
+    public GameObject InsideCornerBR;    //  32     :   Bottom Right
+    public GameObject InsideCornerTR;    //  33     :   Top Right
 
-    public GameObject InsideWall;   //  4       :
-    public GameObject InsideWallH;  //  41      :
+    public GameObject InsideWall;   //  4           :
+    public GameObject InsideWallH;  //  41          :
 
-    public GameObject OutsideCorner;    //  1   :   Top Left
-    public GameObject OutsideCornerBL;  //  11  :   Bottom Left
-    public GameObject OutsideCornerBR;  //  12  :   Bottom Right
-    public GameObject OutsideCornerTR;  //  13  :   Top Right
+    public GameObject OutsideCorner;    //  1       :   Top Left
+    public GameObject OutsideCornerBL;  //  11      :   Bottom Left
+    public GameObject OutsideCornerBR;  //  12      :   Bottom Right
+    public GameObject OutsideCornerTR;  //  13      :   Top Right
 
     public GameObject OutsideWall;  //  2
     public GameObject OutsideWallH; //  21
@@ -53,6 +72,8 @@ public class LevelGeneratorII : MonoBehaviour
     [Header("Portals")]
     public GameObject PortL;    //  9   :   Portal on the Left
     public GameObject PortR;    //  91  :   Portal on the Right.
+
+    #region Old Level Schematic
 
     //#region Level Schematic
 
@@ -90,6 +111,7 @@ public class LevelGeneratorII : MonoBehaviour
     //     {01,21,21,21,21,21,21,21,21,21,21,21,21,07 , 07,21,21,21,21,21,21,21,21,21,21,21,21,13},   //  Top of the Screen
     //     };
     //#endregion
+    #endregion
 
     #region Level Schematic
 
@@ -120,7 +142,7 @@ public class LevelGeneratorII : MonoBehaviour
          {00,00,00,00,00,00,00,00,00,00,02,05,04,04,-1,00,00,-6,00 , 00,-6,00,00,-4,04,04,05,02,00,00,00,00,00,00,00,00,00,00},
          {00,00,00,00,00,00,00,00,00,00,02,05,04,04,00,31,41,41,41 , 41,41,41,32,00,04,04,05,02,00,00,00,00,00,00,00,00,00,00},
          {11,21,21,21,21,21,21,21,21,21,13,05,03,33,00,04,00,00,00 , 00,00,00,04,00,03,33,05,01,21,21,21,21,21,21,21,21,21,12},
-         {02,09,00,00,00,00,00,00,00,00,00,89,00,00,-7,04,00,00,00 , 00,94,00,04,-9,00,00,89,00,00,00,00,00,00,00,00,00,91,02},   //  Portals Row
+         {02,09,00,00,00,00,00,00,00,00,00,89,00,00,-7,04,00,95,00 , 00,94,00,04,-9,00,00,89,00,00,00,00,00,00,00,00,00,91,02},   //  Portals Row
                                             //  Reflect Here \\
          {01,21,21,21,21,21,21,21,21,21,12,05,31,32,00,04,00,00,00 , 00,00,00,04,00,31,32,05,11,21,21,21,21,21,21,21,21,21,13},
          {00,00,00,00,00,00,00,00,00,00,02,05,04,04,00,03,41,00,41 , 41,00,41,33,00,04,04,05,02,00,00,00,00,00,00,00,00,00,00},
@@ -276,15 +298,18 @@ public class LevelGeneratorII : MonoBehaviour
                             GeneratePlacements(PortR, new Vector3(k, i, 0f));
                             break;
                         case 92:
-                            Instantiate(P1, new Vector3(k, i, -.05f) / 3.2f, Quaternion.identity);
-                            Instantiate(P1SpawnPoint, new Vector3(k, i, -.05f) * .3125f, Quaternion.identity);
+                            Instantiate(P1, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
+                            Instantiate(P1SpawnPoint, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
                             break;
                         case 93:
-                            Instantiate(P2, new Vector3(k, i, -.05f) / 3.2f, Quaternion.identity);
-                            Instantiate(P2SpawnPoint, new Vector3(k, i, -.05f) * .3125f, Quaternion.identity);
+                            Instantiate(P2, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
+                            Instantiate(P2SpawnPoint, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
                             break;
                         case 94:
-                            Instantiate(GhostSpawnPoint, new Vector3(k, i, -.05f) * .3125f, Quaternion.identity);
+                            Instantiate(GhostSpawnPoint, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
+                            break;
+                        case 95:
+                            Instantiate(GhostSpawnPoint1, new Vector3(k, i, -.05f) * LevelGenerator.PIXEL_32, Quaternion.identity);
                             break;
                 }
     }
@@ -293,19 +318,19 @@ public class LevelGeneratorII : MonoBehaviour
 
     void GeneratePlacements(GameObject Object, Vector3 where)
     {
-        GameObject go = Instantiate(Object, where * .3125f, Quaternion.identity);
+        GameObject go = Instantiate(Object, where * LevelGenerator.PIXEL_32, Quaternion.identity);
         MakeParent(go, WallHolder);
     }
 
     void PlaceSmallDot(int k, int i)
     {
-        GameObject go = Instantiate(SmallDot, (new Vector3(k, i, 0f) * .3125f), Quaternion.identity);
+        GameObject go = Instantiate(SmallDot, (new Vector3(k, i, 0f) * LevelGenerator.PIXEL_32), Quaternion.identity);
         MakeParent(go, PelletHolder);
     }
 
     void PlaceBigDot(int k, int i)
     {
-        GameObject go = Instantiate(BigDot, (new Vector3(k, i, 0f) * .3125f), Quaternion.identity);
+        GameObject go = Instantiate(BigDot, (new Vector3(k, i, 0f) * LevelGenerator.PIXEL_32), Quaternion.identity);
         MakeParent(go, PelletHolder);
     }
 
