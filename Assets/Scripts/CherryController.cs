@@ -50,7 +50,7 @@ public class CherryController : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("Refresh", 0f, 30f);    //  Repeat the Cherry lerping every 30 seconds, starting upon loading Level 1.
+        InvokeRepeating(nameof(Refresh), 0f, 30f);    //  Repeat the Cherry lerping every 30 seconds, starting upon loading Level 1.
     }
 
     /// <summary>

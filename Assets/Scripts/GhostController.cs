@@ -52,11 +52,12 @@ public class GhostController : MonoBehaviour
     [Header("The Ghost Canvas Number.")]
     public int GhostID; //  The ID of the Ghosts that correspond to their World Space Canvas.
 
-    Rigidbody GhostRB;
     /// <summary>
     /// The default position and respawn point for this Ghost.
     /// </summary>
     Transform RespawnPoint; //  The respawn point for this Ghost.
+
+    GhostMechanics Mechanics;
 
     /// <summary>
     /// The Vector3 directions. [0] Up, [1] Down, [2] Left, [3] Right.
@@ -82,8 +83,13 @@ public class GhostController : MonoBehaviour
     
     void Start()
     {
-        GhostRB = GetComponent<Rigidbody>();
-        RespawnPoint = GetComponent<GhostMechanics>().RespawnPoint; //  Assigns this GhostController's respawn point to the same one in this Ghost's GhostMechanics.
+        Mechanics = GetComponent<GhostMechanics>();
+
+        if (!Mechanics)
+            Debug.LogWarning("Ghost with ID: " + GhostID + " does not have a <GhostMecahnics> component!");
+        else
+            RespawnPoint = Mechanics.RespawnPoint; //  Assigns this GhostController's respawn point to the same one in this Ghost's GhostMechanics.
+
 
         StartSequence();    //  Begins the starting sequence to begin/restart the game.
     }
@@ -113,11 +119,11 @@ public class GhostController : MonoBehaviour
 
         if (GhostID == 1)   //  If this Ghost is Red.
             RedGhostAI(switcher); //  Do the Artificial Intelligence for the Red Ghost.
-        if (GhostID == 2)   //  If this Ghost is Pink.
+        else if (GhostID == 2)   //  If this Ghost is Pink.
             PinkGhostAI(switcher);    //  Do the Artificial Intelligence for the Pink Ghost.
-        if (GhostID == 3)   //  If this Ghost is Orange.
+        else if (GhostID == 3)   //  If this Ghost is Orange.
             OrangeGhostAI(switcher);    //  Do the Artificial Intelligence for the Orange Ghost.
-        if (GhostID == 4)   //  If this Ghost is Light Blue.
+        else if (GhostID == 4)   //  If this Ghost is Light Blue.
             LightBlueGhostAI(); //  Do the Artificial Intelligence for the Light Blue Ghost.
     }
 
@@ -274,7 +280,7 @@ public class GhostController : MonoBehaviour
 
         if (enabled)    //  If GhostController.cs is enabled.
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + horizontal, transform.position.y + vertical, transform.position.z), t / (LevelGenerator.PIXEL_32 / (GetComponent<GhostMechanics>().MoveSpeed * .35f)));
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + horizontal, transform.position.y + vertical, transform.position.z), t / (LevelGenerator.PIXEL_32 / (Mechanics.MoveSpeed * .35f)));
 
             hCurrent = horizontal;  //  Set the current horizontal movement to horizontal.
             vCurrent = vertical;    //  Set the current vertical movement to vertical.
@@ -319,7 +325,7 @@ public class GhostController : MonoBehaviour
                     break;
             }
 
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + LR, transform.position.y + UD, transform.position.z), t / (LevelGenerator.PIXEL_32 / (GetComponent<GhostMechanics>().MoveSpeed * .35f)));
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + LR, transform.position.y + UD, transform.position.z), t / (LevelGenerator.PIXEL_32 / (Mechanics.MoveSpeed * .35f)));
 
             hCurrent = direction.x; //  Set the current horizontal movement to the x value of direction.
             vCurrent = direction.y; //  Set the current vertical movement to the y value of direction.

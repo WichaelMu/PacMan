@@ -92,7 +92,7 @@ public class Dynamite : MonoBehaviour
     void Start()
     {
         AudioControl = FindObjectOfType<AudioController>();
-        Invoke("Detonate", DetonationTime); //  Invokes the detonation of this Dynamite after DetonationTIme seconds.
+        Invoke(nameof(Detonate), DetonationTime); //  Invokes the detonation of this Dynamite after DetonationTIme seconds.
         RemoveParticles = Aftermath();
         StartCoroutine(RemoveParticles);
     }

@@ -63,7 +63,7 @@ public class Fruits : MonoBehaviour
     {
         SpriteRenderer spr = FruitsHolder[i].GetComponent<SpriteRenderer>();    //  Gets the sprite renderer for the game object at FruitsHolder[i].
         spr.sprite = SPR;   //  Change the sprite renderer for the game object at FruitsHolder[i] to be the collected Fruit's sprite.
-        i++;    //  Increment the index.s
+        i++;    //  Increment the index.
 
         Destroy(gameObject);    //  Destroy this Fruit.
     }

@@ -105,6 +105,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI START;
     public GameObject PacMan;
     public Transform GhostHolder;
+    AudioController audioController;
 
     IEnumerator GameTimer;
     int minute=00, seconds=00, milli=000;
@@ -137,6 +138,8 @@ public class GameController : MonoBehaviour
         GameTimer = UpdateTime();
 
         GameOver.gameObject.SetActive(false);   //  By default, set the GameOver! UI to be invisible.
+
+        audioController = FindObjectOfType<AudioController>();
     }
 
     void OnEnable()
@@ -249,8 +252,8 @@ public class GameController : MonoBehaviour
         START.gameObject.SetActive(false);  //  Hide the START UI.
         CountDown.gameObject.SetActive(false);  //  Hide the CountDown UI.
         yield return new WaitForFixedUpdate();  //  Wait for a fixed udpdate.
-        FindObjectOfType<AudioController>().StopAllSounds();    //  Stop all sounds.
-        FindObjectOfType<AudioController>().PlaySound("STARTING");  //  Play the starting sound.
+        audioController.StopAllSounds();    //  Stop all sounds.
+        audioController.PlaySound("STARTING");  //  Play the starting sound.
         yield return new WaitForSeconds(4.75f); //  After 4.75 seconds.
         READY.gameObject.SetActive(false);  //  Hide the READY UI.
         CountDown.gameObject.SetActive(true);   //  Begin the countdown.

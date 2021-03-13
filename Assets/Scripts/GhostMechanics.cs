@@ -133,7 +133,7 @@ public class GhostMechanics : MonoBehaviour
     {
         if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)   //  If this Ghost goes into the Left Portal and Pac Man is, in fact, out of any Portal, it will move this Ghost's position to the Right Portal.
             transform.position = new Vector3(8.4375f, 4.375f, 0f);
-        if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If this Ghost goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move this Ghost's  position to the Left Portal.
+        else if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If this Ghost goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move this Ghost's  position to the Left Portal.
             transform.position = new Vector3(0f, 4.375f, 0f);
         IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
     }

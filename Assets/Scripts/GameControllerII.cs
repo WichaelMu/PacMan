@@ -148,7 +148,7 @@ public class GameControllerII : MonoBehaviour
         P2Score.text = "" + _P2Score;
 
         if (PelletHolder.childCount < 2)   //  If there are no more pellets.
-            InvokeRepeating("SpawnGhost", 0f, 12f);
+            InvokeRepeating(nameof(SpawnGhost), 0f, 12f);
     }
 
     /// <summary>
@@ -163,7 +163,7 @@ public class GameControllerII : MonoBehaviour
         StopCoroutine(GameTimer);
         Message.text = "PLAYER " + (_P1Score < _P2Score ? "1" : "2") + " WINS BY SCORE!";
 
-        Invoke("LoadMainMenu", 3f);
+        Invoke(nameof(LoadMainMenu), 3f);
 
         //Debug.Log("Pac Man is dead");
     }
@@ -182,7 +182,7 @@ public class GameControllerII : MonoBehaviour
         StopCoroutine(GameTimer);
         Message.text = "PLAYER " + (ID == 1 ? "2" : "1");
         Message.text += (ghost == null) ? " WINS BY KILL!" : " WINS BY GHOST KILL";
-        Invoke("LoadMainMenu", 3f);
+        Invoke(nameof(LoadMainMenu), 3f);
     }
 
     /// <summary>
@@ -210,8 +210,8 @@ public class GameControllerII : MonoBehaviour
         START.gameObject.SetActive(false);
         CountDown.gameObject.SetActive(false);
         yield return new WaitForFixedUpdate();
-        FindObjectOfType<AudioController>().StopAllSounds();
-        FindObjectOfType<AudioController>().PlaySound("STARTING");
+        AudioControl.StopAllSounds();
+        AudioControl.PlaySound("STARTING");
         yield return new WaitForSeconds(1f);
         READY.gameObject.SetActive(false);
         CountDown.gameObject.SetActive(true);
@@ -236,7 +236,7 @@ public class GameControllerII : MonoBehaviour
     void BeginGame()
     {
         Enable(true);
-        InvokeRepeating("SpawnGhost", 0, 30f);  //  Spawns two Ghosts every 30 seconds.
+        InvokeRepeating(nameof(SpawnGhost), 0, 30f);  //  Spawns two Ghosts every 30 seconds.
         StartCoroutine(GameTimer);
     }
 

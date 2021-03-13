@@ -135,16 +135,16 @@ public class PacStudentController : MonoBehaviour
     {
         if (other.CompareTag("Switcher"))   //  A switcher is a corner in the game. I don't know why I didn't name it corner.
             OnSwitcher(other.gameObject);
-        if (other.CompareTag("Pellet"))     //  When Pac Man hits a Pellet.
+        else if (other.CompareTag("Pellet"))     //  When Pac Man hits a Pellet.
             EatPellet(other.gameObject);
-        if (other.CompareTag("BigPellet"))  //  WHen Pac Man hits a Big Pellet.
+        else if (other.CompareTag("BigPellet"))  //  WHen Pac Man hits a Big Pellet.
             EatBigPellet(other.gameObject);
-        if (other.CompareTag("Ghost"))      //  When Pac Man hits a Ghost.
-            OnHitGhost(other.gameObject);
-        if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  When Pac Man enters a Portal.
+        else if (other.CompareTag("PortalL") || other.CompareTag("PortalR")) //  When Pac Man enters a Portal.
             PortalHandler(other.name);
         if (other.CompareTag("Fruit"))      //  When Pac Man hits a Fruit.
             EatFruit();
+        if (other.CompareTag("Ghost"))      //  When Pac Man hits a Ghost.
+            OnHitGhost(other.gameObject);
     }
 
     /// <summary>
@@ -279,7 +279,7 @@ public class PacStudentController : MonoBehaviour
     {
         if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Left Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Right Portal.
             transform.position = new Vector3(8.4375f, 4.375f, 0f);
-        if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Left Portal.
+        else if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Left Portal.
             transform.position = new Vector3(0f, 4.375f, 0f);
         IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
     }

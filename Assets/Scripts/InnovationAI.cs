@@ -72,7 +72,7 @@ public class InnovationAI : MonoBehaviour   //  All Ghosts in the Innovation Sce
         GhostRB = GetComponent<Rigidbody>();
         if (SpecifyTarget == 1)
             Target = GameObject.FindWithTag("RED").transform;
-        if (SpecifyTarget == 2)
+        else if (SpecifyTarget == 2)
             Target = GameObject.FindWithTag("GREEN").transform;
 
         StartSequence();    //  Begins the starting sequence to begin/restart the game.
@@ -87,9 +87,9 @@ public class InnovationAI : MonoBehaviour   //  All Ghosts in the Innovation Sce
     {
         if (o.CompareTag("Switcher"))   //  If this Ghost hits a switcher.
             ArtificialIntelligence(o.gameObject.GetComponent<Switcher>());  //  It will begin the process of Artificial Intelligence.
-        if (o.CompareTag("PortalL") || o.CompareTag("PortalR"))
+        else if (o.CompareTag("PortalL") || o.CompareTag("PortalR"))
             PortalHandler(o.name);
-        if (o.CompareTag("Explosion") || o.CompareTag("ExplosionGHOST"))
+        else if (o.CompareTag("Explosion") || o.CompareTag("ExplosionGHOST"))
             Destroy(gameObject);
     }
 
@@ -141,7 +141,7 @@ public class InnovationAI : MonoBehaviour   //  All Ghosts in the Innovation Sce
 
     void MoveDirection(float horizontal, float vertical)
     {
-        if (enabled)    //  If GhostController.cs is enabled.
+        if (enabled)    //  If InnovationAI.cs is enabled.
         {
             GhostRB.MovePosition(transform.position + new Vector3(horizontal, vertical, 0f) * 1.5f * Time.deltaTime);   //  Move at a constant rate towards horizontal or vertical at GhostMechanics MoveSpeed.
             hCurrent = horizontal;  //  Set the current horizontal movement to horizontal.
@@ -156,7 +156,7 @@ public class InnovationAI : MonoBehaviour   //  All Ghosts in the Innovation Sce
 
     void MoveDirection(Vector3 direction)
     {
-        if (enabled)    //  If GhostController.cs is enabled.
+        if (enabled)    //  If InnovationAI.cs is enabled.
         {
             GhostRB.MovePosition(transform.position + direction * MoveSpeed * Time.deltaTime);   //  Move at a constant rate towards Vector3 direction at GhostMechanics MoveSpeed.
             hCurrent = direction.x; //  Set the current horizontal movement to the x value of direction.
@@ -195,7 +195,7 @@ public class InnovationAI : MonoBehaviour   //  All Ghosts in the Innovation Sce
     {
         if (Portal.Equals("PortalL(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Left Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Right Portal.
             transform.position = PortalR.position;
-        if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Left Portal.
+        else if (Portal.Equals("PortalR(Clone)") && IsOutOfPortal)   //  If PacMan goes into the Right Portal and Pac Man is, in fact, out of any Portal, it will move Pac Man's position to the Left Portal.
             transform.position = PortalL.position;
         IsOutOfPortal = !IsOutOfPortal; //  Flip if Pac Man is out of a Portal. Pac Man will hit the opposite Portal when leaving the first. It will flip twice during one Portal movement. This is needed as, without it, Pac Man will endlessly go back and forth an infinite number of times.
     }
