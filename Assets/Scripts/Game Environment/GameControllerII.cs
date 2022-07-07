@@ -204,6 +204,7 @@ public class GameControllerII : MonoBehaviour
 
 	IEnumerator Countdown()
 	{
+#if !UNITY_EDITOR // Disable the Countdown.
 		Enable(false);
 		READY.gameObject.SetActive(true);
 		START.gameObject.SetActive(false);
@@ -224,6 +225,9 @@ public class GameControllerII : MonoBehaviour
 		START.gameObject.SetActive(true);
 		yield return new WaitForSeconds(1f);
 		START.gameObject.SetActive(false);
+#else
+		yield return null;
+#endif
 		BeginGame();
 		StopCoroutine(Countdown());
 	}

@@ -268,9 +268,9 @@ public class GameController : MonoBehaviour
 		yield return new WaitForSeconds(1f);    //  Wait one second.
 		START.gameObject.SetActive(false);  //  Hide the START UI.
 #else
-		BeginGame();    //  Begin the game.
 		yield return null;
 #endif
+		BeginGame();    //  Begin the game.
 		StopCoroutine(Countdown()); //  Stop this IEnumerator.
 	}
 

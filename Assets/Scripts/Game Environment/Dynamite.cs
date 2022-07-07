@@ -33,6 +33,7 @@
 
 */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,10 +92,20 @@ public class Dynamite : MonoBehaviour
 
 	void Start()
 	{
+		Vector3 Position = transform.position;
+		ToNearestPoint(ref Position.x);
+		ToNearestPoint(ref Position.y);
+		ToNearestPoint(ref Position.z);
+		transform.position = Position;
 		AudioControl = FindObjectOfType<AudioController>();
 		Invoke(nameof(Detonate), DetonationTime); //  Invokes the detonation of this Dynamite after DetonationTIme seconds.
 		RemoveParticles = Aftermath();
 		StartCoroutine(RemoveParticles);
+	}
+
+	void ToNearestPoint(ref float F)
+	{
+		F = (float)Math.Round(F / LevelGenerator.PIXEL_32, MidpointRounding.AwayFromZero) * LevelGenerator.PIXEL_32;
 	}
 
 	/// <summary>
