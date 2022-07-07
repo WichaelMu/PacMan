@@ -33,311 +33,315 @@
 
 */
 
-using System;
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    /// <summary>
-    /// The current score for this level.
-    /// </summary>
-    [Header("Score Control")]   //  This keeps tract of the scores and the time played.
-    public TextMeshProUGUI CurrentScore;
-    /// <summary>
-    /// The current high score text.
-    /// </summary>
-    public TextMeshProUGUI HighScore;
-    /// <summary>
-    /// The time spent on this level.
-    /// </summary>
-    public TextMeshProUGUI Time;
+	/// <summary>
+	/// The current score for this level.
+	/// </summary>
+	[Header("Score Control")]   //  This keeps tract of the scores and the time played.
+	public TextMeshProUGUI CurrentScore;
+	/// <summary>
+	/// The current high score text.
+	/// </summary>
+	public TextMeshProUGUI HighScore;
+	/// <summary>
+	/// The time spent on this level.
+	/// </summary>
+	public TextMeshProUGUI Time;
 
-    /// <summary>
-    /// Where all the pellets can be accessed.
-    /// </summary>
-    [Header("Pellet Control")]
-    public Transform PelletHolder;
+	/// <summary>
+	/// Where all the pellets can be accessed.
+	/// </summary>
+	[Header("Pellet Control")]
+	public Transform PelletHolder;
 
-    /// <summary>
-    /// The spawn point for the bonus Fruits.
-    /// </summary>
-    [Header("Fruits")]
-    public Transform FruitsSpawnPoint;
-    public GameObject Apple;
-    public GameObject Cherry;
-    public GameObject Melon;
-    public GameObject Orange;
-    public GameObject Strawberry;
-    GameObject[] Fruits;
+	/// <summary>
+	/// The spawn point for the bonus Fruits.
+	/// </summary>
+	[Header("Fruits")]
+	public Transform FruitsSpawnPoint;
+	public GameObject Apple;
+	public GameObject Cherry;
+	public GameObject Melon;
+	public GameObject Orange;
+	public GameObject Strawberry;
+	GameObject[] Fruits;
 
-    /// <summary>
-    /// The text saying GameOver!.
-    /// </summary>
-    [Header("Life Control")]
-    public TextMeshProUGUI GameOver;
-    /// <summary>
-    /// The life UI.
-    /// </summary>
-    public GameObject Life;
-    /// <summary>
-    /// Where the lives are held and shown on-screen.
-    /// </summary>
-    public Transform LifeHolder;
-    /// <summary>
-    /// The number of lives that the Player begins with.
-    /// </summary>
-    [Range(1, 10)]
-    public int NumberOfLives;
-    [HideInInspector]
-    public bool DoNotRestart = false;
-    int LifeCount;
+	/// <summary>
+	/// The text saying GameOver!.
+	/// </summary>
+	[Header("Life Control")]
+	public TextMeshProUGUI GameOver;
+	/// <summary>
+	/// The life UI.
+	/// </summary>
+	public GameObject Life;
+	/// <summary>
+	/// Where the lives are held and shown on-screen.
+	/// </summary>
+	public Transform LifeHolder;
+	/// <summary>
+	/// The number of lives that the Player begins with.
+	/// </summary>
+	[Range(1, 10)]
+	public int NumberOfLives;
+	[HideInInspector]
+	public bool DoNotRestart = false;
+	int LifeCount;
 
-    /// <summary>
-    /// The beginning message 3, 2, 1, GO!.
-    /// </summary>
-    IEnumerator StartProcedure;
-    [Header("Start Control")]
-    public TextMeshProUGUI READY;
-    public TextMeshProUGUI CountDown;
-    public TextMeshProUGUI START;
-    public GameObject PacMan;
-    public Transform GhostHolder;
-    AudioController audioController;
+	/// <summary>
+	/// The beginning message 3, 2, 1, GO!.
+	/// </summary>
+	IEnumerator StartProcedure;
+	[Header("Start Control")]
+	public TextMeshProUGUI READY;
+	public TextMeshProUGUI CountDown;
+	public TextMeshProUGUI START;
+	public GameObject PacMan;
+	public Transform GhostHolder;
+	AudioController audioController;
 
-    IEnumerator GameTimer;
-    int minute=00, seconds=00, milli=000;
+	IEnumerator GameTimer;
+	int minute = 00, seconds = 00, milli = 000;
 
-    void Awake()
-    {
-        //InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
-        InvokeRepeating("PlaceAFruitAtRandom", 30f, 30f);   //  Spawns a Fruit after 30 seconds of loading Level 1 every 30 seconds.
+	void Awake()
+	{
+		//InvokeRepeating("PlaceAFruitAtRandom", UnityEngine.Random.Range(15f, 72f), 72f);
+		InvokeRepeating("PlaceAFruitAtRandom", 30f, 30f);   //  Spawns a Fruit after 30 seconds of loading Level 1 every 30 seconds.
 
-        PlayerStats.LoadGame(); //  Loads the high score.
-        PlayerStats.score = 0;  //  Resets this score to zero.
+		PlayerStats.LoadGame(); //  Loads the high score.
+		PlayerStats.score = 0;  //  Resets this score to zero.
 
-        Fruits = new GameObject[5]; //  Declares 5 Fruits.
-        Fruits[0] = Apple;          //  The first fruit will be an Apple.
-        Fruits[1] = Cherry;         //  The second fruit will be a Cherry.
-        Fruits[2] = Melon;          //  The third fruit will be a Melon.
-        Fruits[3] = Orange;         //  The fourth fruit will be an Orange.
-        Fruits[4] = Strawberry;     //  The fifth fruit will be a Strawberry.
+		Fruits = new GameObject[5]; //  Declares 5 Fruits.
+		Fruits[0] = Apple;          //  The first fruit will be an Apple.
+		Fruits[1] = Cherry;         //  The second fruit will be a Cherry.
+		Fruits[2] = Melon;          //  The third fruit will be a Melon.
+		Fruits[3] = Orange;         //  The fourth fruit will be an Orange.
+		Fruits[4] = Strawberry;     //  The fifth fruit will be a Strawberry.
 
-        DisplayStartingLives(); //  Show the number of lives.
-        
-        LifeCount = NumberOfLives-1;    //  The number of lives - 1 used to check if Pac Man has any more lives after dying.
+		DisplayStartingLives(); //  Show the number of lives.
 
-        StartProcedure = Countdown();
+		LifeCount = NumberOfLives - 1;    //  The number of lives - 1 used to check if Pac Man has any more lives after dying.
 
-        HighScore.text = PlayerStats._highScore.ToString(); //  Sets the high score text UI to the previous high score.
+		StartProcedure = Countdown();
 
-        PacMan = GameObject.FindWithTag("Player");  //  Assigns PacMan to Pac Man.
+		HighScore.text = PlayerStats._highScore.ToString(); //  Sets the high score text UI to the previous high score.
 
-        GameTimer = UpdateTime();
+		PacMan = GameObject.FindWithTag("Player");  //  Assigns PacMan to Pac Man.
 
-        GameOver.gameObject.SetActive(false);   //  By default, set the GameOver! UI to be invisible.
+		GameTimer = UpdateTime();
 
-        audioController = FindObjectOfType<AudioController>();
-    }
+		GameOver.gameObject.SetActive(false);   //  By default, set the GameOver! UI to be invisible.
 
-    void OnEnable()
-    {
-        BeginStartingProcedure();
-    }
+		audioController = FindObjectOfType<AudioController>();
+	}
 
-    void FixedUpdate()
-    {
-        UpdateScore();
-    }
+	void OnEnable()
+	{
+		BeginStartingProcedure();
+	}
 
-    /// <summary>
-    /// Updates the score UI every time Pac Man eats a pellet. If the current score is greater than the previous high score, update it.
-    /// </summary>
+	void FixedUpdate()
+	{
+		UpdateScore();
+	}
 
-    void UpdateScore()
-    {
-        CurrentScore.text = PlayerStats.score.ToString();   //  Sets the current score to equal this game's score.
-        if (PlayerStats.score > PlayerStats._highScore) //  If this score is greater than the previous high score.
-        {
-            PlayerStats.highScore = PlayerStats.score;  //  This high score = this score.
-            HighScore.text = PlayerStats.highScore.ToString();  //  Update this UI's high score to equal the current score.
-        }
+	/// <summary>
+	/// Updates the score UI every time Pac Man eats a pellet. If the current score is greater than the previous high score, update it.
+	/// </summary>
 
-        if (PelletHolder.childCount == 0)   //  If there are no more pellets remaining.
-        {
-            //  TODO: Display a message saying "LEVEL COMPLETE" or something. DONE.
-            //  TODO: Exit back to the main menu. DONE.
-            EndGame();
-            //Debug.Log("This level is complete.");
-        }
+	void UpdateScore()
+	{
+		CurrentScore.text = PlayerStats.score.ToString();   //  Sets the current score to equal this game's score.
+		if (PlayerStats.score > PlayerStats._highScore) //  If this score is greater than the previous high score.
+		{
+			PlayerStats.highScore = PlayerStats.score;  //  This high score = this score.
+			HighScore.text = PlayerStats.highScore.ToString();  //  Update this UI's high score to equal the current score.
+		}
 
-        if (PelletHolder.childCount % 5 == 0)   //  Every time Pac Man eats 5 pellets.
-            PlayerStats.SaveGame(); //  Save the game.
-    }
+		if (PelletHolder.childCount == 0)   //  If there are no more pellets remaining.
+		{
+			//  TODO: Display a message saying "LEVEL COMPLETE" or something. DONE.
+			//  TODO: Exit back to the main menu. DONE.
+			EndGame();
+			//Debug.Log("This level is complete.");
+		}
 
-    /// <summary>
-    /// Displays the number of lives Pac Man starts with, according to NumberOfLives.
-    /// </summary>
+		if (PelletHolder.childCount % 5 == 0)   //  Every time Pac Man eats 5 pellets.
+			PlayerStats.SaveGame(); //  Save the game.
+	}
 
-    void DisplayStartingLives()
-    {
-        for (int i = 0; i < NumberOfLives; i++)
-        {
-            GameObject StartLife = Instantiate(Life, Vector3.zero, Quaternion.identity);    //  Instantiates a life to show in the UI.
-            StartLife.transform.SetParent(LifeHolder);  //  Sets the parent of this life to LifeHolder.
-            StartLife.transform.localPosition = new Vector3(0f + (30 * i), 0f, 0f); //  Set the liFe UI to be 30 canvas units apart.
-            StartLife.transform.localScale = new Vector3(.5f, .5f, 0f); //  Half the scale of the lives UI.
-        }
-    }
+	/// <summary>
+	/// Displays the number of lives Pac Man starts with, according to NumberOfLives.
+	/// </summary>
 
-    /// <summary>
-    /// Update the lives UI when Pac Man dies.
-    /// </summary>
+	void DisplayStartingLives()
+	{
+		for (int i = 0; i < NumberOfLives; i++)
+		{
+			GameObject StartLife = Instantiate(Life, Vector3.zero, Quaternion.identity);    //  Instantiates a life to show in the UI.
+			StartLife.transform.SetParent(LifeHolder);  //  Sets the parent of this life to LifeHolder.
+			StartLife.transform.localPosition = new Vector3(0f + (30 * i), 0f, 0f); //  Set the liFe UI to be 30 canvas units apart.
+			StartLife.transform.localScale = new Vector3(.5f, .5f, 0f); //  Half the scale of the lives UI.
+		}
+	}
 
-    public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
-    {
-        if ((LifeCount+1) <= 0) //  If there are no more lives remaining.
-            EndGame();  //  End the game.
-        else
-            Destroy(LifeHolder.GetChild(LifeCount--).gameObject);   //  Destroy the UI element at the right-most life UI.
-        PlayerStats.SaveGame(); //  Save the game.
-    }
+	/// <summary>
+	/// Update the lives UI when Pac Man dies.
+	/// </summary>
 
-    /// <summary>
-    /// Ends the level.
-    /// </summary>
+	public void DeductLife()   //  TODO: Deduct a life when PacMan dies.
+	{
+		if ((LifeCount + 1) <= 0) //  If there are no more lives remaining.
+			EndGame();  //  End the game.
+		else
+			Destroy(LifeHolder.GetChild(LifeCount--).gameObject);   //  Destroy the UI element at the right-most life UI.
+		PlayerStats.SaveGame(); //  Save the game.
+	}
 
-    void EndGame()
-    {
-        Enable(false);  //  Stops all Pac Man and Ghost Movement.
+	/// <summary>
+	/// Ends the level.
+	/// </summary>
 
-        DoNotRestart = true;    //  Do not restart the level.
+	void EndGame()
+	{
+		Enable(false);  //  Stops all Pac Man and Ghost Movement.
 
-        GameOver.gameObject.SetActive(true);    //  Display the GameOver! UI.
-        StopCoroutine(GameTimer);   //  Stop the timer.
+		DoNotRestart = true;    //  Do not restart the level.
 
-        Invoke("LoadMainMenu", 3f); //  Show the StartScene after 3 seconds.
-        
-        //Debug.Log("Pac Man is dead");
-    }
+		GameOver.gameObject.SetActive(true);    //  Display the GameOver! UI.
+		StopCoroutine(GameTimer);   //  Stop the timer.
 
-    /// <summary>
-    /// Loads the Start Scene.
-    /// </summary>
+		Invoke("LoadMainMenu", 3f); //  Show the StartScene after 3 seconds.
 
-    void LoadMainMenu()
-    {
-        PlayerStats.SaveGame(); //  Saves the game.
-        SceneManager.LoadScene(0);  //  Loads the StartScene.
-    }
+		//Debug.Log("Pac Man is dead");
+	}
 
-    /// <summary>
-    /// Begins the countdown at the beginning of the level.
-    /// </summary>
+	/// <summary>
+	/// Loads the Start Scene.
+	/// </summary>
 
-    public void BeginStartingProcedure() { 
-        StartCoroutine(StartProcedure);
-    }
+	void LoadMainMenu()
+	{
+		PlayerStats.SaveGame(); //  Saves the game.
+		SceneManager.LoadScene(0);  //  Loads the StartScene.
+	}
 
-    /// <summary>
-    /// Counts down 3 - 2 - 1 then displays GO!.
-    /// </summary>
+	/// <summary>
+	/// Begins the countdown at the beginning of the level.
+	/// </summary>
 
-    IEnumerator Countdown()
-    {
-        Enable(false);  //  Stops all Pac Man and Ghost movement.
-        READY.gameObject.SetActive(true);   //  Display the READY UI.
-        START.gameObject.SetActive(false);  //  Hide the START UI.
-        CountDown.gameObject.SetActive(false);  //  Hide the CountDown UI.
-        yield return new WaitForFixedUpdate();  //  Wait for a fixed udpdate.
-        audioController.StopAllSounds();    //  Stop all sounds.
-        audioController.PlaySound("STARTING");  //  Play the starting sound.
-        yield return new WaitForSeconds(4.75f); //  After 4.75 seconds.
-        READY.gameObject.SetActive(false);  //  Hide the READY UI.
-        CountDown.gameObject.SetActive(true);   //  Begin the countdown.
-        for (int i = 3; i > 0; i--) //  Begin the countdown at 3.
-        {
-            CountDown.text = i.ToString();  //  Set the CountDown text to equal the index.
-            yield return new WaitForSeconds(1f);    //  Wait one second before iterating.
-        }
-        CountDown.gameObject.SetActive(false);  //  Hide the CountDown UI.
-        START.gameObject.SetActive(true);   //  Display the START UI.
-        yield return new WaitForSeconds(1f);    //  Wait one second.
-        START.gameObject.SetActive(false);  //  Hide the START UI.
-        BeginGame();    //  Begin the game.
-        StopCoroutine(Countdown()); //  Stop this IEnumerator.
-    }
+	public void BeginStartingProcedure()
+	{
+		StartCoroutine(StartProcedure);
+	}
 
-    /// <summary>
-    /// Begins the game by enabling Pac Man and Ghost movement.
-    /// </summary>
+	/// <summary>
+	/// Counts down 3 - 2 - 1 then displays GO!.
+	/// </summary>
 
-    void BeginGame()
-    {
-        PlayerStats.SaveGame(); //  Saves the game.
-        Enable(true);   //  Enable Pac Man and Ghost movement.
-        StartCoroutine(GameTimer);  //  Begin the timer.
-    }
+	IEnumerator Countdown()
+	{
+#if !UNITY_EDITOR // Disable the Countdown.
+		Enable(false);  //  Stops all Pac Man and Ghost movement.
+		READY.gameObject.SetActive(true);   //  Display the READY UI.
+		START.gameObject.SetActive(false);  //  Hide the START UI.
+		CountDown.gameObject.SetActive(false);  //  Hide the CountDown UI.
+		yield return new WaitForFixedUpdate();  //  Wait for a fixed udpdate.
+		audioController.StopAllSounds();    //  Stop all sounds.
+		audioController.PlaySound("STARTING");  //  Play the starting sound.
+		yield return new WaitForSeconds(4.75f); //  After 4.75 seconds.
+		READY.gameObject.SetActive(false);  //  Hide the READY UI.
+		CountDown.gameObject.SetActive(true);   //  Begin the countdown.
+		for (int i = 3; i > 0; i--) //  Begin the countdown at 3.
+		{
+			CountDown.text = i.ToString();  //  Set the CountDown text to equal the index.
+			yield return new WaitForSeconds(1f);    //  Wait one second before iterating.
+		}
+		CountDown.gameObject.SetActive(false);  //  Hide the CountDown UI.
+		START.gameObject.SetActive(true);   //  Display the START UI.
+		yield return new WaitForSeconds(1f);    //  Wait one second.
+		START.gameObject.SetActive(false);  //  Hide the START UI.
+#else
+		BeginGame();    //  Begin the game.
+		yield return null;
+#endif
+		StopCoroutine(Countdown()); //  Stop this IEnumerator.
+	}
 
-    /// <summary>
-    /// Enables Pac Man and Ghost movement according to Boolean b.
-    /// </summary>
-    /// <param name="b">Boolean to enable or disable Pac Man and Ghost movement.</param>
+	/// <summary>
+	/// Begins the game by enabling Pac Man and Ghost movement.
+	/// </summary>
 
-    void Enable(bool b)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            GameObject Ghost = GhostHolder.GetChild(i).gameObject;
-            Ghost.GetComponent<GhostController>().enabled = b;
-            Ghost.GetComponent<GhostMechanics>().enabled = b;
-        }
-        PacMan.GetComponent<PacStudentController>().enabled = b;
-    }
+	void BeginGame()
+	{
+		PlayerStats.SaveGame(); //  Saves the game.
+		Enable(true);   //  Enable Pac Man and Ghost movement.
+		StartCoroutine(GameTimer);  //  Begin the timer.
+	}
 
-    /// <summary>
-    /// Update the time in minutes:seconds:milliseconds.
-    /// </summary>
+	/// <summary>
+	/// Enables Pac Man and Ghost movement according to Boolean b.
+	/// </summary>
+	/// <param name="b">Boolean to enable or disable Pac Man and Ghost movement.</param>
 
-    IEnumerator UpdateTime()
-    {
-        while (true)
-        {
-            Time.text = minute + ":" + seconds + ":" + milli;
-            yield return new WaitForSeconds(.01f);
-            milli++;
-            PlayerStats.ms = milli;
+	void Enable(bool b)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			GameObject Ghost = GhostHolder.GetChild(i).gameObject;
+			Ghost.GetComponent<GhostController>().enabled = b;
+			Ghost.GetComponent<GhostMechanics>().enabled = b;
+		}
+		PacMan.GetComponent<PacStudentController>().enabled = b;
+	}
 
-            if (milli == 100)
-            {
-                seconds++;
-                PlayerStats.seconds = seconds;
-                milli = 0;
-                PlayerStats.ms = milli;
-            }
+	/// <summary>
+	/// Update the time in minutes:seconds:milliseconds.
+	/// </summary>
 
-            if (seconds == 60)
-            {
-                minute++;
-                PlayerStats.minutes++;
-                seconds = 0;
-            }
-        }
-    }
+	IEnumerator UpdateTime()
+	{
+		while (true)
+		{
+			Time.text = minute + ":" + seconds + ":" + milli;
+			yield return new WaitForSeconds(.01f);
+			milli++;
+			PlayerStats.ms = milli;
 
-    /// <summary>
-    /// Spawns a random Fruit.
-    /// </summary>
+			if (milli == 100)
+			{
+				seconds++;
+				PlayerStats.seconds = seconds;
+				milli = 0;
+				PlayerStats.ms = milli;
+			}
 
-    void PlaceAFruitAtRandom()  //  Spawning a Fruit. This is called in an InvokeRepeating() method in Awake().
-    {
-        int r = UnityEngine.Random.Range(0, 5); //  Randomly select a Fruit from Fruits[].
-        if (Fruits[r] != null)  //  If that random Fruit is not null.
-        {
-            Instantiate(Fruits[r], FruitsSpawnPoint.position, Quaternion.identity); //  Spawn that random Fruit at FruitsSpawnPoint.
-            Fruits[r] = null;   //  Set this Fruit's index to null so that it cannot be spawned again.
-        }
-    }
+			if (seconds == 60)
+			{
+				minute++;
+				PlayerStats.minutes++;
+				seconds = 0;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Spawns a random Fruit.
+	/// </summary>
+
+	void PlaceAFruitAtRandom()  //  Spawning a Fruit. This is called in an InvokeRepeating() method in Awake().
+	{
+		int r = UnityEngine.Random.Range(0, 5); //  Randomly select a Fruit from Fruits[].
+		if (Fruits[r] != null)  //  If that random Fruit is not null.
+		{
+			Instantiate(Fruits[r], FruitsSpawnPoint.position, Quaternion.identity); //  Spawn that random Fruit at FruitsSpawnPoint.
+			Fruits[r] = null;   //  Set this Fruit's index to null so that it cannot be spawned again.
+		}
+	}
 }

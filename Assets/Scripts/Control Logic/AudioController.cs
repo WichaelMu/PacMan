@@ -35,76 +35,75 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class AudioController : MonoBehaviour
 {
-    public Sound[] Sounds;
+	public Sound[] Sounds;
 
-    /// <summary>
-    /// Populates the Sounds array to match the settings.
-    /// </summary>
+	/// <summary>
+	/// Populates the Sounds array to match the settings.
+	/// </summary>
 
-    void Awake()
-    {
-        foreach (Sound s in Sounds)
-        {
-            s.s = gameObject.AddComponent<AudioSource>();
-            s.s.clip = s.Sounds;
-            s.s.volume = s.Volume;
-            s.s.pitch = s.Pitch;
-            s.s.loop = s.Loop;
-        }
+	void Awake()
+	{
+		foreach (Sound s in Sounds)
+		{
+			s.s = gameObject.AddComponent<AudioSource>();
+			s.s.clip = s.Sounds;
+			s.s.volume = s.Volume;
+			s.s.pitch = s.Pitch;
+			s.s.loop = s.Loop;
+		}
 
-        PlaySound("AMBIENT");   //  Plays the AMBIENT Pac Man sound by default.
-    }
+		PlaySound("AMBIENT");   //  Plays the AMBIENT Pac Man sound by default.
+	}
 
-    /// <summary>
-    /// Plays sound of name n.
-    /// </summary>
-    /// <param name="n">The name of the requested sound to play in capital casing.</param>
+	/// <summary>
+	/// Plays sound of name n.
+	/// </summary>
+	/// <param name="n">The name of the requested sound to play in capital casing.</param>
 
-    public void PlaySound(string n)
-    {
-        Sound s = FindSound(n);
-        if (s != null&&!s.s.isPlaying)
-            s.s.Play();
-        if (s == null)
-            Debug.LogWarning("Sound of name: " + n + " could not be played!");
-    }
+	public void PlaySound(string n)
+	{
+		Sound s = FindSound(n);
+		if (s != null && !s.s.isPlaying)
+			s.s.Play();
+		if (s == null)
+			Debug.LogWarning("Sound of name: " + n + " could not be played!");
+	}
 
-    /// <summary>
-    /// Stops sound of name n.
-    /// </summary>
-    /// <param name="n">The name of the requested sound to stop playing in capital casing.</param>
+	/// <summary>
+	/// Stops sound of name n.
+	/// </summary>
+	/// <param name="n">The name of the requested sound to stop playing in capital casing.</param>
 
-    public void StopSound(string n)
-    {
-        Sound s = FindSound(n);
-        if (s != null)
-            s.s.Stop();
-        if (s==null)
-            Debug.LogWarning("Sound of name: " + n + " could not be stopped!");
-    }
+	public void StopSound(string n)
+	{
+		Sound s = FindSound(n);
+		if (s != null)
+			s.s.Stop();
+		if (s == null)
+			Debug.LogWarning("Sound of name: " + n + " could not be stopped!");
+	}
 
-    /// <summary>
-    /// Stop every sound in the game.
-    /// </summary>
+	/// <summary>
+	/// Stop every sound in the game.
+	/// </summary>
 
-    public void StopAllSounds()
-    {
-        foreach (Sound s in Sounds)
-            s.s.Stop();
-    }
+	public void StopAllSounds()
+	{
+		foreach (Sound s in Sounds)
+			s.s.Stop();
+	}
 
-    /// <summary>
-    /// Returns a sound in the Sounds array.
-    /// </summary>
-    /// <param name="n">The name of the requested sound.</param>
-    /// <returns>The sound clip of the requested sound.</returns>
+	/// <summary>
+	/// Returns a sound in the Sounds array.
+	/// </summary>
+	/// <param name="n">The name of the requested sound.</param>
+	/// <returns>The sound clip of the requested sound.</returns>
 
-    Sound FindSound(string n)
-    {
-        return Array.Find(Sounds, sound => sound.Name == n);
-    }
+	Sound FindSound(string n)
+	{
+		return Array.Find(Sounds, sound => sound.Name == n);
+	}
 }

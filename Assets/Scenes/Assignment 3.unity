@@ -3735,6 +3735,11 @@ PrefabInstance:
       propertyPath: GameController
       value: 
       objectReference: {fileID: 1606389787}
+    - target: {fileID: 5689114005623646825, guid: bdb8099f567e92d47a89c8212c6f46fd,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8174134097346802902, guid: bdb8099f567e92d47a89c8212c6f46fd,
         type: 3}
       propertyPath: m_Name
@@ -4326,6 +4331,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 8656154248117272483, guid: 9c368fef06f6b3a43b78d6097080ff2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8656154248460614985, guid: 9c368fef06f6b3a43b78d6097080ff2f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4336,6 +4346,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 8656154248460614986, guid: 9c368fef06f6b3a43b78d6097080ff2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8656154248537559480, guid: 9c368fef06f6b3a43b78d6097080ff2f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4345,6 +4360,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656154248537559481, guid: 9c368fef06f6b3a43b78d6097080ff2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8656154248537559487, guid: 9c368fef06f6b3a43b78d6097080ff2f,
         type: 3}
@@ -4366,6 +4386,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 8656154248677708693, guid: 9c368fef06f6b3a43b78d6097080ff2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8656154249022485604, guid: 9c368fef06f6b3a43b78d6097080ff2f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4375,6 +4400,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656154249022485605, guid: 9c368fef06f6b3a43b78d6097080ff2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8656154249416057612, guid: 9c368fef06f6b3a43b78d6097080ff2f,
         type: 3}
@@ -4485,6 +4515,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FRUITSHOLDER
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656154249416057613, guid: 9c368fef06f6b3a43b78d6097080ff2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: FRUITHOLDER
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c368fef06f6b3a43b78d6097080ff2f, type: 3}
