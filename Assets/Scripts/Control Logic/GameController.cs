@@ -34,9 +34,9 @@
 */
 
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -309,7 +309,7 @@ public class GameController : MonoBehaviour
 	{
 		while (true)
 		{
-			Time.text = minute + ":" + seconds + ":" + milli;
+			Time.text = minute.ToString("00") + ":" + seconds.ToString("00") + ":" + milli.ToString("00");
 			yield return new WaitForSeconds(.01f);
 			milli++;
 			PlayerStats.ms = milli;

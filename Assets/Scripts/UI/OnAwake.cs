@@ -25,7 +25,7 @@ public class OnAwake : MonoBehaviour
 
 		PlayerStats.LoadGame();
 		//try {  } catch (System.NullReferenceException) { }
-		CurrentHighScore.text = PlayerStats._highScore.ToString();
+		CurrentHighScore.text = PlayerStats._highScore.ToString("00000000");
 
 		int milli = PlayerStats.timePlayed;
 		int c = 00;
